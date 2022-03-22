@@ -5,6 +5,7 @@ import at.htblakaindorf.AHIF18.Ground.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
 
 public class GamePanel extends JPanel implements Runnable{
     final int originalTitleSize = 16;
