@@ -21,15 +21,15 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[20];
         mapTileNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
-        getTileImage();
-        loadMap();
+        getTileImage();//passt sich der Rows und Columns an
+        //loadMap(); //Funktion um Map zu laden!!Sie werden aber nicht übereinander gelegt;
     }
 
     public void loadMap(){
         try {
-        InputStream is = getClass().getResourceAsStream("/res/map/defaultmap.txt");
+        InputStream is = getClass().getResourceAsStream("/res/map/map01.txt");
         BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
 
 
