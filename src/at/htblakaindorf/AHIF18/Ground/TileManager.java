@@ -3,6 +3,7 @@ package at.htblakaindorf.AHIF18.Ground;
 import at.htblakaindorf.AHIF18.GamePanel;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,30 +27,38 @@ public class TileManager {
         loadMap(); //Funktion um Map zu laden!!Sie werden aber nicht übereinander gelegt;
     }
 
-    public void loadMap(){
+    public void loadMap() {
         try {
-        InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
-        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
+            InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
+            BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
 
 
-        int col = 0;
-        int row = 0;
-        while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()){
-            String line = br.readLine();
+            int col = 0;
+            int row = 0;
+            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) {
+                String line = br.readLine();
 
-            while(col< gp.getMaxWorldCol()){
-                String numbers[] = line.split(" ");
+                while (col < gp.getMaxWorldCol()) {
+                    String numbers[] = line.split(" ");
+                    try {
+                        int num = Integer.parseInt(numbers[col]);
+                        mapTileNum[col][row] = num;
+                        col++;
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        JOptionPane.showMessageDialog(null,
+                                "Die Welt konnte nicht geladen werden\n" + "Maximale Spalten: " + gp.getMaxWorldCol() +
+                                        ", maximale Zeilen: " + gp.getMaxWorldRow(), "Laden fehlgeschlagen",
+                                JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
 
-                int num = Integer.parseInt(numbers[col]);
-                mapTileNum[col][row] = num;
-                col++;
+                }
+                if (col == gp.getMaxWorldCol()) {
+                    col = 0;
+                    row++;
+                }
             }
-            if(col == gp.getMaxWorldCol()){
-                col = 0;
-                row++;
-            }
-        }
-        br.close();
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,6 +68,7 @@ public class TileManager {
     private void getTileImage() {
 
         try {
+            //Ground
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ground/grass1.png"));
 
@@ -73,20 +83,23 @@ public class TileManager {
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/transparent/river1.png"));
-
+            //Building
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/res/building/building1.png"));
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/res/building/Lumberjack.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void draw(Graphics2D g2)
-    {
+
+    public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
 
 
-        while(worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()){
+        while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
             int worldX = worldCol * gp.getTilesize();
@@ -94,15 +107,16 @@ public class TileManager {
             int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
             int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
 
-            if(worldX + gp.getTilesize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
-               worldX - gp.getTilesize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
-               worldY + gp.getTilesize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
-               worldY - gp.getTilesize() < gp.getPlayer().worldY - gp.getPlayer().screenY) {
-                if (tileNum >= 10){// Tile Rendering nur bei transparent drübergelegt transparent >= 10
-                    g2.drawImage(tile[0].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
-                    System.out.println("now");
-            }
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
+            if (worldX + gp.getTilesize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
+                    worldX - gp.getTilesize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+                    worldY + gp.getTilesize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
+                    worldY - gp.getTilesize() < gp.getPlayer().worldY - gp.getPlayer().screenY) {
+                try {
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
+                }catch (NullPointerException e){
+                    System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
+                }
+
             }
 
             g2.drawImage(tile[0].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
@@ -110,7 +124,7 @@ public class TileManager {
             worldCol++;
 
 
-            if(worldCol == gp.getMaxWorldCol()){
+            if (worldCol == gp.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }
