@@ -1,5 +1,6 @@
 package at.htblakaindorf.AHIF18;
 
+import at.htblakaindorf.AHIF18.Entity.Player;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.Ground.TileManager;
 
@@ -19,6 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int FPS = 60;
     Thread gameThread;
     KeyHandler kH = new KeyHandler();
+    Player player = new Player(this,kH);
     int defaultx = 100;
     int defaulty = 100;
     int playerspeed = 4;
@@ -41,25 +43,16 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     public void update(){
-        if(kH.isUp() == true){
-            defaulty -= playerspeed;
-        }
-        if(kH.isDown() == true){
-            defaulty += playerspeed;
-        }
-        if(kH.isLeft() == true){
-            defaultx -= playerspeed;
-        }
-        if(kH.isRight() == true){
-            defaultx += playerspeed;
-        }
+        player.update();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(Color.BLACK);
+
         tileM.draw(g2); //Draw Ground
-        g2.fillRect(defaultx,defaulty, tilesize, tilesize);
+        player.draw(g2);
+        /*g2.setColor(Color.BLACK);
+        g2.fillRect(defaultx,defaulty, tilesize, tilesize);*/
         g2.dispose();
     }
 
