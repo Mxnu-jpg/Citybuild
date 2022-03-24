@@ -8,11 +8,11 @@ import java.awt.*;
 import java.io.BufferedWriter;
 
 public class GamePanel extends JPanel implements Runnable{
-    final int originalTitleSize = 16;
-    final int scale = 3;
+    final int originalTitleSize = 32;
+    final int scale = 2;
     final int tilesize = originalTitleSize*scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 24;
+    final int maxScreenCol = 24;
+    final int maxScreenRow = 32;
     final int screenWidth = tilesize * maxScreenCol;
     final int screenHeight = tilesize * maxScreenRow;
 
@@ -38,35 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
         gameThread.run();
     }
-    /*
-    @Override
-    public void run() {
-        while (gameThread != null){
-            System.out.println("Game started");
-            double drawInterval = 1000000000/FPS;
-            double nextDrawTime = System.nanoTime() + drawInterval;
 
-            //UPDATE
-            update();
-            //DRAW
-            repaint();
-
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                    if(remainingTime < 0){
-                        remainingTime = 0;
-                    }
-                Thread.sleep((long)remainingTime);
-
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     public void update(){
         if(kH.isUp() == true){
@@ -86,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.BLACK);
-        tileM.draw(g2);
+        tileM.draw(g2); //Draw Ground
         g2.fillRect(defaultx,defaulty, tilesize, tilesize);
         g2.dispose();
     }

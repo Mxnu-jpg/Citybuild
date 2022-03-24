@@ -19,12 +19,13 @@ public class TileManager {
     Random rn = new Random();
     int mapTileNum[][];
 
+
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[20];
+        tile = new Tile[100];
         mapTileNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
         getTileImage();//passt sich der Rows und Columns an
-        //loadMap(); //Funktion um Map zu laden!!Sie werden aber nicht übereinander gelegt;
+        loadMap(); //Funktion um Map zu laden!!Sie werden aber nicht übereinander gelegt;
     }
 
     public void loadMap(){
@@ -73,7 +74,10 @@ public class TileManager {
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass4.png"));
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/building/building1.png"));
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/river1.png"));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/res/building/building1.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,6 +93,7 @@ public class TileManager {
 
             int tileNum = mapTileNum[col][row];
 
+            g2.drawImage(tile[0].image, x, y, gp.getTilesize(), gp.getTilesize(), null);
             g2.drawImage(tile[tileNum].image, x, y, gp.getTilesize(), gp.getTilesize(), null);
             col++;
             x += gp.getTilesize();
