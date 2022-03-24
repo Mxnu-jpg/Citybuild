@@ -9,23 +9,30 @@ import java.awt.*;
 import java.io.BufferedWriter;
 
 public class GamePanel extends JPanel implements Runnable{
-    final int originalTitleSize = 32;
+    //Resolution HD:1920x1080 WQHD:2560x1440
+    final int screenWidth = 2560;
+    final int screenHeight = 1440;
+    //Tilemanagement
+    final int originalTitleSize = 32; // 32x32 tile
     final int scale = 2;
     final int tilesize = originalTitleSize*scale;
-    final int maxScreenCol = 24;
-    final int maxScreenRow = 32;
-    final int screenWidth = tilesize * maxScreenCol;
-    final int screenHeight = tilesize * maxScreenRow;
+    final int maxScreenCol = screenWidth/tilesize;
+    final int maxScreenRow = screenHeight/tilesize;
 
+    //FPS
     final int FPS = 60;
+
     Thread gameThread;
     KeyHandler kH = new KeyHandler();
     Player player = new Player(this,kH);
-    int defaultx = 100;
-    int defaulty = 100;
-    int playerspeed = 4;
-
     TileManager tileM = new TileManager(this);
+
+    //WORLD SETTINGS
+    private final int maxWorldCol = 50;
+    private final int maxWorldRow = 50;
+    private final int worldWidth = tilesize * maxWorldCol;
+    private final int worldHeight = tilesize * maxWorldRow;
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -81,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
             if(timer >= 1000000000){
-                System.out.println("FPS:" + drawCount);
+                //System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
@@ -118,5 +125,28 @@ public class GamePanel extends JPanel implements Runnable{
 
     public int getFPS() {
         return FPS;
+    }
+    public Thread getGameThread() {
+        return gameThread;
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

@@ -10,8 +10,8 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler kH;
 
-    public int screenX;
-    public int screenY;
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -27,6 +27,7 @@ public class Player extends Entity{
         worldY = gp.getTilesize() * 21;
         speed = 4;
     }
+
     public void update(){
         if(kH.isUp() == true){
             worldY -= speed;
@@ -43,7 +44,7 @@ public class Player extends Entity{
         }
     }
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLACK);//new Color(0f,0f,0f,0f)
-        g2.fillRect(worldX,worldY, gp.getTilesize(), gp.getTilesize());
+        g2.setColor(Color.GREEN);//new Color(0f,0f,0f,0f)
+        g2.fillRect(screenX,screenY, gp.getTilesize(), gp.getTilesize());
     }
 }
