@@ -42,6 +42,10 @@ public class Player extends Entity{
         if(kH.isRight() == true){
             worldX += speed;
         }
+        if(kH.isZoom() == true){
+            gp.changeZoom();
+            kH.setZoom(false);
+        }
     }
     public void draw(Graphics2D g2){
         g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)

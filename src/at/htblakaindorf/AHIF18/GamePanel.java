@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int screenHeight = 1440;
     //Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
-    final int scale = 2;
+    private int scale = 2;
     final int tilesize = originalTitleSize*scale;
     final int maxScreenCol = screenWidth/tilesize;
     final int maxScreenRow = screenHeight/tilesize;
@@ -51,6 +51,14 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
+
+    }
+    public void changeZoom() {
+    setScale(getScale()+1);
+    if(getScale() == 5){
+        setScale(1);
+    }
+        System.out.println(scale);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -93,6 +101,10 @@ public class GamePanel extends JPanel implements Runnable{
                 timer = 0;
             }
         }
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
     }
 
     public int getOriginalTitleSize() {
@@ -149,4 +161,6 @@ public class GamePanel extends JPanel implements Runnable{
     public Player getPlayer() {
         return player;
     }
+
+
 }
