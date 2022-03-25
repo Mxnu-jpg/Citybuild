@@ -1,12 +1,11 @@
 package at.htblakaindorf.AHIF18;
 
+import at.htblakaindorf.AHIF18.Entity.Entity;
 import at.htblakaindorf.AHIF18.Entity.Player;
-import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.Ground.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedWriter;
 
 public class GamePanel extends JPanel implements Runnable{
     //Resolution HD:1920x1080 WQHD:2560x1440
@@ -15,23 +14,28 @@ public class GamePanel extends JPanel implements Runnable{
     //Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
-    final int tilesize = originalTitleSize*scale;
-    final int maxScreenCol = screenWidth/tilesize;
-    final int maxScreenRow = screenHeight/tilesize;
+    int tileSize = originalTitleSize*scale;
+    final int maxScreenCol = screenWidth/ tileSize;
+    final int maxScreenRow = screenHeight/ tileSize;
 
     //FPS
     final int FPS = 60;
 
     Thread gameThread;
-    KeyHandler kH = new KeyHandler();
-    Player player = new Player(this,kH);
+    KeyHandler kH = new KeyHandler(this);
     TileManager tileM = new TileManager(this);
+    Player player = new Player(this,kH);
+
+    //Zoom
+    int oldWorldWidth;
+    int newWorldWidth;
+
 
     //WORLD SETTINGS
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
-    private final int worldWidth = tilesize * maxWorldCol;
-    private final int worldHeight = tilesize * maxWorldRow;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
 
     public GamePanel() {
@@ -40,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(kH);
         this.setFocusable(true);
+        System.out.println(worldWidth);
     }
 
     public void startGameThread(){
@@ -53,13 +58,56 @@ public class GamePanel extends JPanel implements Runnable{
         player.update();
 
     }
-    public void changeZoom() {
-    setScale(getScale()+1);
-    if(getScale() == 5){
-        setScale(1);
+
+    public void changeZoom(int i) {
+    oldWorldWidth = tileSize * maxWorldCol;
+
+        if((tileSize >=85)){
+            if(i<0){
+                tileSize += i;
+            }
+
+        }else if((tileSize <= 45)){
+            if(i>0){
+                tileSize += i;
+            }
+
+        }
+        else{
+                tileSize += i;
+        }
+        System.out.println(tileSize);
+
+    newWorldWidth = tileSize * maxWorldCol;
+
+    double multiplier = (double)newWorldWidth/oldWorldWidth;
+    double x = player.worldX * multiplier;
+    double y = player.worldY * multiplier;
+
+
+    player.worldX = x;
+    player.worldY = y;
+
+
+    /*System.out.println(tileSize);
+    System.out.println(scale);
+    System.out.println(worldWidth);
+    System.out.println(worldHeight);*/
     }
-        System.out.println(scale);
+    public void resetZoom() { //Not Working!!
+        oldWorldWidth = tileSize * maxWorldCol;
+        tileSize = originalTitleSize*scale;
+        newWorldWidth = tileSize * maxWorldCol;
+
+        double multiplier = (double)newWorldWidth/oldWorldWidth;
+        double x = player.worldX * multiplier;
+        double y = player.worldY * multiplier;
+
+        player.worldX = x;
+        player.worldY = y;
     }
+
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -115,8 +163,8 @@ public class GamePanel extends JPanel implements Runnable{
         return scale;
     }
 
-    public int getTilesize() {
-        return tilesize;
+    public int getTileSize() {
+        return tileSize;
     }
 
     public int getMaxScreenCol() {

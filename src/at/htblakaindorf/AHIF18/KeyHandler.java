@@ -1,14 +1,19 @@
 package at.htblakaindorf.AHIF18;
 
+import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     private boolean up, down, left, right, zoom;
+    GamePanel gp;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -25,8 +30,14 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D){
             right = true;
-        }if (code == KeyEvent.VK_SPACE){
-            zoom = true;
+        }if (code == KeyEvent.VK_UP){
+            gp.changeZoom(1);
+        }
+        if (code == KeyEvent.VK_DOWN){
+            gp.changeZoom(-1);
+        }
+        if(code == KeyEvent.VK_SPACE){
+            gp.resetZoom();
         }
 
     }
@@ -48,12 +59,8 @@ public class KeyHandler implements KeyListener {
             right = false;
         }
     }
-    //Setter
 
 
-    public void setZoom(boolean zoom) {
-        this.zoom = zoom;
-    }
 
     //Getter
     public boolean isUp() {
@@ -75,5 +82,6 @@ public class KeyHandler implements KeyListener {
     public boolean isZoom() {
         return zoom;
     }
+
 
 }

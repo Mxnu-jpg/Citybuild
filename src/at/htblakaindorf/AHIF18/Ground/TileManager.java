@@ -102,25 +102,25 @@ public class TileManager {
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
             int tileNum = mapTileNum[worldCol][worldRow];
-            int worldX = worldCol * gp.getTilesize();
-            int worldY = worldRow * gp.getTilesize();
-            int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().screenX;
-            int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().screenY;
+            int worldX = worldCol * gp.getTileSize();
+            int worldY = worldRow * gp.getTileSize();
+            int screenX = (int) (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
+            int screenY = (int) (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
 
-            if (worldX + gp.getTilesize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
-                    worldX - gp.getTilesize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
-                    worldY + gp.getTilesize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
-                    worldY - gp.getTilesize() < gp.getPlayer().worldY - gp.getPlayer().screenY) {
+            if (worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
+                    worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
+                    worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
+                    worldY - gp.getTileSize() < gp.getPlayer().worldY - gp.getPlayer().screenY) {
                 try {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
                 }catch (NullPointerException e){
                     System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
                 }
 
             }
 
-            g2.drawImage(tile[0].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTilesize(), gp.getTilesize(), null);
+            g2.drawImage(tile[0].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
             worldCol++;
 
 
