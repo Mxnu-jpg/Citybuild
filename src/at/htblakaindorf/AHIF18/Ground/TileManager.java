@@ -13,12 +13,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+
 public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
+    Graphics2D g2M;
     int mapTileNum[][];
 
+    public void setG2M(Graphics2D g2M) {
+        this.g2M = g2M;
+    }
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -68,15 +73,7 @@ public class TileManager {
 
     private void getTileImage() {
         setup(0, "/res/tiles/ground/grass");
-        /*setup(1, "/res/tiles/ground/grass");
-        setup(2, "/res/tiles/ground/grass");
-        setup(3, "/res/tiles/ground/grass");
-        setup(4, "/res/tiles/ground/grass");
-        setup(5, "/res/tiles/ground/grass");
-        setup(6, "/res/tiles/ground/grass");
-        setup(7, "/res/tiles/ground/grass");
-        setup(8, "/res/tiles/ground/grass");
-        setup(9, "/res/tiles/ground/grass");*/
+        setup(1, "/res/tiles/ground/tree");
         setup(10, "/res/building/building1");
     }
 
@@ -132,6 +129,14 @@ public class TileManager {
                 worldRow++;
             }
 
+            createInventory(gp.getTileSize()*2, gp.getTileSize()*9, gp.getScreenWidth() - (gp.getTileSize()*4), gp.getTileSize()*2);
+
         }
+    }
+
+    public void createInventory(int x, int y, int width, int height){
+        g2M.setColor(Color.LIGHT_GRAY);
+        g2M.fillRoundRect(x, y, width, height, 35, 35);
+
     }
 }
