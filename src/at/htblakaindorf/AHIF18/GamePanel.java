@@ -8,15 +8,25 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
+    /*
     //Resolution HD:1920x1080 WQHD:2560x1440
-    final int screenWidth = 2560;
-    final int screenHeight = 1440;
+    final int screenWidth = 1920;
+    final int screenHeight = 1080;
     //Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
     int tileSize = originalTitleSize*scale;
     final int maxScreenCol = screenWidth/ tileSize;
     final int maxScreenRow = screenHeight/ tileSize;
+    */
+    //Tilemanagement
+    final int originalTitleSize = 16; // 32x32 tile
+    private int scale = 2;
+    int tileSize = originalTitleSize*scale;
+    final int maxScreenCol = 32;
+    final int maxScreenRow = 20;
+    final int screenWidth = tileSize * maxScreenCol;
+    final int screenHeight = tileSize * maxScreenRow;
 
     //FPS
     final int FPS = 60;
@@ -44,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(kH);
         this.setFocusable(true);
-        System.out.println(worldWidth);
     }
 
     public void startGameThread(){
@@ -56,7 +65,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
-
     }
 
     public void changeZoom(int i) {
@@ -84,10 +92,8 @@ public class GamePanel extends JPanel implements Runnable{
     double x = player.worldX * multiplier;
     double y = player.worldY * multiplier;
 
-
     player.worldX = x;
     player.worldY = y;
-
 
     /*System.out.println(tileSize);
     System.out.println(scale);
@@ -112,11 +118,15 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
+        long drawStart = 0;
+        drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
-        player.draw(g2);
-        /*g2.setColor(Color.BLACK);
-        g2.fillRect(defaultx,defaulty, tilesize, tilesize);*/
-        g2.dispose();
+        player.draw(g2);//Set Player
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd-drawStart;
+        g2.setColor(Color.white);
+        g2.drawString("Draw Time: " + passed, 10, 400);
+        System.out.println("Draw Time: " + passed);
     }
 
     @Override

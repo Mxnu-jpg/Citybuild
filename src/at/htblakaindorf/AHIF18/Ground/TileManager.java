@@ -1,10 +1,12 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
+import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +25,8 @@ public class TileManager {
         this.gp = gp;
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
-        getTileImage();//passt sich der Rows und Columns an
-        loadMap(); //Funktion um Map zu laden!!Sie werden aber nicht übereinander gelegt;
+        getTileImage();
+        loadMap();
     }
 
     public void loadMap() {
@@ -66,31 +68,29 @@ public class TileManager {
     }
 
     private void getTileImage() {
+        setup(0, "/res/tiles/ground/grass");
+        /*setup(1, "/res/tiles/ground/grass");
+        setup(2, "/res/tiles/ground/grass");
+        setup(3, "/res/tiles/ground/grass");
+        setup(4, "/res/tiles/ground/grass");
+        setup(5, "/res/tiles/ground/grass");
+        setup(6, "/res/tiles/ground/grass");
+        setup(7, "/res/tiles/ground/grass");
+        setup(8, "/res/tiles/ground/grass");
+        setup(9, "/res/tiles/ground/grass");*/
+        setup(10, "/res/building/building1");
+    }
 
-        try {
-            //Ground
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ground/grass1.png"));
+    public void setup(int index, String imagePath){
+        UtilityTool uTool = new UtilityTool();
 
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ground/grass2.png"));
+        try{
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream( imagePath + ".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
 
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ground/grass3.png"));
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/ground/grass4.png"));
-
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/transparent/river1.png"));
-            //Building
-            tile[10] = new Tile();
-            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/res/building/building1.png"));
-
-            tile[11] = new Tile();
-            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/res/building/Lumberjack.gif"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch(IOException e){
+         e.printStackTrace();
         }
     }
 
@@ -104,23 +104,24 @@ public class TileManager {
             int tileNum = mapTileNum[worldCol][worldRow];
             int worldX = worldCol * gp.getTileSize();
             int worldY = worldRow * gp.getTileSize();
-            int screenX = (int) (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
-            int screenY = (int) (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
+            double screenX =  (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
+            double screenY =  (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
 
-            if (worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
+
+            if (    worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
                     worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
                     worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
-                    worldY - gp.getTileSize() < gp.getPlayer().worldY - gp.getPlayer().screenY) {
+                    worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    g2.drawImage(tile[0].image,(int) screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+
                 }catch (NullPointerException e){
                     System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
                 }
-
             }
 
-            g2.drawImage(tile[0].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+
             worldCol++;
 
 

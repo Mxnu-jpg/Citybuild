@@ -20,14 +20,13 @@ public class Player extends Entity{
 
         screenX = gp.getScreenWidth()/2 - (gp.getTileSize()/2);
         screenY = gp.getScreenHeight()/2 - (gp.getTileSize()/2);
-        System.out.println(gp.getWorldWidth());
         setDefaultValues();
     }
 
     public void setDefaultValues(){
+        //spawn
         worldX = gp.getTileSize() * 23;
         worldY = gp.getTileSize() * 21;
-
         speed = 4;
     }
 
@@ -40,14 +39,14 @@ public class Player extends Entity{
         }
         if(kH.isLeft() == true){
             worldX -= speed;
-            System.out.println(speed);
         }
         if(kH.isRight() == true){
             worldX += speed;
         }
     }
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLACK);//new Color(0f,0f,0f,0f)
-        g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
+
+        g2.setColor(Color.BLACK);//Black
+        //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }
 }
