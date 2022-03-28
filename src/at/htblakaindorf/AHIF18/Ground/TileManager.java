@@ -17,7 +17,6 @@ public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
-    Random rn = new Random();
     int mapTileNum[][];
 
 
@@ -88,7 +87,6 @@ public class TileManager {
             tile[index] = new Tile();
             tile[index].image = ImageIO.read(getClass().getResourceAsStream( imagePath + ".png"));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
-
         }catch(IOException e){
          e.printStackTrace();
         }
@@ -97,13 +95,15 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
-
+        int tileNum;
+        int worldX;
+        int worldY;
 
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
-            int tileNum = mapTileNum[worldCol][worldRow];
-            int worldX = worldCol * gp.getTileSize();
-            int worldY = worldRow * gp.getTileSize();
+            tileNum = mapTileNum[worldCol][worldRow];
+            worldX = worldCol * gp.getTileSize();
+            worldY = worldRow * gp.getTileSize();
             double screenX =  (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
             double screenY =  (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
 
@@ -113,7 +113,9 @@ public class TileManager {
                     worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
                     worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
-                    g2.drawImage(tile[0].image,(int) screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    if(tileNum != 0){
+                        g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    }
                     g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 }catch (NullPointerException e){
