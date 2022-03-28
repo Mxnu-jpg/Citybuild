@@ -29,8 +29,13 @@ public class UI {
             tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
     }
+    public void createInventory(Graphics2D g2,int x, int y, int width, int height){
+        g2.setColor(Color.LIGHT_GRAY);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+    }
     public void draw(Graphics2D g2){
-      //  g2.drawImage();
+        createInventory(g2,gp.getTileSize()*2, gp.getTileSize()*9, gp.getScreenWidth() - (gp.getTileSize()*4), gp.getTileSize()*2);
         g2.drawImage(tile[10].image,gp.getScreenWidth()/4, gp.getScreenHeight() - gp.tileSize*2, null);
     }
 }

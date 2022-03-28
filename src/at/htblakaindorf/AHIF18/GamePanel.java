@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(new Color(0f,0f,0f,0f));
+        //this.setBackground(new Color(0f,0f,0f,0f));
         this.setDoubleBuffered(true);
         this.addKeyListener(kH);
         this.setFocusable(true);
@@ -120,15 +120,16 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
         tileM.setG2M(g2);
 
-        long drawStart = 0;
+        double drawStart = 0;
         drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
         ui.draw(g2);
-        long drawEnd = System.nanoTime();
-        long passed = drawEnd-drawStart;
+        double drawEnd = System.nanoTime();
+        double passed = drawEnd-drawStart;
         g2.setColor(Color.white);
-        g2.drawString("Draw Time: " + passed, 10, 400);
-        System.out.println("Draw Time: " + passed);
+        g2.drawString("Draw Time: " + passed/1000000000, 10, 400);
+        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
+
     }
 
     @Override
@@ -223,4 +224,6 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
+    public void setGame() {
+    }
 }

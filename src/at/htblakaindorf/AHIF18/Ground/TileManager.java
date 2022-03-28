@@ -95,48 +95,61 @@ public class TileManager {
         int tileNum;
         int worldX;
         int worldY;
+        double screenX;
+        double screenY;
 
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
 
             tileNum = mapTileNum[worldCol][worldRow];
             worldX = worldCol * gp.getTileSize();
             worldY = worldRow * gp.getTileSize();
-            double screenX =  (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
-            double screenY =  (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
-
+            screenX =  (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
+            screenY =  (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
+            //Camera am Rand
+            if(gp.getPlayer().screenX > gp.getPlayer().worldX){
+                screenX = worldX;
+            }
+            if(gp.getPlayer().screenY > gp.getPlayer().worldY){
+                screenY = worldY;
+            }
+            int rightOffset = gp.getScreenWidth() - gp.getPlayer().screenX;
+            if(rightOffset > gp.worldWidth - gp.getPlayer().worldX){
+                screenX = gp.getScreenWidth() - (gp.worldWidth - worldX);
+            }
+            int bottomOffset = gp.getScreenHeight() - gp.getPlayer().screenY;
+            if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY){
+                screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY);
+            }
 
             if (    worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
                     worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
                     worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
                     worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
-                    if(tileNum != 0){
-                        g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
-                    }
+                    if (tileNum !=0){
+                    g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                }
                     g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 }catch (NullPointerException e){
                     System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
                 }
+            }else if (gp.getPlayer().screenX > gp.getPlayer().worldX ||
+                      gp.getPlayer().screenY > gp.getPlayer().worldY ||
+                      rightOffset > gp.worldWidth - gp.getPlayer().worldX ||
+                      bottomOffset > gp.worldHeight - gp.getPlayer().worldY){
+                g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
             }
-
-
             worldCol++;
-
-
             if (worldCol == gp.getMaxWorldCol()) {
                 worldCol = 0;
                 worldRow++;
             }
 
-            createInventory(gp.getTileSize()*2, gp.getTileSize()*9, gp.getScreenWidth() - (gp.getTileSize()*4), gp.getTileSize()*2);
+
 
         }
     }
 
-    public void createInventory(int x, int y, int width, int height){
-        g2M.setColor(Color.LIGHT_GRAY);
-        g2M.fillRoundRect(x, y, width, height, 35, 35);
 
-    }
 }
