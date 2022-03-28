@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler kH = new KeyHandler(this);
     TileManager tileM = new TileManager(this);
     Player player = new Player(this,kH);
+    public UI ui = new UI(this);
 
     //Zoom
     int oldWorldWidth;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(0f,0f,0f,0f));
         this.setDoubleBuffered(true);
         this.addKeyListener(kH);
         this.setFocusable(true);
@@ -121,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
         long drawStart = 0;
         drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
-
+        ui.draw(g2);
         long drawEnd = System.nanoTime();
         long passed = drawEnd-drawStart;
         g2.setColor(Color.white);
