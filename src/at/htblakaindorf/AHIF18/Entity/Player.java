@@ -25,28 +25,35 @@ public class Player extends Entity{
 
     public void setDefaultValues(){
         //spawn
-        worldX = gp.getTileSize() * 23;
-        worldY = gp.getTileSize() * 21;
+        worldX = gp.getTileSize() * 25;
+        worldY = gp.getTileSize() * 25;
         speed = 4;
     }
 
     public void update(){
         if(kH.isUp() == true){
+            if(worldY>screenY)//good take
             worldY -= speed;
+            System.out.println(worldX);
+            System.out.println(worldY);
         }
         if(kH.isDown() == true){
+
             worldY += speed;
         }
         if(kH.isLeft() == true){
+            if(worldX>screenX)
             worldX -= speed;
         }
         if(kH.isRight() == true){
+            if(worldX>screenX)
             worldX += speed;
         }
     }
     public void draw(Graphics2D g2){
 
         g2.setColor(Color.BLACK);//Black
+        g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }
 }

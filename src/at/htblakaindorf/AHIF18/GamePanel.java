@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int maxScreenCol = screenWidth/ tileSize;
     final int maxScreenRow = screenHeight/ tileSize;
     */
+
     //Tilemanagement
     final int originalTitleSize = 16; // 32x32 tile
     private int scale = 3;
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         //this.setBackground(new Color(0f,0f,0f,0f));
+        this.setBackground(new Color(0f,0f,0f,0f));
         this.setDoubleBuffered(true);
         this.addKeyListener(kH);
         this.setFocusable(true);
@@ -96,10 +98,12 @@ public class GamePanel extends JPanel implements Runnable{
     player.worldX = x;
     player.worldY = y;
 
-    /*System.out.println(tileSize);
+    System.out.println(tileSize);
     System.out.println(scale);
     System.out.println(worldWidth);
-    System.out.println(worldHeight);*/
+    System.out.println(worldHeight);
+    System.out.println(screenWidth);
+    System.out.println(screenHeight);
     }
     public void resetZoom() { //Not Working!!
         oldWorldWidth = tileSize * maxWorldCol;
@@ -120,15 +124,16 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
         tileM.setG2M(g2);
 
-        double drawStart = 0;
-        drawStart = System.nanoTime();
+        //double drawStart = 0;
+        //drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
+        player.draw(g2);
         ui.draw(g2);
-        double drawEnd = System.nanoTime();
-        double passed = drawEnd-drawStart;
-        g2.setColor(Color.white);
-        g2.drawString("Draw Time: " + passed/1000000000, 10, 400);
-        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
+        //double drawEnd = System.nanoTime();
+        //double passed = drawEnd-drawStart;
+        //g2.setColor(Color.white);
+        //g2.drawString("Draw Time: " + passed/1000000000, 10, 400);
+        //System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
 
     }
 
@@ -221,9 +226,5 @@ public class GamePanel extends JPanel implements Runnable{
 
     public Player getPlayer() {
         return player;
-    }
-
-
-    public void setGame() {
     }
 }

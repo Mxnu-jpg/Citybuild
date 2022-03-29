@@ -115,21 +115,24 @@ public class TileManager {
             int rightOffset = gp.getScreenWidth() - gp.getPlayer().screenX;
             if(rightOffset > gp.worldWidth - gp.getPlayer().worldX){
                 screenX = gp.getScreenWidth() - (gp.worldWidth - worldX);
+
             }
             int bottomOffset = gp.getScreenHeight() - gp.getPlayer().screenY;
             if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY){
                 screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY);
             }
-
+            //Nur was man sehen kann drawen
             if (    worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
                     worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
                     worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().screenY &&
                     worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
-                    if (tileNum !=0){
-                    g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
-                }
-                    g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    //draw Map transparent
+                    if (tileNum !=0)
+                        g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+                        g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
+
+
 
                 }catch (NullPointerException e){
                     System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
@@ -138,6 +141,9 @@ public class TileManager {
                       gp.getPlayer().screenY > gp.getPlayer().worldY ||
                       rightOffset > gp.worldWidth - gp.getPlayer().worldX ||
                       bottomOffset > gp.worldHeight - gp.getPlayer().worldY){
+
+                if (tileNum !=0)
+                    g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
                 g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
             }
             worldCol++;
