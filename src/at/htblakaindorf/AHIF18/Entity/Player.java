@@ -34,12 +34,12 @@ public class Player extends Entity{
 
     public void update(){
         if(kH.isUp() == true){
-            if(worldY!=screenY)
+            if(worldY!=screenY-gp.getUi().getHeight_of_Top_UI())
             worldY -= speed;
             System.out.println(worldY);
         }
         if(kH.isDown() == true){
-            if(worldY!=gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_UI())//not perfect
+            if(worldY!=gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_Bottom_UI())//not perfect
             worldY += speed;
             System.out.println(worldY);
             System.out.println(gp.getWorldHeight());

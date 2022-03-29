@@ -1,18 +1,15 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
-import at.htblakaindorf.AHIF18.UI;
 import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 
 public class TileManager {
@@ -110,8 +107,8 @@ public class TileManager {
             if(gp.getPlayer().screenX > gp.getPlayer().worldX){
                 screenX = worldX;
             }
-            if(gp.getPlayer().screenY > gp.getPlayer().worldY){
-                screenY = worldY;
+            if(gp.getPlayer().screenY > gp.getPlayer().worldY+gp.getUi().getHeight_of_Top_UI()){
+                screenY = worldY+gp.getUi().getHeight_of_Top_UI();
             }
             int rightOffset = gp.getScreenWidth() - gp.getPlayer().screenX;
             if(rightOffset > gp.worldWidth - gp.getPlayer().worldX){
@@ -119,8 +116,8 @@ public class TileManager {
 
             }
             int bottomOffset = gp.getScreenHeight() - (gp.getPlayer().screenY);
-            if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY+gp.getUi().getHeight_of_UI()){
-                screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY+gp.getUi().getHeight_of_UI());
+            if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY+gp.getUi().getHeight_of_Bottom_UI()){
+                screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY+gp.getUi().getHeight_of_Bottom_UI());
             }
 
             //Nur was man sehen kann drawen

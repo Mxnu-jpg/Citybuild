@@ -3,6 +3,7 @@ package at.htblakaindorf.AHIF18;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,52 +11,76 @@ import java.io.IOException;
 public class UI {
     GamePanel gp;
     BufferedImage buildings;
-    private int amount_of_items_in_UI;
-    private int height_of_UI;
+    private int amount_of_items_in_Bottom_UI;
+    private int height_of_Bottom_UI;
+    private int height_of_Top_UI;
 
     Tile[] tile = new Tile[100];
 
     public UI(GamePanel gp){
         this.gp = gp;
-        amount_of_items_in_UI= gp.getScreenWidth()/8;
-        height_of_UI= gp.getScreenHeight()/6;
+        amount_of_items_in_Bottom_UI = 4 ;
+        height_of_Bottom_UI = gp.getScreenHeight()/6;
+        height_of_Top_UI = gp.getScreenHeight()/16;
 
         try {
-            setUIimages(10, "/res/building/building1");
+
+            setUIimages(10, "/res/building/building1.png");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Fehler beim Einlesen der Bilder\n" , "Falsche Ressource",
+                    JOptionPane.ERROR_MESSAGE);
         }
+    }
+    private int calculatemenuepos(int i){//Synchron zu amount_of_items_in_UI
+        return  (gp.getScreenWidth()/ amount_of_items_in_Bottom_UI*i);
+
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
         UtilityTool uTool = new UtilityTool();
 
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-            tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath ));
+            tile[index].image = uTool.scaleImage(tile[index].image, height_of_Bottom_UI/2, height_of_Bottom_UI/2);
     }
-    public void createInventory(Graphics2D g2,int x, int y, int width, int height){
+    public void createBottomMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
+        g2.drawImage(tile[10].image, calculatemenuepos(0),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image, calculatemenuepos(1),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image, calculatemenuepos(2),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image, calculatemenuepos(3),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+
+
+
+    }
+    public void createTopMenu(Graphics2D g2, int x, int y, int width, int height){
+        g2.setColor(Color.GRAY);
+        g2.fillRoundRect(x, y, width, height, 0, 0);
+
+        /*g2.drawImage(tile[10].image,   gp.getUi().getAmount_of_items_in_UI(),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*2, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*3, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);*/
+
     }
     public void draw(Graphics2D g2){
-        createInventory(g2,0,gp.getScreenHeight()-(gp.getUi().getHeight_of_UI()), gp.getScreenWidth(), gp.getUi().getHeight_of_UI());
-        g2.drawImage(tile[10].image,   gp.getUi().getHeight_of_UI(), gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*2, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*3, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*4, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*5, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*6, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*7, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image,gp.getUi().getHeight_of_UI()*8, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        createBottomMenu(g2,0,gp.getScreenHeight()-(gp.getUi().getHeight_of_Bottom_UI()), gp.getScreenWidth(), getHeight_of_Bottom_UI());
+        createTopMenu(g2, 0, 0, gp.getScreenWidth(),  getHeight_of_Top_UI());
+
     }
 
-    public int getAmount_of_items_in_UI() {
-        return amount_of_items_in_UI;
+    public int getAmount_of_items_in_Bottom_UI() {
+        return amount_of_items_in_Bottom_UI;
     }
 
-    public int getHeight_of_UI() {
-        return height_of_UI;
+    public int getHeight_of_Bottom_UI() {
+        return height_of_Bottom_UI;
+    }
+
+    public int getHeight_of_Top_UI() {
+        return height_of_Top_UI;
     }
 }
