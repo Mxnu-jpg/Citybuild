@@ -34,9 +34,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread;
     KeyHandler kH = new KeyHandler(this);
-    TileManager tileM = new TileManager(this);
     Player player = new Player(this,kH);
-    public UI ui = new UI(this);
+    UI ui = new UI(this);
+    TileManager tileM = new TileManager(this);
+
 
     //Zoom
     int oldWorldWidth;
@@ -226,5 +227,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public Player getPlayer() {
         return player;
+    }
+
+    public UI getUi() {
+        return ui;
     }
 }

@@ -12,6 +12,8 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    public int borderright;
+    public int borderbottom;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -32,26 +34,26 @@ public class Player extends Entity{
 
     public void update(){
         if(kH.isUp() == true){
-            if(worldY>screenY)//good take
+            if(worldY!=screenY)
             worldY -= speed;
-            System.out.println(worldX);
             System.out.println(worldY);
         }
         if(kH.isDown() == true){
-
+            if(worldY!=gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_UI())//not perfect
             worldY += speed;
+            System.out.println(worldY);
+            System.out.println(gp.getWorldHeight());
         }
         if(kH.isLeft() == true){
-            if(worldX>screenX)
+            if(worldX!=screenX)
             worldX -= speed;
         }
         if(kH.isRight() == true){
-            if(worldX>screenX)
+            if(worldX!=gp.getWorldWidth() - screenX)//not perfect
             worldX += speed;
         }
     }
     public void draw(Graphics2D g2){
-
         g2.setColor(Color.BLACK);//Black
         g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)

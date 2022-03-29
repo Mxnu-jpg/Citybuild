@@ -30,7 +30,8 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D){
             right = true;
-        }if (code == KeyEvent.VK_UP){
+        }
+        /*if (code == KeyEvent.VK_UP){
             gp.changeZoom(1);
         }
         if (code == KeyEvent.VK_DOWN){
@@ -38,7 +39,7 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_SPACE){
             gp.resetZoom();
-        }
+        }*/ //Map border funktioniert nur mit defaultview
 
     }
 

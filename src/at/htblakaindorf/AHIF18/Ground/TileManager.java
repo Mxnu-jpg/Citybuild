@@ -1,6 +1,7 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
+import at.htblakaindorf.AHIF18.UI;
 import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -117,10 +118,11 @@ public class TileManager {
                 screenX = gp.getScreenWidth() - (gp.worldWidth - worldX);
 
             }
-            int bottomOffset = gp.getScreenHeight() - gp.getPlayer().screenY;
-            if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY){
-                screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY);
+            int bottomOffset = gp.getScreenHeight() - (gp.getPlayer().screenY);
+            if(bottomOffset > gp.getWorldHeight() - gp.getPlayer().worldY+gp.getUi().getHeight_of_UI()){
+                screenY = gp.getScreenHeight() - (gp.getWorldHeight()-worldY+gp.getUi().getHeight_of_UI());
             }
+
             //Nur was man sehen kann drawen
             if (    worldX + gp.getTileSize() > gp.getPlayer().worldX - gp.getPlayer().screenX &&
                     worldX - gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().screenX &&
