@@ -42,7 +42,7 @@ public class UI {
             return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2;
         if(i == amount_of_items_in_Bottom_UI-1)
             return gp.getScreenWidth() - (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2 - menuetilesize;
-        return (((gp.getScreenWidth() -  ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2) + menuetilesize/2)/amount_of_items_in_Bottom_UI)*i) + calculatemenuepos(0); // letzter Wert zu hoch != jeder andere
+        return (((gp.getScreenWidth() -  ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2) + menuetilesize)/amount_of_items_in_Bottom_UI)*i) + calculatemenuepos(0); // letzter Wert zu hoch != jeder andere
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
