@@ -5,5 +5,5 @@ import java.io.BufferedReader;
 
 public class Tile {
   public BufferedImage image;
-
+  boolean collision = false;
 }

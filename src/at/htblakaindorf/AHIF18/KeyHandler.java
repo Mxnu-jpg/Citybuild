@@ -1,17 +1,21 @@
 package at.htblakaindorf.AHIF18;
 
 import javax.swing.plaf.basic.BasicSliderUI;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.text.Position;
+import java.awt.event.*;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener, MouseListener, MouseMotionListener {
+    //Mouse
+    private Pos pointerPosition;
+    private boolean mouseClicked = false;
+    private boolean mousePressed = false;
     private boolean up, down, left, right, zoom;
     GamePanel gp;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
+        pointerPosition = new Pos(0,0);
     }
-
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -61,7 +65,9 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-
+    public void clearMouseClick(){
+        mouseClicked = false;
+    }
 
     //Getter
     public boolean isUp() {
@@ -84,5 +90,51 @@ public class KeyHandler implements KeyListener {
         return zoom;
     }
 
+    public Pos getPointerPosition() {
+        return pointerPosition;
+    }
 
+    public boolean isMouseClicked() {
+        return mouseClicked;
+    }
+
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        mouseClicked = true;
+        mousePressed = false;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        mousePressed = true;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
+    }
 }

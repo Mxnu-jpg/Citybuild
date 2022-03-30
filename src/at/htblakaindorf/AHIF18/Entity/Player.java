@@ -52,6 +52,13 @@ public class Player extends Entity{
             if(worldX!=gp.getWorldWidth() - screenX)//not perfect
             worldX += speed;
         }
+        if(kH.isMouseClicked() == true){
+            kH.clearMouseClick();
+            System.out.println(kH.getPointerPosition().getX());
+            System.out.println(kH.getPointerPosition().getY());
+            System.out.println(screenX*2);
+            System.out.println(screenY*2);
+        }
     }
     public void draw(Graphics2D g2){
         g2.setColor(Color.BLACK);//Black

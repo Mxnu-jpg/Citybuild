@@ -24,8 +24,8 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTitleSize = 16; // 32x32 tile
     private int scale = 3;
     int tileSize = originalTitleSize*scale;
-    final int maxScreenCol = 30;
-    final int maxScreenRow = 20;
+    final int maxScreenCol = 16;
+    final int maxScreenRow = 9;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
 
@@ -56,6 +56,8 @@ public class GamePanel extends JPanel implements Runnable{
         //this.setBackground(new Color(0f,0f,0f,0f));
         this.setBackground(new Color(0f,0f,0f,0f));
         this.setDoubleBuffered(true);
+        this.addMouseListener(kH);
+        this.addMouseMotionListener(kH);
         this.addKeyListener(kH);
         this.setFocusable(true);
     }

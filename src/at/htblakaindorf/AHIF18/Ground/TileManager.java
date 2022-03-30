@@ -97,7 +97,6 @@ public class TileManager {
         double screenY;
 
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
-
             tileNum = mapTileNum[worldCol][worldRow];
             worldX = worldCol * gp.getTileSize();
             worldY = worldRow * gp.getTileSize();
