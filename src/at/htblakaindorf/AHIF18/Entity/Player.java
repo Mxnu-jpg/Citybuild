@@ -12,8 +12,6 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    public int borderright;
-    public int borderbottom;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -54,11 +52,22 @@ public class Player extends Entity{
         }
         if(kH.isMouseClicked() == true){
             kH.clearMouseClick();
-            System.out.println(kH.getPointerPosition().getX());
-            System.out.println(kH.getPointerPosition().getY());
-            System.out.println(screenX*2);
-            System.out.println(screenY*2);
+            //Der Tile in der Mitte hat scale * originaltilesize das muss man hinzurechenn mouse = tilesize + screen
+            System.out.println("MX:" + kH.getPointerPosition().getX());
+            System.out.println("MY:" + kH.getPointerPosition().getY());
+            System.out.println("SX:" + (screenX*2 + gp.getTileSize()));
+            System.out.println("SY:" + (screenY*2 + gp.getTileSize()));
+            System.out.println((gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
+            System.out.println(gp.getScreenWidth() - (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
+            //Bottom Menu
+            if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
+                    System.out.println("GUI funktioniert noch nicht Lan");
+                    menuClicked();
+            }
         }
+    }
+    public void menuClicked(){
+
     }
     public void draw(Graphics2D g2){
         g2.setColor(Color.BLACK);//Black

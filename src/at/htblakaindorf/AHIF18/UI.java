@@ -34,12 +34,9 @@ public class UI {
         }
     }
     private int calculatemenuepos(int i){//Synchron zu amount_of_items_in_UI
-       /* if(i ==1)
-            return  gp.getScreenWidth()/(gp.getScreenWidth()/i);
         if(i == amount_of_items_in_Bottom_UI)
-            return gp.getScreenWidth()-height_of_Bottom_UI/2;*/
-        //
-    return ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI*i)-gp.getScreenWidth()/amount_of_items_in_Bottom_UI);
+            return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i;
+        return ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i) - height_of_Bottom_UI/4;
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
