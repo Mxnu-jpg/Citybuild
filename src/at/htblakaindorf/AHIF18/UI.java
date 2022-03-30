@@ -12,6 +12,7 @@ public class UI {
     GamePanel gp;
     BufferedImage buildings;
     private int amount_of_items_in_Bottom_UI;
+    private int menuetilesize;
     private int height_of_Bottom_UI;
     private int height_of_Top_UI;
 
@@ -19,9 +20,10 @@ public class UI {
 
     public UI(GamePanel gp){
         this.gp = gp;
-        amount_of_items_in_Bottom_UI = 8 ;
+        amount_of_items_in_Bottom_UI = 8;
         height_of_Bottom_UI = gp.getScreenHeight()/6;
         height_of_Top_UI = gp.getScreenHeight()/16;
+        menuetilesize = height_of_Bottom_UI/2;
 
         try {
 
@@ -34,9 +36,12 @@ public class UI {
         }
     }
     private int calculatemenuepos(int i){//Synchron zu amount_of_items_in_UI
-        if(i == amount_of_items_in_Bottom_UI)
-            return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i;
-        return ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i) - height_of_Bottom_UI/4;
+        //erstes Und letzes Element gleicher Abstand
+        if(i == 0)
+            return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2;
+        if(i == amount_of_items_in_Bottom_UI-1)
+            return gp.getScreenWidth() - (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2 - menuetilesize;
+        return (((gp.getScreenWidth() - menuetilesize*2)/amount_of_items_in_Bottom_UI)*i + calculatemenuepos(0)) + menuetilesize/2;
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
@@ -44,12 +49,13 @@ public class UI {
 
             tile[index] = new Tile();
             tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath ));
-            tile[index].image = uTool.scaleImage(tile[index].image, height_of_Bottom_UI/2, height_of_Bottom_UI/2);
+            tile[index].image = uTool.scaleImage(tile[index].image, menuetilesize, menuetilesize);
     }
     public void createBottomMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
+        g2.drawImage(tile[10].image, calculatemenuepos(0),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(1),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(2),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(3),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
@@ -57,7 +63,6 @@ public class UI {
         g2.drawImage(tile[10].image, calculatemenuepos(5),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(6),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(7),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(8),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
     }
     public void createTopMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
