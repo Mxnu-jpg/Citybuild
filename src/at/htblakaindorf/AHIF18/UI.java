@@ -5,32 +5,36 @@ import at.htblakaindorf.AHIF18.Ground.Tile;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class UI {
     GamePanel gp;
-    BufferedImage buildings;
+    private int amount_of_items_in_UI;
     private int amount_of_items_in_Bottom_UI;
     private int menuetilesize;
     private int height_of_Bottom_UI;
+    private int height_of_Bottomsection_UI;
     private int height_of_Top_UI;
     private int middle_object;
+    private int middle_object_Bottom_menue;
 
     Tile[] tile = new Tile[100];
 
     public UI(GamePanel gp){
         this.gp = gp;
-        amount_of_items_in_Bottom_UI = 9;
+        amount_of_items_in_UI = 10;
+        amount_of_items_in_Bottom_UI = 6; // max 11
         height_of_Bottom_UI = gp.getScreenHeight()/6;
+        height_of_Bottomsection_UI = gp.getScreenHeight()/4;
         height_of_Top_UI = gp.getScreenHeight()/16;
         menuetilesize = height_of_Bottom_UI/2;
-        middle_object = (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2 - menuetilesize/2;
-
+        height_of_Bottomsection_UI = menuetilesize/2;
+        middle_object = (gp.getScreenWidth()/ amount_of_items_in_UI)/2 - menuetilesize/2;
+        middle_object_Bottom_menue = (gp.getScreenWidth()/ amount_of_items_in_Bottom_UI)/2 - menuetilesize/2;
         try {
 
-            //setUIimages(10, "/res/tiles/ground/grass.png");
-            setUIimages(10, "/res/building/building1.png");
+            setUIimages(10, "/res/tiles/ground/grass.png");
+            //setUIimages(10, "/res/building/building1.png");
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,
@@ -38,12 +42,19 @@ public class UI {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    public int calculatemenuepos(int i){//Synchron zu amount_of_items_in_UI-1
-        //System.out.println(first_object + menuetilesize);
-        if(amount_of_items_in_Bottom_UI == 1)
+    public int calculateMenuePos(int i){//Synchron zu amount_of_items_in_UI-1
+
+        if(amount_of_items_in_UI == 0)
             return middle_object;
 
-        return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i + middle_object;
+        return (gp.getScreenWidth()/ amount_of_items_in_UI)*i + middle_object; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
+    }
+    public int calculateBottomMenuePos(int i){//Synchron zu amount_of_items_in_Bottom_UI-1
+        if(amount_of_items_in_Bottom_UI == 1)
+            return middle_object_Bottom_menue; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
+        return (((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2)))
+                + gp.getScreenWidth()/2 - ((((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*amount_of_items_in_Bottom_UI)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) -
+                        (((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*1)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) + menuetilesize)/2;
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
@@ -53,27 +64,39 @@ public class UI {
             tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath ));
             tile[index].image = uTool.scaleImage(tile[index].image, menuetilesize, menuetilesize);
     }
-    public void createBottomMenu(Graphics2D g2, int x, int y, int width, int height){
+    public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
         g2.fillRoundRect(x, y, width, height, 0, 0);
         //UI Elemente
-        g2.drawImage(tile[10].image, calculatemenuepos(0),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(1),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(2),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(3),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(4),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(5),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(6),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(7),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(8),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(9),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(10),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(11),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(12),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(13),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(14),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
-        g2.drawImage(tile[10].image, calculatemenuepos(15),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
+        g2.drawImage(tile[10].image, calculateMenuePos(0),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(1),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(2),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(3),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(4),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(5),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(6),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(7),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(8),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(9),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(10),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(11),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(12),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
 
+
+    }
+    public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height){
+        g2.setColor(Color.blue);
+        g2.fillRoundRect(calculateBottomMenuePos(0), y, width, height, 0, 0);
+        g2.setColor(Color.green);
+        g2.fillRoundRect(calculateBottomMenuePos(1), y, width, height, 0, 0);
+        g2.setColor(Color.blue);
+        g2.fillRoundRect(calculateBottomMenuePos(2), y, width, height, 0, 0);
+        g2.setColor(Color.green);
+        g2.fillRoundRect(calculateBottomMenuePos(3), y, width, height, 0, 0);
+        g2.setColor(Color.blue);
+        g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
+        g2.setColor(Color.green);
+        g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
 
 
     }
@@ -87,13 +110,15 @@ public class UI {
 
     }
 
+
     public void draw(Graphics2D g2){
-        createBottomMenu(g2,0,gp.getScreenHeight()-(gp.getUi().getHeight_of_Bottom_UI()), gp.getScreenWidth(), getHeight_of_Bottom_UI());
+        showBottomMenu(g2,0,gp.getScreenHeight()-height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
+        showBottomMenufromBottomMenue(g2,0,gp.getScreenHeight() - height_of_Bottomsection_UI - height_of_Bottomsection_UI/6 , menuetilesize, height_of_Bottomsection_UI);
         createTopMenu(g2, 0, 0, gp.getScreenWidth(),  getHeight_of_Top_UI());
     }
 
-    public int getAmount_of_items_in_Bottom_UI() {
-        return amount_of_items_in_Bottom_UI;
+    public int getAmount_of_items_in_UI() {
+        return amount_of_items_in_UI;
     }
 
     public int getHeight_of_Bottom_UI() {

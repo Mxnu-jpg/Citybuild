@@ -58,20 +58,16 @@ public class Player extends Entity{
             System.out.println("MY:" + kH.getPointerPosition().getY());
             System.out.println("SX:" + (screenX*2 + gp.getTileSize()));
             System.out.println("SY:" + (screenY*2 + gp.getTileSize()));
-            System.out.println("AUY:" + (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize()));
-            System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())));
-            System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())));
-            System.out.println("obj1:" + gp.getUi().calculatemenuepos(0));
-            System.out.println("diff:" + (gp.getUi().calculatemenuepos(1) - gp.getUi().calculatemenuepos(0)));
-            System.out.println("obj2:" + gp.getUi().calculatemenuepos(2));
-            System.out.println("diff:" + (gp.getUi().calculatemenuepos(2) - gp.getUi().calculatemenuepos(1)));
-            System.out.println("obj3:"+ gp.getUi().calculatemenuepos(2));
-            System.out.println("-------------------------------------");
+            System.out.println("AUY:" + (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize()));
+            System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
+            System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
+            System.out.println("diff:" + ( gp.getUi().calculateMenuePos(1) - (gp.getUi().calculateMenuePos(0)+ gp.getUi().getMenuetilesize())));
             //Bottom Menu
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
                     System.out.println("GUI funktioniert noch nicht Lan");
                     menuClicked();
             }
+            //
         }
 
         if(kH.isInfo() == true){
@@ -83,7 +79,7 @@ public class Player extends Entity{
 
     }
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLACK);//Black
+        g2.setColor(new Color(0f,0f,0f,0f));//Black
         g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }
