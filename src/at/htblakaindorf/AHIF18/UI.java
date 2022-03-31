@@ -21,7 +21,7 @@ public class UI {
 
     public UI(GamePanel gp){
         this.gp = gp;
-        amount_of_items_in_Bottom_UI = 16;
+        amount_of_items_in_Bottom_UI = 9;
         height_of_Bottom_UI = gp.getScreenHeight()/6;
         height_of_Top_UI = gp.getScreenHeight()/16;
         menuetilesize = height_of_Bottom_UI/2;
@@ -43,16 +43,7 @@ public class UI {
         if(amount_of_items_in_Bottom_UI == 1)
             return middle_object;
 
-        //erstes Und letzes Element gleicher Abstand von Rand
-        /*if(i == 0)
-            return middle_object;
-        if(i == amount_of_items_in_Bottom_UI-1)
-            return (gp.getScreenWidth() - (calculatemenuepos(0) + menuetilesize));
-        */
         return (gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i + middle_object;
-        //return (((gp.getScreenWidth() - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize() + ))/amount_of_items_in_Bottom_UI)*i + first_object ;
-
-        //return (((gp.getScreenWidth() -  ((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)/2) + menuetilesize)/amount_of_items_in_Bottom_UI)*i) + calculatemenuepos(0) + menuetilesize/2; // letzter Wert zu hoch != jeder andere flasche berehcnung
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {

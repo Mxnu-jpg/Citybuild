@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     private boolean mousePressed = false;
     private boolean up, down, left, right, zoom;
     GamePanel gp;
+    private boolean sysinfo;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -35,6 +36,10 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
         if (code == KeyEvent.VK_D){
             right = true;
         }
+        if(code == KeyEvent.VK_I){
+            sysinfo = true;
+        }
+        //Zoom
         /*if (code == KeyEvent.VK_UP){
             gp.changeZoom(1);
         }
@@ -64,6 +69,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
             right = false;
         }
     }
+
 
     public void clearMouseClick(){
         mouseClicked = false;
@@ -136,5 +142,15 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     @Override
     public void mouseMoved(MouseEvent e) {
         pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
+    }
+
+    public boolean isInfo() {
+       return sysinfo;
+    }
+
+    //Setter
+
+    public void setSysinfo(boolean sysinfo) {
+        this.sysinfo = sysinfo;
     }
 }

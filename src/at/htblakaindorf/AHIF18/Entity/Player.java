@@ -66,15 +66,17 @@ public class Player extends Entity{
             System.out.println("obj2:" + gp.getUi().calculatemenuepos(2));
             System.out.println("diff:" + (gp.getUi().calculatemenuepos(2) - gp.getUi().calculatemenuepos(1)));
             System.out.println("obj3:"+ gp.getUi().calculatemenuepos(2));
-            /*
-            System.out.println("rand/2" + (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
-            System.out.println("randr/2" + (gp.getScreenWidth() - (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2 - gp.getUi().getMenuetilesize()));*/ //scuffed
+            System.out.println("-------------------------------------");
             //Bottom Menu
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
                     System.out.println("GUI funktioniert noch nicht Lan");
                     menuClicked();
             }
-            System.out.println("-------------------------------------");
+        }
+
+        if(kH.isInfo() == true){
+            kH.setSysinfo(false);
+            System.out.println("System - Info:");;
         }
     }
     public void menuClicked(){
