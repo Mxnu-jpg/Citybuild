@@ -56,7 +56,7 @@ public class UI {
     public void createBottomMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
         g2.fillRoundRect(x, y, width, height, 0, 0);
-
+        //UI Elemente
         g2.drawImage(tile[10].image, calculatemenuepos(0),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(1),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image, calculatemenuepos(2),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
