@@ -79,7 +79,7 @@ public class Player extends Entity{
 
     }
     public void draw(Graphics2D g2){
-        g2.setColor(new Color(0f,0f,0f,0f));//Black
+        g2.setColor(Color.black);//Black
         g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }

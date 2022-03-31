@@ -17,12 +17,16 @@ public class UI {
     private int height_of_Top_UI;
     private int middle_object;
     private int middle_object_Bottom_menue;
+    private Color bottomMenu = Color.darkGray;
+    private Color topBar = Color.darkGray;
+    private Color uiElements = Color.gray;
+    private Color sectionElements = Color.gray;
 
     Tile[] tile = new Tile[100];
 
     public UI(GamePanel gp){
         this.gp = gp;
-        amount_of_items_in_UI = 10;
+        amount_of_items_in_UI = 12;
         amount_of_items_in_Bottom_UI = 6; // max 11
         height_of_Bottom_UI = gp.getScreenHeight()/6;
         height_of_Bottomsection_UI = gp.getScreenHeight()/4;
@@ -58,7 +62,7 @@ public class UI {
             return middle_object_Bottom_menue; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
         return (((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2)))
                 + gp.getScreenWidth()/2 - ((((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*amount_of_items_in_Bottom_UI)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) -
-                        (((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*1)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) + menuetilesize)/2;
+                ((gp.getScreenWidth() / amount_of_items_in_Bottom_UI)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) + menuetilesize)/2; // Meine Zwangsstörungen kicken diese scheiß 3
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
@@ -69,14 +73,14 @@ public class UI {
             tile[index].image = uTool.scaleImage(tile[index].image, menuetilesize, menuetilesize);
     }
     public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height){
-        g2.setColor(Color.darkGray);
+        g2.setColor(bottomMenu);
         //Bottom MenuBar
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
-        //Hintergrund Farbe
-        g2.setColor(Color.gray);
+        //Hintergrund Farbe von UI Elemente
+        g2.setColor(uiElements);
 
-        //Hintergrund
+        //Hintergrund setzten
         g2.fillRect(calculateMenuePos(0), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
         g2.fillRect(calculateMenuePos(1), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
         g2.fillRect(calculateMenuePos(2), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
@@ -91,7 +95,7 @@ public class UI {
         g2.fillRect(calculateMenuePos(11), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
         g2.fillRect(calculateMenuePos(12), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
 
-        //UI Elemente
+        //UI Elemente setzten
         g2.drawImage(tile[10].image, calculateMenuePos(0),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
         g2.drawImage(tile[11].image, calculateMenuePos(1),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
         g2.drawImage(tile[12].image, calculateMenuePos(2),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
@@ -107,21 +111,17 @@ public class UI {
         g2.drawImage(tile[10].image, calculateMenuePos(12),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
     }
     public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height){
-        g2.setColor(Color.blue);
+        g2.setColor(sectionElements);
+
         g2.fillRoundRect(calculateBottomMenuePos(0), y, width, height, 0, 0);
-        g2.setColor(Color.green);
         g2.fillRoundRect(calculateBottomMenuePos(1), y, width, height, 0, 0);
-        g2.setColor(Color.blue);
         g2.fillRoundRect(calculateBottomMenuePos(2), y, width, height, 0, 0);
-        g2.setColor(Color.green);
         g2.fillRoundRect(calculateBottomMenuePos(3), y, width, height, 0, 0);
-        g2.setColor(Color.blue);
         g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
-        g2.setColor(Color.green);
         g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
     }
-    public void createTopMenu(Graphics2D g2, int x, int y, int width, int height){
-        g2.setColor(Color.GRAY);
+    public void createTopBar(Graphics2D g2, int x, int y, int width, int height){
+        g2.setColor(topBar);
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
         /*g2.drawImage(tile[10].image,   gp.getUi().getAmount_of_items_in_UI(),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
@@ -134,7 +134,7 @@ public class UI {
     public void draw(Graphics2D g2){
         showBottomMenu(g2,0,gp.getScreenHeight()-height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
         showBottomMenufromBottomMenue(g2,0,gp.getScreenHeight() - height_of_Bottomsection_UI - height_of_Bottomsection_UI/6 , menuetilesize, height_of_Bottomsection_UI);
-        createTopMenu(g2, 0, 0, gp.getScreenWidth(),  getHeight_of_Top_UI());
+        createTopBar(g2, 0, 0, gp.getScreenWidth(),  getHeight_of_Top_UI());
     }
 
     public int getAmount_of_items_in_UI() {
