@@ -33,8 +33,8 @@ public class UI {
         middle_object_Bottom_menue = (gp.getScreenWidth()/ amount_of_items_in_Bottom_UI)/2 - menuetilesize/2;
         try {
 
-            setUIimages(10, "/res/tiles/ground/grass.png");
-            //setUIimages(10, "/res/building/building1.png");
+            //setUIimages(10, "/res/tiles/ground/grass.png");
+            setUIimages(10, "/res/building/building1.png");
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,
@@ -97,8 +97,6 @@ public class UI {
         g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
         g2.setColor(Color.green);
         g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
-
-
     }
     public void createTopMenu(Graphics2D g2, int x, int y, int width, int height){
         g2.setColor(Color.GRAY);
