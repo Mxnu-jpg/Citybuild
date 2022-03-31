@@ -53,17 +53,28 @@ public class Player extends Entity{
         if(kH.isMouseClicked() == true){
             kH.clearMouseClick();
             //Der Tile in der Mitte hat scale * originaltilesize das muss man hinzurechenn mouse = tilesize + screen
+            //UI Measurements
             System.out.println("MX:" + kH.getPointerPosition().getX());
             System.out.println("MY:" + kH.getPointerPosition().getY());
             System.out.println("SX:" + (screenX*2 + gp.getTileSize()));
             System.out.println("SY:" + (screenY*2 + gp.getTileSize()));
-            System.out.println((gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
-            System.out.println(gp.getScreenWidth() - (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
+            System.out.println("AUY:" + (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize()));
+            System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())));
+            System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculatemenuepos(0) + gp.getUi().getMenuetilesize())));
+            System.out.println("obj1:" + gp.getUi().calculatemenuepos(0));
+            System.out.println("diff:" + (gp.getUi().calculatemenuepos(1) - gp.getUi().calculatemenuepos(0)));
+            System.out.println("obj2:" + gp.getUi().calculatemenuepos(2));
+            System.out.println("diff:" + (gp.getUi().calculatemenuepos(2) - gp.getUi().calculatemenuepos(1)));
+            System.out.println("obj3:"+ gp.getUi().calculatemenuepos(2));
+            /*
+            System.out.println("rand/2" + (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2);
+            System.out.println("randr/2" + (gp.getScreenWidth() - (gp.getScreenWidth()/gp.getUi().getAmount_of_items_in_Bottom_UI())/2 - gp.getUi().getMenuetilesize()));*/ //scuffed
             //Bottom Menu
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
                     System.out.println("GUI funktioniert noch nicht Lan");
                     menuClicked();
             }
+            System.out.println("-------------------------------------");
         }
     }
     public void menuClicked(){
