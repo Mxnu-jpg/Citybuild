@@ -70,9 +70,9 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        setup(0, "/res/tiles/ground/grass");
-        setup(1, "/res/tiles/ground/tree");
-        setup(10, "/res/building/building1");
+        setup(0, "/res/tiles/ground/grass.png");
+        setup(1, "/res/tiles/ground/tree.png");
+        setup(10, "/res/building/Villager.png");
     }
 
     public void setup(int index, String imagePath){
@@ -80,7 +80,7 @@ public class TileManager {
 
         try{
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream( imagePath + ".png"));
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream( imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
         }catch(IOException e){
          e.printStackTrace();
