@@ -1,6 +1,7 @@
 package at.htblakaindorf.AHIF18.Entity;
 
 import at.htblakaindorf.AHIF18.GamePanel;
+import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
 
 import java.awt.*;
@@ -71,7 +72,7 @@ public class Player extends Entity{
 
         if(kH.isInfo() == true){
             kH.setSysinfo(false);
-            System.out.println("System - Info:");;
+            System.out.println("System - Info:");
         }
     }
     public void menuClicked(){
@@ -87,14 +88,28 @@ public class Player extends Entity{
 
     private void sectionLineClicked() {
         for (int i = 0;i < gp.getUi().getAmount_of_items_in_UI(); i++)
-            if(kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i))
-        System.out.println("Section clicked, Section: " + (i+1) + "Name: ");
+            if(kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i)) {
+                updateUiElements(i);
+                System.out.println("Section clicked, Section: " + (i + 1) + ", Name: ");
+            }
     }
 
     private void elementsLineClicked() {
-        for (int i = 0;i < gp.getUi().getAmount_of_items_in_UI(); i++)
-        if(kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i))
-        System.out.println("Elements clicked, Elements: " + (i+1) + "Name: ");
+        for (int i = 0;i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
+            if (kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i)){
+                buildElementonMap(gp.getUi().getTile(i));
+                System.out.println("Elements clicked, Elements: " + (i + 1) + ", Name: " + gp.getUi().getTile(i).getName());
+            }
+        }
+    }
+
+    private void updateUiElements(int i) {
+
+    }
+
+    private void buildElementonMap(Tile tile) {
+    gp.getTileM().setBuilding(1,1, tile);
+
     }
 
     public void draw(Graphics2D g2){

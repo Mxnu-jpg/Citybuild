@@ -1,8 +1,8 @@
 package at.htblakaindorf.AHIF18;
 
-import at.htblakaindorf.AHIF18.Entity.Entity;
 import at.htblakaindorf.AHIF18.Entity.Player;
 import at.htblakaindorf.AHIF18.Ground.TileManager;
+import at.htblakaindorf.AHIF18.Object.Superobject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     //Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
-    private int scale = 2;
+    private int scale = 3;
     int tileSize = originalTitleSize*scale;
     final int maxScreenCol = 16;
     final int maxScreenRow = 9;
@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this,kH);
     UI ui = new UI(this);
     TileManager tileM = new TileManager(this);
+    public Superobject[] obj = new Superobject[100];
 
 
     //Zoom
@@ -238,4 +239,5 @@ public class GamePanel extends JPanel implements Runnable{
     public TileManager getTileM() {
         return tileM;
     }
+
 }

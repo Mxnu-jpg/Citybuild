@@ -28,15 +28,13 @@ public class TileManager {
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
-        loadMap();
+        InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
+        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
+        loadMap(br);
     }
 
-    public void loadMap() {
+    public void loadMap(BufferedReader br) {
         try {
-            InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
-            BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
-
-
             int col = 0;
             int row = 0;
             while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) {
@@ -70,18 +68,22 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        setup(0, "/res/tiles/ground/grass.png");
-        setup(1, "/res/tiles/ground/tree.png");
-        setup(10, "/res/building/Villager.png");
+        setup(0, "/res/tiles/ground/grass.png","Grass", false);
+        setup(1, "/res/tiles/ground/tree.png","Tree", false);
+        setup(10, "/res/building/Villager.png","Villager Building", false);
+
     }
 
-    public void setup(int index, String imagePath){
+    public void setup(int index, String imagePath,String name, boolean collision){
         UtilityTool uTool = new UtilityTool();
 
         try{
             tile[index] = new Tile();
             tile[index].image = ImageIO.read(getClass().getResourceAsStream( imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
+            tile[index].name = name;
+            tile[index].collision = collision;
+            tile[index].setId(index);
         }catch(IOException e){
          e.printStackTrace();
         }
@@ -152,6 +154,51 @@ public class TileManager {
 
         }
     }
+    public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
+
+        InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
+        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
+        int col = 0;
+        int row = 0;
+        try {
+            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) {
+                String line = null;
+
+                line = br.readLine();
 
 
+                while (col < gp.getMaxWorldCol()) {
+                    try {
+                        String numbers[] = line.split(" ");
+                        if(col == colbuidling && row == rowbuilding) {
+                            String[] mouseRow =numbers;
+                            mouseRow[rowbuilding] = String.valueOf(building.getId());
+                            System.out.println(building.getId());
+                           //work -----
+                        }
+                        col++;
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        JOptionPane.showMessageDialog(null,
+                                "Die Welt konnte nicht geladen werden\n" + "Maximale Spalten: " + gp.getMaxWorldCol() +
+                                        ", maximale Zeilen: " + gp.getMaxWorldRow(), "Laden fehlgeschlagen",
+                                JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+
+                }
+                if (col == gp.getMaxWorldCol()) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        InputStream i = getClass().getResourceAsStream("/res/map/world01.txt");
+        BufferedReader b = new BufferedReader(new BufferedReader(new InputStreamReader(i)));
+        loadMap(b);
+
+    }
 }
