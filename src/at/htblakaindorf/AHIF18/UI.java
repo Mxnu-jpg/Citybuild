@@ -17,6 +17,8 @@ public class UI {
     private int height_of_Top_UI;
     private int middle_object;
     private int middle_object_Bottom_menue;
+    private int margin_from_Bottom_Menu;
+    private int margin_from_Bottomsection_Menu;
     private Color bottomMenu = Color.darkGray;
     private Color topBar = Color.darkGray;
     private Color uiElements = Color.gray;
@@ -24,17 +26,19 @@ public class UI {
 
     Tile[] tile = new Tile[100];
 
-    public UI(GamePanel gp){
+    public UI(GamePanel gp) {
         this.gp = gp;
         amount_of_items_in_UI = 12;
         amount_of_items_in_Bottom_UI = 6; // max 11
-        height_of_Bottom_UI = gp.getScreenHeight()/6;
-        height_of_Bottomsection_UI = gp.getScreenHeight()/4;
-        height_of_Top_UI = gp.getScreenHeight()/16;
-        menuetilesize = height_of_Bottom_UI/2;
-        height_of_Bottomsection_UI = menuetilesize/2;
-        middle_object = (gp.getScreenWidth()/ amount_of_items_in_UI)/2 - menuetilesize/2;
-        middle_object_Bottom_menue = (gp.getScreenWidth()/ amount_of_items_in_Bottom_UI)/2 - menuetilesize/2;
+        height_of_Bottom_UI = gp.getScreenHeight() / 6;
+        height_of_Bottomsection_UI = gp.getScreenHeight() / 4;
+        height_of_Top_UI = gp.getScreenHeight() / 16;
+        menuetilesize = height_of_Bottom_UI / 2;
+        height_of_Bottomsection_UI = menuetilesize / 2;
+        middle_object = (gp.getScreenWidth() / amount_of_items_in_UI) / 2 - menuetilesize / 2;
+        middle_object_Bottom_menue = (gp.getScreenWidth() / amount_of_items_in_Bottom_UI) / 2 - menuetilesize / 2;
+        margin_from_Bottom_Menu = height_of_Bottom_UI / 8;
+        margin_from_Bottomsection_Menu = height_of_Bottomsection_UI / 6;
         try {
 
             //setUIimages(10, "/res/tiles/ground/grass.png");
@@ -46,33 +50,36 @@ public class UI {
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,
-                    "Fehler beim Einlesen der Bilder\n" , "Falsche Ressource",
+                    "Fehler beim Einlesen der Bilder\n", "Falsche Ressource",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    public int calculateMenuePos(int i){//Synchron zu amount_of_items_in_UI-1
 
-        if(amount_of_items_in_UI == 0)
+    public int calculateMenuePos(int i) {//Synchron zu amount_of_items_in_UI-1
+
+        if (amount_of_items_in_UI == 0)
             return middle_object;
 
-        return (gp.getScreenWidth()/ amount_of_items_in_UI)*i + middle_object; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
+        return (gp.getScreenWidth() / amount_of_items_in_UI) * i + middle_object; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
     }
-    public int calculateBottomMenuePos(int i){//Synchron zu amount_of_items_in_Bottom_UI-1
-        if(amount_of_items_in_Bottom_UI == 1)
+
+    public int calculateBottomMenuePos(int i) {//Synchron zu amount_of_items_in_Bottom_UI-1
+        if (amount_of_items_in_Bottom_UI == 1)
             return middle_object_Bottom_menue; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
-        return (((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*i)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2)))
-                + gp.getScreenWidth()/2 - ((((gp.getScreenWidth()/amount_of_items_in_Bottom_UI)*amount_of_items_in_Bottom_UI)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) -
-                ((gp.getScreenWidth() / amount_of_items_in_Bottom_UI)/(amount_of_items_in_Bottom_UI/(amount_of_items_in_Bottom_UI/2))) + menuetilesize)/2; // Meine Zwangsstörungen kicken diese scheiß 3
+        return (((gp.getScreenWidth() / amount_of_items_in_Bottom_UI) * i) / (amount_of_items_in_Bottom_UI / (amount_of_items_in_Bottom_UI / 2)))
+                + gp.getScreenWidth() / 2 - ((((gp.getScreenWidth() / amount_of_items_in_Bottom_UI) * amount_of_items_in_Bottom_UI) / (amount_of_items_in_Bottom_UI / (amount_of_items_in_Bottom_UI / 2))) -
+                ((gp.getScreenWidth() / amount_of_items_in_Bottom_UI) / (amount_of_items_in_Bottom_UI / (amount_of_items_in_Bottom_UI / 2))) + menuetilesize) / 2; // Meine Zwangsstörungen kicken diese scheiß 3
     }
 
     private void setUIimages(int index, String imagePath) throws IOException {
         UtilityTool uTool = new UtilityTool();
 
-            tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath ));
-            tile[index].image = uTool.scaleImage(tile[index].image, menuetilesize, menuetilesize);
+        tile[index] = new Tile();
+        tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath));
+        tile[index].image = uTool.scaleImage(tile[index].image, menuetilesize, menuetilesize);
     }
-    public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height){
+
+    public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(bottomMenu);
         //Bottom MenuBar
         g2.fillRoundRect(x, y, width, height, 0, 0);
@@ -81,36 +88,37 @@ public class UI {
         g2.setColor(uiElements);
 
         //Hintergrund setzten
-        g2.fillRect(calculateMenuePos(0), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(1), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(2), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(3), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(4), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(5), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(6), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(7), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(8), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(9), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(10), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(11), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
-        g2.fillRect(calculateMenuePos(12), gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(0), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(1), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(2), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(3), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(4), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(5), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(6), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(7), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(8), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(9), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(10), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(11), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
+        g2.fillRect(calculateMenuePos(12), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, menuetilesize, menuetilesize);
 
         //UI Elemente setzten
-        g2.drawImage(tile[10].image, calculateMenuePos(0),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[11].image, calculateMenuePos(1),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[12].image, calculateMenuePos(2),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[13].image, calculateMenuePos(3),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[14].image, calculateMenuePos(4),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(5),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(6),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(7),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(8),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(9),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(10),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(11),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
-        g2.drawImage(tile[10].image, calculateMenuePos(12),   gp.getScreenHeight() - height_of_Bottom_UI + height_of_Bottom_UI/8, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(0), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[11].image, calculateMenuePos(1), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[12].image, calculateMenuePos(2), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[13].image, calculateMenuePos(3), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[14].image, calculateMenuePos(4), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(5), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(6), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(7), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(8), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(9), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(10), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(11), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
+        g2.drawImage(tile[10].image, calculateMenuePos(12), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
     }
-    public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height){
+
+    public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(sectionElements);
 
         g2.fillRoundRect(calculateBottomMenuePos(0), y, width, height, 0, 0);
@@ -120,7 +128,8 @@ public class UI {
         g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
         g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
     }
-    public void createTopBar(Graphics2D g2, int x, int y, int width, int height){
+
+    public void createTopBar(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(topBar);
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
@@ -131,10 +140,15 @@ public class UI {
     }
 
 
-    public void draw(Graphics2D g2){
-        showBottomMenu(g2,0,gp.getScreenHeight()-height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
-        showBottomMenufromBottomMenue(g2,0,gp.getScreenHeight() - height_of_Bottomsection_UI - height_of_Bottomsection_UI/6 , menuetilesize, height_of_Bottomsection_UI);
-        createTopBar(g2, 0, 0, gp.getScreenWidth(),  getHeight_of_Top_UI());
+    public void draw(Graphics2D g2) {
+
+        showBottomMenu(g2, 0, gp.getScreenHeight() - height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
+        showBottomMenufromBottomMenue(g2, 0, gp.getScreenHeight() - height_of_Bottomsection_UI - margin_from_Bottomsection_Menu, menuetilesize, height_of_Bottomsection_UI);
+        createTopBar(g2, 0, 0, gp.getScreenWidth(), height_of_Top_UI);
+
+       /* g2.setColor(Color.green);
+        g2.fillRoundRect(0, gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, gp.getScreenWidth(), menuetilesize , 0, 0);
+        */
     }
 
     public int getAmount_of_items_in_UI() {
@@ -152,4 +166,17 @@ public class UI {
     public int getMenuetilesize() {
         return menuetilesize;
     }
+
+    public int getHeight_of_Bottomsection_UI() {
+        return height_of_Bottomsection_UI;
+    }
+
+    public int getMargin_from_Bottom_Menu() {
+        return margin_from_Bottom_Menu;
+    }
+
+    public int getMargin_from_Bottomsection_Menu() {
+        return margin_from_Bottomsection_Menu;
+    }
 }
+

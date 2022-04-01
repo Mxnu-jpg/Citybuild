@@ -130,8 +130,6 @@ public class TileManager {
                         g2.drawImage(tile[0].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
                         g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
 
-
-
                 }catch (NullPointerException e){
                     System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
                 }

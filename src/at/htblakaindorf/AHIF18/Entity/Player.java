@@ -62,9 +62,8 @@ public class Player extends Entity{
             System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("diff:" + ( gp.getUi().calculateMenuePos(1) - (gp.getUi().calculateMenuePos(0)+ gp.getUi().getMenuetilesize())));
-            //Bottom Menu
+            //Menu clicked
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
-                    System.out.println("GUI funktioniert noch nicht Lan");
                     menuClicked();
             }
             //
@@ -76,8 +75,28 @@ public class Player extends Entity{
         }
     }
     public void menuClicked(){
+        //Bottom Menu clicked
+        if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
+                kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu())
+            elementsLineClicked();
+
+        if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu()  && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
+            sectionLineClicked();
 
     }
+
+    private void sectionLineClicked() {
+        for (int i = 0;i < gp.getUi().getAmount_of_items_in_UI(); i++)
+            if(kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i))
+        System.out.println("Section clicked, Section: " + (i+1) + "Name: ");
+    }
+
+    private void elementsLineClicked() {
+        for (int i = 0;i < gp.getUi().getAmount_of_items_in_UI(); i++)
+        if(kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i))
+        System.out.println("Elements clicked, Elements: " + (i+1) + "Name: ");
+    }
+
     public void draw(Graphics2D g2){
         g2.setColor(Color.black);//Black
         g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
