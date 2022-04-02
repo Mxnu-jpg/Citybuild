@@ -47,12 +47,12 @@ public class UI {
 
         //Elements Setzen in UI Max: amount_of_items_in_UI //Rest wird außerhalb gerendert
         buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
-        buildingpath.add(new Buildingname(11,"/res/building/blacksmith.png", "Smith",this));
+        buildingpath.add(new Buildingname(11, "/building/Blacksmith.png", "Smith",this));
         buildingpath.add(new Buildingname(12,"/res/building/Church.png", "Church",this));
-        buildingpath.add(new Buildingname(13,"/res/building/fisher.png", "Fisher",this));
+        buildingpath.add(new Buildingname(13, "/building/Fisher.png", "Fisher",this));
         buildingpath.add(new Buildingname(14,"/res/building/Windmill.png", "Windmill",this));
-        buildingpath.add(new Buildingname(15,"/res/building/coal-mine.png", "Coal Mine",this));
-        buildingpath.add(new Buildingname(16,"/res/building/iron-mine.png", "Irone Mine",this));
+        buildingpath.add(new Buildingname(15, "/building/Coal Mine.png", "Coal Mine",this));
+        buildingpath.add(new Buildingname(16, "/building/Iron Mine.png", "Irone Mine",this));
         buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
         buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
         buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));

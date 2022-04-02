@@ -68,9 +68,18 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        setup(0, "/res/tiles/ground/grass.png","Grass", false);
-        setup(1, "/res/tiles/ground/tree.png","Tree", false);
-        setup(10, "/res/building/Villager.png","Villager Building", false);
+        setup(0, "/tiles/ground/Grass.png","Grass", false);
+        setup(1, "/tiles/ground/Tree.png","Tree", true);
+        setup(10, "/res/building/Villager.png","Villager Building", true);
+        setup(11, "/res/building/Blacksmith.png","Blacksmith", true);
+        setup(12, "/res/building/Church.png", "Church",true);
+        setup(13, "/res/building/Coal Mine.png", "Coal Mine", true);
+        setup(14, "/res/building/Fisher.png", "Fisher", true);
+        setup(15, "/res/building/Iron Mine.png", "Iron Mine", true);
+        setup(16, "/res/building/Windmill.png", "Windmill", true);
+        setup(20, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
+
+
 
     }
 
@@ -133,7 +142,8 @@ public class TileManager {
                         g2.drawImage(tile[tileNum].image, (int)screenX, (int)screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 }catch (NullPointerException e){
-                    System.out.println("Die ausgewählte Ressource(Bild) auf der Welt ist nicht vorhanden");
+                    System.out.println("Die ausgewählte Ressource(Bild) nicht vorhanden oder nicht initialisiert, ID-Map:" + tileNum);
+                    e.printStackTrace();
                 }
             }else if (gp.getPlayer().screenX > gp.getPlayer().worldX ||
                       gp.getPlayer().screenY > gp.getPlayer().worldY ||
@@ -158,45 +168,8 @@ public class TileManager {
 
         InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
         BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
-        int col = 0;
-        int row = 0;
-        try {
-            while (col < gp.getMaxWorldCol() && row < gp.getMaxWorldRow()) {
-                String line = null;
 
-                line = br.readLine();
-
-
-                while (col < gp.getMaxWorldCol()) {
-                    try {
-                        String numbers[] = line.split(" ");
-                        if(col == colbuidling && row == rowbuilding) {
-                            String[] mouseRow =numbers;
-                            mouseRow[rowbuilding] = String.valueOf(building.getId());
-                            System.out.println(building.getId());
-                           //work -----
-                        }
-                        col++;
-                    }catch (ArrayIndexOutOfBoundsException e){
-                        JOptionPane.showMessageDialog(null,
-                                "Die Welt konnte nicht geladen werden\n" + "Maximale Spalten: " + gp.getMaxWorldCol() +
-                                        ", maximale Zeilen: " + gp.getMaxWorldRow(), "Laden fehlgeschlagen",
-                                JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
-
-                }
-                if (col == gp.getMaxWorldCol()) {
-                    col = 0;
-                    row++;
-                }
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream i = getClass().getResourceAsStream("/res/map/world01.txt");
+        InputStream i = getClass().getResourceAsStream("/res/map/world02.txt");
         BufferedReader b = new BufferedReader(new BufferedReader(new InputStreamReader(i)));
         loadMap(b);
 
