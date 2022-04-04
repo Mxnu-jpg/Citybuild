@@ -13,6 +13,7 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    private int buildingID;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -36,20 +37,27 @@ public class Player extends Entity{
             if(worldY!=screenY-gp.getUi().getHeight_of_Top_UI())
             worldY -= speed;
             System.out.println(worldY);
+            System.out.println(worldX);
+            System.out.println("ScreenX:" + screenX);
+            System.out.println("ScreenY:" + screenY);
         }
         if(kH.isDown() == true){
             if(worldY!=gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_Bottom_UI())//not perfect
             worldY += speed;
             System.out.println(worldY);
-            System.out.println(gp.getWorldHeight());
+            System.out.println(worldX);
         }
         if(kH.isLeft() == true){
             if(worldX!=screenX)
             worldX -= speed;
+            System.out.println(worldY);
+            System.out.println(worldX);
         }
         if(kH.isRight() == true){
             if(worldX!=gp.getWorldWidth() - screenX)//not perfect
             worldX += speed;
+            System.out.println(worldY);
+            System.out.println(worldX);
         }
         if(kH.isMouseClicked() == true){
             kH.clearMouseClick();
@@ -66,6 +74,11 @@ public class Player extends Entity{
             //Menu clicked
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
                     menuClicked();
+            } else{
+                if(kH.isMenueClicked()){
+                    buildElementonMap(gp.getUi().getTile(getBuildingID()));
+                    kH.setMenueClicked(false);
+                }
             }
             //
         }
@@ -78,9 +91,14 @@ public class Player extends Entity{
     public void menuClicked(){
         //Bottom Menu clicked
         if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
-                kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu())
-            elementsLineClicked();
-
+                kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu()) {
+            if(kH.isMenueClicked())
+                kH.setMenueClicked(false);
+            else {
+                kH.setMenueClicked(true);
+                elementsLineClicked();
+            }
+        }
         if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu()  && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
             sectionLineClicked();
 
@@ -97,8 +115,10 @@ public class Player extends Entity{
     private void elementsLineClicked() {
         for (int i = 0;i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i)){
-                buildElementonMap(gp.getUi().getTile(i));
                 System.out.println("Elements clicked, Elements: " + (i + 1) + ", Name: " + gp.getUi().getTile(i).getName());
+                if(kH.isMenueClicked()) {
+                    buildingID = i;
+                }
             }
         }
     }
@@ -108,13 +128,29 @@ public class Player extends Entity{
     }
 
     private void buildElementonMap(Tile tile) {
-    gp.getTileM().setBuilding(1,1, tile);
+        System.out.println(((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
+        System.out.println("Builded, Col:" + ((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
+        System.out.println("Row:" + ((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
+        gp.getTileM().setBuilding((int)((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1,(int)((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1, tile);
 
     }
+
 
     public void draw(Graphics2D g2){
         g2.setColor(Color.black);//Black
         g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
+    }
+    //Setter
+
+    public void setBuildingID(int buildingID) {
+        this.buildingID = buildingID;
+    }
+
+    //Getter
+
+
+    public int getBuildingID() {
+        return buildingID;
     }
 }
