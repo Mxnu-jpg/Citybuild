@@ -23,14 +23,21 @@ public class TileManager {
     }
 
     public TileManager(GamePanel gp) {
+        try {
         file.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
         InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
-        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
+        BufferedReader br = null;
+
+            br = new BufferedReader(new FileReader(file));
+
         loadMap(br);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadMap(BufferedReader br) {
@@ -160,9 +167,12 @@ public class TileManager {
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
 
-
-        InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
-        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         int counter = 0;
         String line = "";
@@ -208,6 +218,7 @@ public class TileManager {
             fw.flush();
             fw.write(content.getBytes(StandardCharsets.UTF_8));
             fw.close();
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
