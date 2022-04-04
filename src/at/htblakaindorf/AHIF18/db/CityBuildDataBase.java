@@ -54,7 +54,6 @@ public class CityBuildDataBase {
         tile.setImage(ImageIO.read(getClass().getResourceAsStream(path)));
         tile.setId(id);
         tile.setName(name);
-
         tiles.add(tile);
     }
 

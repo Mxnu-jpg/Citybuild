@@ -23,21 +23,14 @@ public class TileManager {
     }
 
     public TileManager(GamePanel gp) {
-        try {
         file.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
         InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
-        BufferedReader br = null;
-
-            br = new BufferedReader(new FileReader(file));
-
+        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
         loadMap(br);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void loadMap(BufferedReader br) {
@@ -167,12 +160,9 @@ public class TileManager {
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
 
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
+        BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
 
         int counter = 0;
         String line = "";
@@ -198,6 +188,13 @@ public class TileManager {
             }
             lines[rowbuilding - 1] = helpLine;
 
+           /* for (int i = 0; i < lines.length; i++) {
+                System.out.println(lines[i]);
+            }*/
+
+
+            //System.out.println(file);
+
             FileOutputStream fw = new FileOutputStream(file, false);
             String content = "";
             for (int i = 0; i < lines.length; i++) {
@@ -207,10 +204,10 @@ public class TileManager {
                     content += lines[i] + "\n";
                 }
             }
+            //System.out.println(content);
             fw.flush();
             fw.write(content.getBytes(StandardCharsets.UTF_8));
             fw.close();
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
