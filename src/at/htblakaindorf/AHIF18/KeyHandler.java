@@ -12,6 +12,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     private boolean up, down, left, right, zoom;
     GamePanel gp;
     private boolean sysinfo;
+    private boolean menueClicked;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -147,10 +148,17 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     public boolean isInfo() {
        return sysinfo;
     }
+    public boolean isMenueClicked() {
+        return menueClicked;
+    }
+
 
     //Setter
-
     public void setSysinfo(boolean sysinfo) {
         this.sysinfo = sysinfo;
+    }
+
+    public void setMenueClicked(boolean menueClicked) {
+        this.menueClicked = menueClicked;
     }
 }

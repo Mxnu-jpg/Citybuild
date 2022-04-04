@@ -160,6 +160,7 @@ public class TileManager {
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
 
+
         InputStream is = getClass().getResourceAsStream("/res/map/world01.txt");
         BufferedReader br = new BufferedReader(new BufferedReader(new InputStreamReader(is)));
 
