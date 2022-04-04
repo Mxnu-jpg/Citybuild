@@ -18,8 +18,7 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File file = new File("C:\\Users\\Marcel\\OneDrive - HTBLA Kaindorf\\Schule\\4. Klasse\\" +
-            "POS\\CityBuild\\Citybuild\\src\\res\\map\\world01.txt");
+    private File file = new File(getClass().getResourceAsStream("/res/map/world01.txt").toString());
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
