@@ -31,7 +31,8 @@ public class CityBuildDataBase {
             setTiles(14, "/res/building/Windmill.png", "Windmill", true);
             setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", true);
             setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", true);
-            setTiles(20, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
+            setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", true);
+            setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +60,7 @@ public class CityBuildDataBase {
 
     public void setBuildings(UI ui) {
         for (Tile tile : tiles) {
-            if (tile.getId() >= 10) {
+            if (tile.getId() >= 10 && tile.getId() < 30) {
                 buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
             }
         }
