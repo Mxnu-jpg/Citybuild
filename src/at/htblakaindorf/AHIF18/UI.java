@@ -1,6 +1,7 @@
 package at.htblakaindorf.AHIF18;
 
 import at.htblakaindorf.AHIF18.Ground.Tile;
+import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -46,20 +47,21 @@ public class UI {
         margin_from_Bottomsection_Menu = height_of_Bottomsection_UI / 6;
 
         //Elements Setzen in UI Max: amount_of_items_in_UI //Rest wird außerhalb gerendert
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
+        CityBuildDataBase.getInstance().setBuildings(this);
+        /*buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
         buildingpath.add(new Buildingname(11, "/building/Blacksmith.png", "Smith",this));
         buildingpath.add(new Buildingname(12,"/res/building/Church.png", "Church",this));
         buildingpath.add(new Buildingname(13, "/building/Fisher.png", "Fisher",this));
         buildingpath.add(new Buildingname(14,"/res/building/Windmill.png", "Windmill",this));
         buildingpath.add(new Buildingname(15, "/building/Coal Mine.png", "Coal Mine",this));
         buildingpath.add(new Buildingname(16, "/building/Iron Mine.png", "Irone Mine",this));
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/Villager.png", "Villager",this));
+        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
+        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
+        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
+        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
+        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));*/
 
-        setUiImages(buildingpath);
+        setUiImages(CityBuildDataBase.getInstance().getBuildings());
 
     }
 

@@ -1,27 +1,30 @@
 package at.htblakaindorf.AHIF18.db;
 
+import at.htblakaindorf.AHIF18.Buildingname;
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Tile;
+import at.htblakaindorf.AHIF18.UI;
 import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CityBuildDataBase {
     private static CityBuildDataBase instance;
 
-    private List<Tile> tiles;
+    private ArrayList<Tile> tiles;
+    private ArrayList<Buildingname> buildings;
 
     private CityBuildDataBase() {
         tiles = new ArrayList<>();
+        buildings = new ArrayList<>();
 
         try {
             setTiles(0, "/tiles/ground/Grass.png", "Grass", false);
             setTiles(1, "/tiles/ground/Tree.png", "Tree", true);
-            setTiles(10, "/res/building/Villager.png", "Villager Building", true);
+            setTiles(10, "/building/House1.png", "Villager Building", true);
             setTiles(11, "/res/building/Blacksmith.png", "Blacksmith", true);
             setTiles(12, "/res/building/Church.png", "Church", true);
             setTiles(13, "/res/building/Fisher.png", "Fisher", true);
@@ -46,11 +49,20 @@ public class CityBuildDataBase {
     public void setTiles(int id, String path, String name, boolean collision) throws IOException {
         Tile tile = new Tile();
         tile.setCollision(collision);
+        tile.setPath(path);
         tile.setImage(ImageIO.read(getClass().getResourceAsStream(path)));
         tile.setId(id);
         tile.setName(name);
 
         tiles.add(tile);
+    }
+
+    public void setBuildings(UI ui) {
+        for (Tile tile : tiles) {
+            if (tile.getId() >= 10) {
+                buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
+            }
+        }
     }
 
     public Tile getTileById(int id) {
@@ -68,4 +80,9 @@ public class CityBuildDataBase {
             tile.image = uTool.scaleImage(tile.image, gp.getTileSize(), gp.getTileSize());
         }
     }
+
+    public ArrayList<Buildingname> getBuildings() {
+        return buildings;
+    }
+
 }

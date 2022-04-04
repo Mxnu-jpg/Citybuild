@@ -7,6 +7,7 @@ public class Tile {
 
   private String name;
   public BufferedImage image;
+  private String path;
   private boolean collision;
   private int id ;
 
@@ -41,4 +42,12 @@ public class Tile {
     public void setCollision(boolean collision) {
         this.collision = collision;
     }
+
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
 }
