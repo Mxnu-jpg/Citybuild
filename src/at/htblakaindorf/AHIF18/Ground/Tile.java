@@ -5,9 +5,9 @@ import java.io.BufferedReader;
 
 public class Tile {
 
-  String name;
+  private String name;
   public BufferedImage image;
-  boolean collision = false;
+  private boolean collision;
   private int id ;
 
   public String getName() {
@@ -25,4 +25,20 @@ public class Tile {
   public void setId(int id) {
     this.id = id;
   }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
 }

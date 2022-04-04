@@ -1,15 +1,13 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
-import at.htblakaindorf.AHIF18.UtilityTool;
+import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class TileManager {
@@ -70,34 +68,29 @@ public class TileManager {
     }
 
     private void getTileImage() {
-        setup(0, "/tiles/ground/Grass.png", "Grass", false);
-        setup(1, "/tiles/ground/Tree.png", "Tree", true);
-        setup(10, "/res/building/Villager.png", "Villager Building", true);
-        setup(11, "/res/building/Blacksmith.png", "Blacksmith", true);
-        setup(12, "/res/building/Church.png", "Church", true);
-        setup(13, "/res/building/Coal Mine.png", "Coal Mine", true);
-        setup(14, "/res/building/Fisher.png", "Fisher", true);
-        setup(15, "/res/building/Iron Mine.png", "Iron Mine", true);
-        setup(16, "/res/building/Windmill.png", "Windmill", true);
-        setup(20, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
+        CityBuildDataBase.getInstance().setTileSize(gp);
 
+        List<Tile> tiles = CityBuildDataBase.getInstance().getTiles();
 
+        for (Tile tile1 : tiles) {
+            tile[tile1.getId()] = tile1;
+        }
     }
 
-    public void setup(int index, String imagePath, String name, boolean collision) {
+    /*public void setup(int index, String imagePath, String name, boolean collision) {
         UtilityTool uTool = new UtilityTool();
 
         try {
             tile[index] = new Tile();
             tile[index].image = ImageIO.read(getClass().getResourceAsStream(imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.getTileSize(), gp.getTileSize());
-            tile[index].name = name;
-            tile[index].collision = collision;
+            tile[index].setName(name);
+            tile[index].setCollision(collision);
             tile[index].setId(index);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void draw(Graphics2D g2) {
         int worldCol = 0;
