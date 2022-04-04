@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -217,7 +218,12 @@ public class TileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loadMap(br);
 
+        try {
+            BufferedReader b = new BufferedReader(new FileReader(file));
+            loadMap(b);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
