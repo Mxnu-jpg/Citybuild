@@ -16,7 +16,7 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File file = new File(getClass().getResourceAsStream("/res/map/world01.txt").toString());
+    private File file = new File("C:\\Users\\reinp\\OneDrive - HTBLA Kaindorf\\HTL\\4AHIF\\POS\\Programme\\Citybuild\\res\\map\\world01.txt");
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
@@ -24,13 +24,14 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         try {
+            System.out.printf(file.getPath());
         file.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
         BufferedReader br = new BufferedReader(new FileReader(file));
-            loadMap(br);
+        loadMap(br);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -25,14 +25,14 @@ public class CityBuildDataBase {
             setTiles(0, "/tiles/ground/Grass.png", "Grass", false);
             setTiles(1, "/tiles/ground/Tree.png", "Tree", true);
             setTiles(10, "/building/House1.png", "Villager Building", true);
-            setTiles(11, "/res/building/Blacksmith.png", "Blacksmith", true);
-            setTiles(12, "/res/building/Church.png", "Church", true);
-            setTiles(13, "/res/building/Fisher.png", "Fisher", true);
-            setTiles(14, "/res/building/Windmill.png", "Windmill", true);
-            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", true);
-            setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", true);
-            setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", true);
-            setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
+            setTiles(11, "/building/Blacksmith.png", "Blacksmith", true);
+            setTiles(12, "/building/Church.png", "Church", true);
+            setTiles(13, "/building/Fisher.png", "Fisher", true);
+            setTiles(14, "/building/Windmill.png", "Windmill", true);
+            setTiles(15, "/building/Coal Mine.png", "Coal Mine", true);
+            setTiles(16, "/building/Iron Mine.png", "Iron Mine", true);
+            setTiles(17, "/building/WheatFarm.png", "Wheat Farm", true);
+            setTiles(30, "/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true);
         } catch (IOException e) {
             e.printStackTrace();
         }
