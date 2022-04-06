@@ -10,6 +10,7 @@ public class Tile {
   private String path;
   private boolean collision;
   private int id ;
+  private boolean building;
 
   public String getName() {
     return name;
@@ -50,4 +51,9 @@ public class Tile {
   public void setPath(String path) {
     this.path = path;
   }
+
+  public boolean isBuilding() {
+    return building;
+  }
+
 }

@@ -17,7 +17,8 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File file = Paths.get("", "data/map", "world01.txt").toFile();;
+    private File playerFile = Paths.get("", "data/map", "Playermap.txt").toFile();
+    private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
@@ -25,13 +26,13 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         try {
-        System.out.printf(file.getPath());
-        file.setWritable(true);
+        System.out.printf(playerFile.getPath());
+        playerFile.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(playerFile));
         loadMap(br);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -166,7 +167,7 @@ public class TileManager {
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
         try {
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(playerFile));
 
         int counter = 0;
         String line = "";
@@ -199,7 +200,7 @@ public class TileManager {
 
             //System.out.println(file);
 
-            FileOutputStream fw = new FileOutputStream(file, false);
+            FileOutputStream fw = new FileOutputStream(playerFile, false);
             String content = "";
             for (int i = 0; i < lines.length; i++) {
                 if (i == lines.length - 1) {
@@ -213,16 +214,29 @@ public class TileManager {
             fw.write(content.getBytes(StandardCharsets.UTF_8));
             fw.close();
 
-            BufferedReader b = new BufferedReader(new FileReader(file));
+            BufferedReader b = new BufferedReader(new FileReader(playerFile));
             loadMap(b);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
-                    "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + file.getPath(), "Ressource konnte nicht gefunden werden",
+                    "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + playerFile.getPath(), "Ressource konnte nicht gefunden werden",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public boolean isObstacle(int colpos, int rowpos){
 
+        //TODO:soll den collission boolean von dem ausgewählten col und row zurückgeben
+        return false;
+    }
+    public boolean isBuilding(int colpos, int rowpos){
+
+        //TODO:soll den buidling boolean von dem ausgewählten col und row zurückgeben
+        return false;
+    }
+
+    public void removeBuilding(int coplpos, int rowpos) {
+        //TODO:überschreibe wert von Playerfile mit dem Wert der gleichen Stelle von Defaultmap
+    }
 }

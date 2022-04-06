@@ -128,10 +128,22 @@ public class Player extends Entity{
     }
 
     private void buildElementonMap(Tile tile) {
-        System.out.println(((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
-        System.out.println("Builded, Col:" + ((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
-        System.out.println("Row:" + ((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
-        gp.getTileM().setBuilding((int)((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1,(int)((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1, tile);
+        int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
+        int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
+
+        System.out.println("Builded, Col:" + col);
+        System.out.println("Row:" + row);
+        if(!gp.getTileM().isObstacle(col, row))
+        gp.getTileM().setBuilding(col,row, tile);
+
+    }
+    private void removeElementMap(){
+        int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
+        int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
+
+        if(!gp.getTileM().isBuilding(col, row))
+            gp.getTileM().removeBuilding(col,row);
+
 
     }
 
