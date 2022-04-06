@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File file = new File(getClass().getResourceAsStream("/res/map/world01.txt").toString());
+    private File file = Paths.get("", "data/map", "world01.txt").toFile();;
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
@@ -24,7 +25,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         try {
-            System.out.printf(file.getPath());
+        System.out.printf(file.getPath());
         file.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
