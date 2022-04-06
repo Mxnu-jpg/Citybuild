@@ -16,14 +16,15 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File file = new File("C:\\Users\\reinp\\OneDrive - HTBLA Kaindorf\\HTL\\4AHIF\\POS\\Programme\\Citybuild\\res\\map\\world01.txt");
-   // private File file = new File(getClass().getResourceAsStream("/map/"));
+    private File file = new File(getClass().getResourceAsStream("/res/map/world01.txt").toString());
+
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
     }
 
     public TileManager(GamePanel gp) {
         try {
+            System.out.printf(file.getPath());
         file.setWritable(true);
         this.gp = gp;
         tile = new Tile[100];
@@ -163,11 +164,8 @@ public class TileManager {
     }
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
-
         try {
-
         BufferedReader br = new BufferedReader(new FileReader(file));
-
 
         int counter = 0;
         String line = "";
