@@ -8,7 +8,7 @@ public class Church extends Superobject{
     public Church() {
         name = "Church";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/building/church.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("//building/church.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
