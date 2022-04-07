@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
     int tileSize = originalTitleSize*scale;
-    final int maxScreenCol = 16;
+    final int maxScreenCol = 18;
     final int maxScreenRow = 9;
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable{
         //double drawEnd = System.nanoTime();
         //double passed = drawEnd-drawStart;
         //g2.setColor(Color.white);
-        //g2.drawString("Draw Time: " + passed/1000000000, 10, 400);
+        g2.drawString("Draw Time: " + 1000000000, 10, 400);
         //System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
 
     }

@@ -14,6 +14,11 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     private int buildingID;
+    private int wood = 100;
+    private int gold = 100;
+    private int food = 10000;
+    private int stone = 100;
+    private int iron = 1000000000;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -71,9 +76,14 @@ public class Player extends Entity{
             System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("diff:" + ( gp.getUi().calculateMenuePos(1) - (gp.getUi().calculateMenuePos(0)+ gp.getUi().getMenuetilesize())));
-            //Menu clicked
+
+            if(kH.getPointerPosition().getY() <= gp.getUi().getHeight_of_Top_UI() && kH.getPointerPosition().getY() >= 0){
+                topMenuClicked();
+            }
+            //Bottom Menu clicked
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
-                    menuClicked();
+                    bottomMenuClicked();
+
             } else{
                 if(kH.isMenueClicked()){
                     buildElementonMap(gp.getUi().getTile(getBuildingID()));
@@ -88,7 +98,12 @@ public class Player extends Entity{
             System.out.println("System - Info:");
         }
     }
-    public void menuClicked(){
+    public void topMenuClicked(){
+            System.out.println("Top Menue");
+            if(kH.getPointerPosition().getY() >= gp.getUi().getMargin_from_Top_Menue() && kH.getPointerPosition().getY() <= gp.getUi().getHeight_of_Top_UI() - gp.getUi().getMargin_from_Top_Menue())
+                optionsLineClicked();
+    }
+    public void bottomMenuClicked(){
         //Bottom Menu clicked
         if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
                 kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu()) {
@@ -122,6 +137,17 @@ public class Player extends Entity{
             }
         }
     }
+    private void optionsLineClicked() { // work
+        for (int i = 1; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
+            if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i)
+                    && kH.getPointerPosition().getX() >= gp.getUi().calculateRessourceTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element())
+                System.out.println(i);
+                if (kH.isMenueClicked()) {
+                    buildingID = i;
+                }
+            }
+        }
+
 
     private void updateUiElements(int i) {
 
@@ -162,7 +188,28 @@ public class Player extends Entity{
     //Getter
 
 
+    public int getWood() {
+        return wood;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public int getStone() {
+        return stone;
+    }
+
+    public int getIron() {
+        return iron;
+    }
+
     public int getBuildingID() {
         return buildingID;
     }
+
 }
