@@ -233,7 +233,7 @@ public class TileManager {
     public boolean isBuilding(int colpos, int rowpos){
 
         //TODO:soll den buidling boolean von dem ausgewählten col und row zurückgeben
-        return false;
+        return true;
     }
 
     public void removeBuilding(int coplpos, int rowpos) {

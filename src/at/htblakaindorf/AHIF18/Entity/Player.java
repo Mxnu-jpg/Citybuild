@@ -76,21 +76,26 @@ public class Player extends Entity{
             System.out.println("EUY:" + (gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("SumY:" + ((gp.getScreenWidth() - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())) - (gp.getUi().calculateMenuePos(0) + gp.getUi().getMenuetilesize())));
             System.out.println("diff:" + ( gp.getUi().calculateMenuePos(1) - (gp.getUi().calculateMenuePos(0)+ gp.getUi().getMenuetilesize())));
+            //OnClick Map
+            if(kH.getPointerPosition().getY() >= gp.getUi().getHeight_of_Top_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()){
+                if(kH.isMenueClicked()){
+                    buildElementonMap(gp.getUi().getTile(getBuildingID()));
+                    kH.setMenueClicked(false);
+                }
+                if(kH.isRemoveBuilding()){
+                    removeElementMap();
+                    kH.setRemoveBuilding(false);
+                }
+            }
 
+            //Top Menu clicked
             if(kH.getPointerPosition().getY() <= gp.getUi().getHeight_of_Top_UI() && kH.getPointerPosition().getY() >= 0){
                 topMenuClicked();
             }
             //Bottom Menu clicked
             if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() && kH.getPointerPosition().getY() <= gp.getScreenHeight()){
                     bottomMenuClicked();
-
-            } else{
-                if(kH.isMenueClicked()){
-                    buildElementonMap(gp.getUi().getTile(getBuildingID()));
-                    kH.setMenueClicked(false);
-                }
             }
-            //
         }
 
         if(kH.isInfo() == true){
@@ -116,7 +121,6 @@ public class Player extends Entity{
         }
         if(kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu()  && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
             sectionLineClicked();
-
     }
 
     private void sectionLineClicked() {
@@ -138,13 +142,15 @@ public class Player extends Entity{
         }
     }
     private void optionsLineClicked() { // work
-        for (int i = 1; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
-            if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i)
-                    && kH.getPointerPosition().getX() >= gp.getUi().calculateRessourceTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element())
-                System.out.println(i);
-                if (kH.isMenueClicked()) {
-                    buildingID = i;
-                }
+        for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
+            if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element()  && kH.getPointerPosition().getX() >= gp.getUi().calculateRightTopMenuPos(i)) {
+              if(i == 0) // Options
+                  System.out.println("options");
+              if(i == 1) { //Remove building
+                  System.out.println("Removed Clicked");
+                  kH.setRemoveBuilding(true);
+              }
+            }
             }
         }
 
@@ -167,7 +173,10 @@ public class Player extends Entity{
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
 
-        if(!gp.getTileM().isBuilding(col, row))
+        System.out.println("Removed, Col:" + col);
+        System.out.println("Row:" + row);
+
+        if(gp.getTileM().isBuilding(col, row))
             gp.getTileM().removeBuilding(col,row);
 
 

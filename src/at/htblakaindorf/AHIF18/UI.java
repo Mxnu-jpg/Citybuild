@@ -90,7 +90,7 @@ public class UI {
     }
     public int calculateRightTopMenuPos(int i){
 
-        return gp.getScreenWidth() -  (right_top_box / amount_of_top_menue_items) * i;
+        return gp.getScreenWidth() -  (right_top_box / amount_of_top_menue_items) * (i+1);
     }
     public int calculateRessourceTopMenuPos(int i){
 
@@ -187,10 +187,9 @@ public class UI {
         g2.setColor(topBar);
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
-
         //UI Elemente setzten Optionen, Building remove
+        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(0), margin_from_Top_Menue, null);
         g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(1), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(2), margin_from_Top_Menue, null);
 
         //UI Elemente setzen //Ressourcen
         g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(1), margin_from_Top_Menue, null);
@@ -202,7 +201,7 @@ public class UI {
         //Fare des Coutner setzen
         g2.setColor(Color.white);
         //Counter der Ressourcen setzen
-        //gibt dir die Pixel zurück wie lange der String mit dem eingelesenen Text ist
+        //gibt dir die Pixel zurück wie lange der String mit dem eingelesenen Text ist:
         //g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getIron())
         g2.drawString(String.valueOf(gp.getPlayer().getIron()), calculateRessourceTopMenuPos(1) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getIron())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
         g2.drawString(String.valueOf(gp.getPlayer().getStone()), calculateRessourceTopMenuPos(2) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getStone())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
@@ -213,12 +212,10 @@ public class UI {
         /*g2.drawImage(tile[10].image,   gp.getUi().getAmount_of_items_in_UI(),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*2, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*3, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);*/
-
     }
     public void updateUiElements(){
         //section
     }
-
 
     public void draw(Graphics2D g2) {
 

@@ -13,6 +13,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     GamePanel gp;
     private boolean sysinfo;
     private boolean menueClicked;
+    private boolean removeBuilding = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -76,37 +77,9 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
         mouseClicked = false;
     }
 
-    //Getter
-    public boolean isUp() {
-        return up;
-    }
 
-    public boolean isDown() {
-        return down;
-    }
-
-    public boolean isLeft() {
-        return left;
-    }
-
-    public boolean isRight() {
-        return right;
-    }
-
-    public boolean isZoom() {
-        return zoom;
-    }
-
-    public Pos getPointerPosition() {
-        return pointerPosition;
-    }
-
-    public boolean isMouseClicked() {
-        return mouseClicked;
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
+    public boolean isRemoveBuilding() {
+        return removeBuilding;
     }
 
     @Override
@@ -161,4 +134,46 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     public void setMenueClicked(boolean menueClicked) {
         this.menueClicked = menueClicked;
     }
+
+    public void setRemoveBuilding(boolean removeBuilding) {
+        this.removeBuilding = removeBuilding;
+    }
+
+    //Getter
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
+
+    public boolean isZoom() {
+        return zoom;
+    }
+
+    public Pos getPointerPosition() {
+        return pointerPosition;
+    }
+
+    public boolean isMouseClicked() {
+        return mouseClicked;
+    }
+
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
+
+    public boolean isSysinfo() {
+        return sysinfo;
+    }
+
 }
