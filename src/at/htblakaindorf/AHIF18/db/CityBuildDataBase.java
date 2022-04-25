@@ -36,7 +36,6 @@ public class CityBuildDataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static CityBuildDataBase getInstance() {

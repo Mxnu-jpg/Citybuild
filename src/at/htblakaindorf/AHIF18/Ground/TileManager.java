@@ -193,13 +193,6 @@ public class TileManager {
             }
             lines[rowbuilding - 1] = helpLine;
 
-           /* for (int i = 0; i < lines.length; i++) {
-                System.out.println(lines[i]);
-            }*/
-
-
-            //System.out.println(file);
-
             FileOutputStream fw = new FileOutputStream(playerFile, false);
             String content = "";
             for (int i = 0; i < lines.length; i++) {
