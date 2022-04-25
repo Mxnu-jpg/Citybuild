@@ -26,14 +26,14 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         try {
-        System.out.printf(playerFile.getPath());
-        playerFile.setWritable(true);
-        this.gp = gp;
-        tile = new Tile[100];
-        mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
-        getTileImage();
-        BufferedReader br = new BufferedReader(new FileReader(playerFile));
-        loadMap(br);
+            System.out.printf(playerFile.getPath());
+            playerFile.setWritable(true);
+            this.gp = gp;
+            tile = new Tile[100];
+            mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
+            getTileImage();
+            BufferedReader br = new BufferedReader(new FileReader(playerFile));
+            loadMap(br);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -167,13 +167,13 @@ public class TileManager {
 
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
         try {
-        BufferedReader br = new BufferedReader(new FileReader(playerFile));
+            BufferedReader br = new BufferedReader(new FileReader(playerFile));
 
-        int counter = 0;
-        String line = "";
-        String helpLine = "";
-        String[] lines = new String[50];
-        String[] lineCol;
+            int counter = 0;
+            String line = "";
+            String helpLine = "";
+            String[] lines = new String[50];
+            String[] lineCol;
 
 
             while ((line = br.readLine()) != null) {
@@ -225,12 +225,18 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public boolean isObstacle(int colpos, int rowpos){
 
+    public boolean isObstacle(int colpos, int rowpos) {
         //TODO:soll den collission boolean von dem ausgewählten col und row zurückgeben
+
+        /*int id = getIdFromPosition(colpos, rowpos);
+
+        CityBuildDataBase.getInstance().getBuildings().get(id).get*/
+
         return false;
     }
-    public boolean isBuilding(int colpos, int rowpos){
+
+    public boolean isBuilding(int colpos, int rowpos) {
 
         //TODO:soll den buidling boolean von dem ausgewählten col und row zurückgeben
         return true;
@@ -238,5 +244,29 @@ public class TileManager {
 
     public void removeBuilding(int coplpos, int rowpos) {
         //TODO:überschreibe wert von Playerfile mit dem Wert der gleichen Stelle von Defaultmap
+    }
+
+    public int getIdFromPosition(int column, int row) {
+        int id = 0;
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader(playerFile));
+
+            int counter = 0;
+            String line = "";
+            String[] lines = new String[50];
+            String[] lineCol;
+
+            while ((line = br.readLine()) != null) {
+                lines[counter] = line;
+                counter++;
+            }
+
+            lineCol = lines[row - 1].split(" ");
+            id = Integer.parseInt(lineCol[column - 1]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }
