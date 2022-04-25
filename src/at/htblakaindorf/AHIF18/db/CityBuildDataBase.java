@@ -67,7 +67,7 @@ public class CityBuildDataBase {
     }
 
     public Tile getTileById(int id) {
-        return tiles.get(id);
+        return tiles.stream().filter(t -> t.getId() == id).findFirst().get();
     }
 
     public List<Tile> getTiles() {

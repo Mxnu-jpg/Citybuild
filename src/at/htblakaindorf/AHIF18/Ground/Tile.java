@@ -5,28 +5,28 @@ import java.io.BufferedReader;
 
 public class Tile {
 
-  private String name;
-  public BufferedImage image;
-  private String path;
-  private boolean collision;
-  private int id ;
-  private boolean isBuilding;
+    private String name;
+    public BufferedImage image;
+    private String path;
+    private boolean collision;
+    private int id;
+    private boolean building;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+        return id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public BufferedImage getImage() {
         return image;
@@ -44,19 +44,21 @@ public class Tile {
         this.collision = collision;
     }
 
-  public String getPath() {
-    return path;
-  }
+    public String getPath() {
+        return path;
+    }
 
-  public void setPath(String path) {
-    this.path = path;
-  }
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-  public boolean getIsBuilding() {
-    return isBuilding;
-  }
-  public void setBuilding(boolean isBuilding){
-    this.isBuilding = isBuilding;
-  }
+    public boolean isBuilding() {
+        return building;
+    }
+
+    public void setBuilding(boolean isBuilding) {
+        this.building = isBuilding;
+    }
+
 
 }
