@@ -33,6 +33,9 @@ public class CityBuildDataBase {
             setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", true, true);
             setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", true, true);
             setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true, false);
+            setTiles(31, "/res/icons/Bread.png", "Bread", false, false);
+            setTiles(32, "/res/icons/Iron_Ingot.png", "Iron", false, false);
+            setTiles(33, "/res/icons/Wood.png", "Wood", false, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +62,7 @@ public class CityBuildDataBase {
 
     public void setBuildings(UI ui) {
         for (Tile tile : tiles) {
-            if (tile.getId() >= 10 && tile.getId() < 30) {
+            if (tile.getId() >= 10 && tile.getId() < 40) {
                 buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
             }
         }
