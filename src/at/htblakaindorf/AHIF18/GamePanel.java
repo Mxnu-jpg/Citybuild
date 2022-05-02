@@ -6,6 +6,9 @@ import at.htblakaindorf.AHIF18.Object.Superobject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 
 public class GamePanel extends JPanel implements Runnable{
     /*
@@ -31,6 +34,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     //FPS
     final int FPS = 60;
+    //FULLSCREEN
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    Graphics2D g2;
+    BufferedImage tempScreen;
 
     Thread gameThread;
     KeyHandler kH = new KeyHandler(this);
@@ -61,6 +69,8 @@ public class GamePanel extends JPanel implements Runnable{
         this.addMouseMotionListener(kH);
         this.addKeyListener(kH);
         this.setFocusable(true);
+        tempScreen = new BufferedImage(screenWidth,screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D) tempScreen.getGraphics();
     }
 
     public void startGameThread(){
@@ -122,12 +132,27 @@ public class GamePanel extends JPanel implements Runnable{
         player.worldY = y;
     }
 
+    public void drawtotempScreen(){
 
+        tileM.draw(g2); //Draw Ground
+        player.draw(g2);
+        ui.draw(g2);
+    }
+    public void drawtoScreen(){
+    Graphics g2 = getGraphics();
+        g2.drawImage(tempScreen, 0, 0,screenWidth2, screenHeight2, null);
+        g2.dispose();
+    }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         tileM.setG2M(g2);
 
+        /*
+        AffineTransform trans = new AffineTransform();
+        trans.scale(2, 2);
+        g2.setTransform(trans);
+        */
         //double drawStart = 0;
         //drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
@@ -162,6 +187,8 @@ public class GamePanel extends JPanel implements Runnable{
             if(delta >=1){
                 update();
                 repaint();
+                /*drawtotempScreen();
+                drawtoScreen();*/
                 delta--;
                 drawCount++;
             }

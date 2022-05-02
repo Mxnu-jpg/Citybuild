@@ -5,6 +5,7 @@ import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
@@ -107,6 +108,7 @@ public class TileManager {
         int worldY;
         double screenX;
         double screenY;
+
 
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
             tileNum = mapTileNum[worldCol][worldRow];
