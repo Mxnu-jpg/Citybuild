@@ -7,8 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +22,7 @@ public class TileManager {
     int mapTileNum[][];
     private File playerFile = Paths.get("", "data/map", "Playermap.txt").toFile();
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
+    private ArrayList<Tile> tilesList;
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
@@ -27,10 +30,11 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         try {
+            tilesList = new ArrayList<>();
             System.out.printf(playerFile.getPath());
             playerFile.setWritable(true);
             this.gp = gp;
-            tile = new Tile[gp.getMaxScreenRow()*gp.getMaxScreenCol()];
+            tile = new Tile[100];
             mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
             getTileImage();
             BufferedReader br = new BufferedReader(new FileReader(playerFile));
@@ -70,6 +74,18 @@ public class TileManager {
                 }
             }
             br.close();
+
+            BufferedReader brMap = new BufferedReader(new FileReader(defaultFile));
+            String line = "";
+            String[] splitLine;
+
+            while((line = brMap.readLine()) != null) {
+                splitLine = line.split(" ");
+                for (int i = 0; i < splitLine.length; i++) {
+                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
+                }
+            }
+            brMap.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
