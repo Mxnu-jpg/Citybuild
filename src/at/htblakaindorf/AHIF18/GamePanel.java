@@ -2,7 +2,7 @@ package at.htblakaindorf.AHIF18;
 
 import at.htblakaindorf.AHIF18.Entity.Player;
 import at.htblakaindorf.AHIF18.Ground.TileManager;
-import at.htblakaindorf.AHIF18.Object.Superobject;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +45,6 @@ public class GamePanel extends JPanel implements Runnable{
     Player player = new Player(this,kH);
     UI ui = new UI(this);
     TileManager tileM = new TileManager(this);
-    public Superobject[] obj = new Superobject[100];
 
 
     //Zoom

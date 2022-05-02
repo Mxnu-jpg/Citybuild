@@ -332,4 +332,8 @@ public class TileManager {
         }
         return id;
     }
+
+    public ArrayList<Tile> getTilesList() {
+        return tilesList;
+    }
 }
