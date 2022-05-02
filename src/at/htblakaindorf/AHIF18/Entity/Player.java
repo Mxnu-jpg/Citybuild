@@ -3,28 +3,31 @@ package at.htblakaindorf.AHIF18.Entity;
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
+import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler kH;
+    CityBuildDataBase db;
 
     public final int screenX;
     public final int screenY;
     private int buildingID;
-    private int wood = 100;
-    private int gold = 100;
-    private int food = 10000;
-    private int stone = 100;
-    private int iron = 1000000000;
+    private int wood = 5000;
+    private int gold = 20000;
+    private int food = 100;
+    private int stone = 1000;
+    private int iron = 10;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.kH = keyH;
-
+        db = CityBuildDataBase.getInstance();
         screenX = gp.getScreenWidth()/2 - (gp.getTileSize()/2);
         screenY = gp.getScreenHeight()/2 - (gp.getTileSize()/2);
         setDefaultValues();
@@ -163,13 +166,39 @@ public class Player extends Entity{
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
 
-        //TODO: Wenn Gebäude gebaut Ressourcen abziehen
+
 
 
         System.out.println("Builded, Col:" + col);
         System.out.println("Row:" + row);
-        if(!gp.getTileM().isObstacle(col, row))
-        gp.getTileM().setBuilding(col,row, tile);
+        if(!gp.getTileM().isObstacle(col, row)) {
+            int[] cost = db.getTileById(tile.getId()).getCosts();
+
+            if(getWood()<cost[0]) {
+                JOptionPane.showMessageDialog(null, "Dir steht nicht genug Holz zur verfügung um dieses Gebäude zu bauen", "Ressource konnte nicht gefunden werden", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(getStone()<cost[1]) {
+                JOptionPane.showMessageDialog(null, "Dir steht nicht genug Stein zur verfügung um dieses Gebäude zu bauen", "Ressource konnte nicht gefunden werden", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(getIron()<cost[2]) {
+                JOptionPane.showMessageDialog(null, "Dir steht nicht genug Eisen zur verfügung um dieses Gebäude zu bauen", "Ressource konnte nicht gefunden werden", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(getGold()<cost[3]) {
+                JOptionPane.showMessageDialog(null, "Dir steht nicht genug Gold zur verfügung um dieses Gebäude zu bauen", "Ressource konnte nicht gefunden werden", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            setWood(getWood()-cost[0]);
+            setStone(getStone()-cost[1]);
+            setIron(getIron()-cost[2]);
+            setGold(getGold()-cost[3]);
+
+            gp.getTileM().setBuilding(col, row, tile);
+
+        }
 
     }
     private void removeElementMap(){

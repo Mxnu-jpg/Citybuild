@@ -222,19 +222,14 @@ public class TileManager {
     }
 
     public boolean isObstacle(int colpos, int rowpos) {
-        //TODO:soll den collission boolean von dem ausgewählten col und row zurückgeben
-
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isCollision();
     }
 
     public boolean isBuilding(int colpos, int rowpos) {
-        //TODO:soll den buidling boolean von dem ausgewählten col und row zurückgeben
-
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isBuilding();
     }
 
     public void removeBuilding(int colpos, int rowpos) {
-        //TODO:überschreibe wert von Playerfile mit dem Wert der gleichen Stelle von Defaultmap
         try {
             String linePlayer = "";
             String lineDefault = "";

@@ -23,20 +23,20 @@ public class CityBuildDataBase {
 
         try {
             //Costs: Wood, Stone, Iron, Gold
-            setTiles(0, "/res/tiles/ground/Grass.png", "Grass", new String[]{""}, false, false);
-            setTiles(1, "/res/tiles/ground/Tree.png", "Tree", new String[]{""}, true, false);
-            setTiles(10, "/res/building/House1.png", "Villager Building", new String[]{""}, true, true);
-            setTiles(11, "/res/building/Blacksmith.png", "Blacksmith", new String[]{""},true, true);
-            setTiles(12, "/res/building/Church.png", "Church", new String[]{""},true, true);
-            setTiles(13, "/res/building/Fisher.png", "Fisher", new String[]{""},true, true);
-            setTiles(14, "/res/building/Windmill.png", "Windmill", new String[]{""},true, true);
-            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", new String[]{""},true,true);
-            setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", new String[]{""},true, true);
-            setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", new String[]{""},true, true);
-            setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", new String[]{""},true, false);
-            setTiles(31, "/res/icons/Bread.png", "Bread", new String[]{""},false, false);
-            setTiles(32, "/res/icons/Iron_Ingot.png", "Iron",new String[]{""}, false, false);
-            setTiles(33, "/res/icons/Wood.png", "Wood",new String[]{""}, false, false);
+            setTiles(0, "/res/tiles/ground/Grass.png", "Grass", new int[]{}, false, false);
+            setTiles(1, "/res/tiles/ground/Tree.png", "Tree", new int[]{}, true, false);
+            setTiles(10, "/res/building/House1.png", "Villager Building", new int[]{50, 10,0,100}, true, true);
+            setTiles(11, "/res/building/Blacksmith.png", "Blacksmith", new int[]{100,100,0,400},true, true);
+            setTiles(12, "/res/building/Church.png", "Church", new int[]{0,300,10,1000},true, true);
+            setTiles(13, "/res/building/Fisher.png", "Fisher", new int[]{20,0,0,50},true, true);
+            setTiles(14, "/res/building/Windmill.png", "Windmill", new int[]{200,0,0,20},true, true);
+            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", new int[]{40,10,0,150},true,true);
+            setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", new int[]{60,20,0,100},true, true);
+            setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", new int[]{150,5,0,100},true, true);
+            setTiles(30, "/tiles/ground/Wheatfield.png", "Wheatfield", new int[]{},true, false);
+            setTiles(31, "/res/icons/Bread.png", "Bread", new int[]{},false, false);
+            setTiles(32, "/res/icons/Iron_Ingot.png", "Iron",new int[]{}, false, false);
+            setTiles(33, "/res/icons/Wood.png", "Wood",new int[]{}, false, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class CityBuildDataBase {
 
     }
 
-    public void setTiles(int id, String path, String name,String[] costs, boolean collision, boolean isBuilding) throws IOException {
+    public void setTiles(int id, String path, String name,int[] costs, boolean collision, boolean isBuilding) throws IOException {
         Tile tile = new Tile();
         tile.setCollision(collision);
         tile.setPath(path);
@@ -58,6 +58,7 @@ public class CityBuildDataBase {
         tile.setId(id);
         tile.setName(name);
         tile.setBuilding(isBuilding);
+        tile.setCosts(costs);
         tiles.add(tile);
     }
 
