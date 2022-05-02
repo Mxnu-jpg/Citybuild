@@ -197,9 +197,9 @@ public class UI {
         //UI Elemente setzen //Ressourcen
         g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(1), margin_from_Top_Menue, null);
         g2.drawImage(tileTopMenue[1].image, calculateRessourceTopMenuPos(2), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(3), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[2].image, calculateRessourceTopMenuPos(4), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(5), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[2].image, calculateRessourceTopMenuPos(3), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[3].image, calculateRessourceTopMenuPos(4), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[4].image, calculateRessourceTopMenuPos(5), margin_from_Top_Menue, null);
 
         //Fare des Coutner setzen
         g2.setColor(Color.white);

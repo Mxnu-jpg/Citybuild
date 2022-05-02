@@ -38,7 +38,9 @@ public class CityBuildDataBase {
             setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true, false);
             setTiles(31, "/res/icons/Bread.png", "Bread", false, false);
             setTiles(32, "/res/icons/Wood.png", "Wood", false, false);
-            setTiles(33, "/res/icons/Iron_Ingot.png", "Iron", false, false);
+            setTiles(33, "/res/icons/Stone.png", "Stone", false, false);
+            setTiles(34, "/res/icons/Iron_Ingot.png", "Iron", false, false);
+            setTiles(35, "/res/icons/Gold_Ingot.png", "Gold", false, false);
 
         } catch (IOException e) {
             e.printStackTrace();
