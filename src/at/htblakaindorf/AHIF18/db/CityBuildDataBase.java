@@ -8,6 +8,7 @@ import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,12 @@ public class CityBuildDataBase {
 
     private ArrayList<Tile> tiles;
     private ArrayList<Buildingname> buildings;
+    private ArrayList<Buildingname> icons;
 
     private CityBuildDataBase() {
         tiles = new ArrayList<>();
         buildings = new ArrayList<>();
+        icons = new ArrayList<>();
 
         try {
             setTiles(0, "/res/tiles/ground/Grass.png", "Grass", false, false);
@@ -29,13 +32,14 @@ public class CityBuildDataBase {
             setTiles(12, "/res/building/Church.png", "Church", true, true);
             setTiles(13, "/res/building/Fisher.png", "Fisher", true, true);
             setTiles(14, "/res/building/Windmill.png", "Windmill", true, true);
-            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", true,true);
+            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", true, true);
             setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", true, true);
             setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", true, true);
             setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", true, false);
             setTiles(31, "/res/icons/Bread.png", "Bread", false, false);
-            setTiles(32, "/res/icons/Iron_Ingot.png", "Iron", false, false);
-            setTiles(33, "/res/icons/Wood.png", "Wood", false, false);
+            setTiles(32, "/res/icons/Wood.png", "Wood", false, false);
+            setTiles(33, "/res/icons/Iron_Ingot.png", "Iron", false, false);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,8 +66,11 @@ public class CityBuildDataBase {
 
     public void setBuildings(UI ui) {
         for (Tile tile : tiles) {
-            if (tile.getId() >= 10 && tile.getId() < 40) {
+            if (tile.getId() >= 10 && tile.getId() < 30) {
                 buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
+            }
+            if (tile.getId() > 30 && tile.getId() < 40) {
+                icons.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
             }
         }
     }
@@ -86,6 +93,10 @@ public class CityBuildDataBase {
 
     public ArrayList<Buildingname> getBuildings() {
         return buildings;
+    }
+
+    public ArrayList<Buildingname> getIcons() {
+        return icons;
     }
 
 }
