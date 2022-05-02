@@ -163,6 +163,9 @@ public class Player extends Entity{
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
 
+        //TODO: Wenn Gebäude gebaut Ressourcen abziehen
+
+
         System.out.println("Builded, Col:" + col);
         System.out.println("Row:" + row);
         if(!gp.getTileM().isObstacle(col, row))
@@ -185,18 +188,14 @@ public class Player extends Entity{
 
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);//Black
-        g2.fillRect(screenX,screenY, gp.getTileSize(), gp.getTileSize());
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }
     //Setter
-
     public void setBuildingID(int buildingID) {
         this.buildingID = buildingID;
     }
 
     //Getter
-
-
     public int getWood() {
         return wood;
     }
@@ -221,4 +220,23 @@ public class Player extends Entity{
         return buildingID;
     }
 
+    public void setWood(int wood) {
+        this.wood = wood;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public void setStone(int stone) {
+        this.stone = stone;
+    }
+
+    public void setIron(int iron) {
+        this.iron = iron;
+    }
 }

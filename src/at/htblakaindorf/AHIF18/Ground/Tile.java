@@ -11,6 +11,9 @@ public class Tile {
     private boolean collision;
     private int id;
     private boolean building;
+    private int earnings;
+    private int costs;
+
 
     public String getName() {
         return name;
