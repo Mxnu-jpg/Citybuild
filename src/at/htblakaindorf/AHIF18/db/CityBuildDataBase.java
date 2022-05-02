@@ -38,12 +38,12 @@ public class CityBuildDataBase {
             setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", new int[]{45,0,0,50},true, true);
             setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", new int[]{},true, false);
             setTiles(31, "/res/icons/Bread.png", "Bread", new int[]{},false, false);
-            setTiles(32, "/res/icons/Wood.png", "Iron",new int[]{}, false, false);
-            setTiles(33, "/res/icons/Stone.png", "Wood",new int[]{}, false, false);
-            setTiles(34, "/res/icons/Iron_Ingot.png", "Wood",new int[]{}, false, false);
-            setTiles(35, "/res/icons/Gold_Ingot.png", "Wood",new int[]{}, false, false);
-            setTiles(36, "/res/icons/Delete_Building.png", "Wood",new int[]{}, false, false);
-            setTiles(37, "/res/icons/Settings.png", "Wood",new int[]{}, false, false);
+            setTiles(32, "/res/icons/Wood.png", "Wood",new int[]{}, false, false);
+            setTiles(33, "/res/icons/Stone.png", "Stone",new int[]{}, false, false);
+            setTiles(34, "/res/icons/Iron_Ingot.png", "Iron",new int[]{}, false, false);
+            setTiles(35, "/res/icons/Gold_Ingot.png", "Gold",new int[]{}, false, false);
+            setTiles(36, "/res/icons/Delete_Building.png", "Delete",new int[]{}, false, false);
+            setTiles(37, "/res/icons/Settings.png", "Settings",new int[]{}, false, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,10 +63,9 @@ public class CityBuildDataBase {
         tile.setPath(path);
         tile.setImage(ImageIO.read(getClass().getResourceAsStream(path)));
         tile.setId(id);
+        tile.setCosts(costs);
         tile.setName(name);
         tile.setBuilding(isBuilding);
-        tile.setCosts(costs);
-        System.out.println(costs[0]);
         tiles.add(tile);
     }
 

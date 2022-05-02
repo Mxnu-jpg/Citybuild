@@ -3,6 +3,7 @@ package at.htblakaindorf.AHIF18.Entity;
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
+import com.sun.security.jgss.GSSUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -167,7 +168,8 @@ public class Player extends Entity{
         System.out.println("Builded, Col:" + col);
         System.out.println("Row:" + row);
         if(!gp.getTileM().isObstacle(col, row)) {
-            int[] cost = tile.getCosts();
+
+            /*
             if(getWood()<cost[0]){
                 return;
             }
@@ -181,6 +183,8 @@ public class Player extends Entity{
             if(getGold()<cost[3]) {
                 return;
             }
+             */
+            System.out.println();
             setWood(getWood()-tile.getCosts()[0]);
             setStone(getStone()-tile.getCosts()[1]);
             setIron(getIron()-tile.getCosts()[2]);
