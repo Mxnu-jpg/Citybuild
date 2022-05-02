@@ -81,8 +81,9 @@ public class TileManager {
 
             while((line = brMap.readLine()) != null) {
                 splitLine = line.split(" ");
-                for (int i = 0; i < splitLine.length; i++) {
-                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
+                for (int i = 0; i < splitLine.length-1; i++) {
+                    System.out.println(splitLine[i]);
+                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i]))) ;
                 }
             }
             brMap.close();
