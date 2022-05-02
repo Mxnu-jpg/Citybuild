@@ -211,17 +211,19 @@ public class UI {
         //Counter der Ressourcen setzen
         //gibt dir die Pixel zurück wie lange der String mit dem eingelesenen Text ist:
         //g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getIron())
+
+        //Formatierer für die Zahlenwerte der Ressourcen
         DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
 
         symbols.setGroupingSeparator(' ');
         formatter.setDecimalFormatSymbols(symbols);
 
-        g2.drawString(formatter.format(gp.getPlayer().getFood()), calculateRessourceTopMenuPos(1) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getFood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getWood()), calculateRessourceTopMenuPos(2) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getWood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getStone()), calculateRessourceTopMenuPos(3) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getStone())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getIron()), calculateRessourceTopMenuPos(4) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getIron())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getGold()), calculateRessourceTopMenuPos(5) - g2.getFontMetrics().stringWidth(String.valueOf(gp.getPlayer().getGold())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getFood()), calculateRessourceTopMenuPos(1) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getFood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getWood()), calculateRessourceTopMenuPos(2) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getWood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getStone()), calculateRessourceTopMenuPos(3) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getStone())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getIron()), calculateRessourceTopMenuPos(4) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getIron())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getGold()), calculateRessourceTopMenuPos(5) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getGold())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
 
         /*g2.drawImage(tile[10].image,   gp.getUi().getAmount_of_items_in_UI(),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*2, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
