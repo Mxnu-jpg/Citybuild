@@ -56,7 +56,7 @@ public class CityBuildDataBase {
         return instance;
 
     }
-
+//moin
     public void setTiles(int id, String path, String name, boolean collision, boolean isBuilding) throws IOException {
         Tile tile = new Tile();
         tile.setCollision(collision);
