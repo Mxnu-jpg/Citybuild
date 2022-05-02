@@ -8,6 +8,7 @@ import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,12 @@ public class CityBuildDataBase {
 
     private ArrayList<Tile> tiles;
     private ArrayList<Buildingname> buildings;
+    private ArrayList<Buildingname> icons;
 
     private CityBuildDataBase() {
         tiles = new ArrayList<>();
         buildings = new ArrayList<>();
+        icons = new ArrayList<>();
 
         try {
             //Costs: Wood, Stone, Iron, Gold
@@ -50,7 +53,7 @@ public class CityBuildDataBase {
 
     }
 
-    public void setTiles(int id, String path, String name,String[] costs, boolean collision, boolean isBuilding) throws IOException {
+    public void setTiles(int id, String path, String name, boolean collision, boolean isBuilding) throws IOException {
         Tile tile = new Tile();
         tile.setCollision(collision);
         tile.setPath(path);
@@ -63,8 +66,11 @@ public class CityBuildDataBase {
 
     public void setBuildings(UI ui) {
         for (Tile tile : tiles) {
-            if (tile.getId() >= 10 && tile.getId() < 40) {
+            if (tile.getId() >= 10 && tile.getId() < 30) {
                 buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
+            }
+            if (tile.getId() > 30 && tile.getId() < 40) {
+                icons.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));
             }
         }
     }
@@ -87,6 +93,10 @@ public class CityBuildDataBase {
 
     public ArrayList<Buildingname> getBuildings() {
         return buildings;
+    }
+
+    public ArrayList<Buildingname> getIcons() {
+        return icons;
     }
 
 }
