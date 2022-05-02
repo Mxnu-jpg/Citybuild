@@ -1,4 +1,4 @@
 package at.htblakaindorf.AHIF18.Ground;
 
-public class Blacksmith {
+public class Blacksmith extends Tile{
 }

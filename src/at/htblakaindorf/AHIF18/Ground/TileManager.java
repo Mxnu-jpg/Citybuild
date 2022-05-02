@@ -30,7 +30,7 @@ public class TileManager {
             System.out.printf(playerFile.getPath());
             playerFile.setWritable(true);
             this.gp = gp;
-            tile = new Tile[100];
+            tile = new Tile[gp.getMaxScreenRow()*gp.getMaxScreenCol()];
             mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
             getTileImage();
             BufferedReader br = new BufferedReader(new FileReader(playerFile));
@@ -53,6 +53,7 @@ public class TileManager {
                     try {
                         int num = Integer.parseInt(numbers[col]);
                         mapTileNum[col][row] = num;
+
                         col++;
                     } catch (ArrayIndexOutOfBoundsException e) {
                         JOptionPane.showMessageDialog(null,
