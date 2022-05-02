@@ -11,7 +11,8 @@ public class Tile {
     private boolean collision;
     private int id;
     private boolean building;
-    private int[] costs;
+    private int earnings;
+    private int costs;
 
 
     public String getName() {
@@ -24,10 +25,6 @@ public class Tile {
 
     public int getId() {
         return id;
-    }
-
-    public void setCosts(int[] costs) {
-        this.costs = costs;
     }
 
     public void setId(int id) {
@@ -66,7 +63,5 @@ public class Tile {
         this.building = isBuilding;
     }
 
-    public int[] getCosts() {
-        return costs;
-    }
+
 }
