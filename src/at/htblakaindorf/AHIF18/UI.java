@@ -38,6 +38,7 @@ public class UI {
     Tile[] tileTopMenue = new Tile[100];
 
     public UI(GamePanel gp) {
+        CityBuildDataBase.getInstance().setBuildings(this);
         this.gp = gp;
         buildingpath = new ArrayList<Buildingname>();
         amount_of_items_in_UI = 10;
@@ -57,9 +58,9 @@ public class UI {
         margin_from_Bottom_Menu = height_of_Bottom_UI / 8;
         margin_from_Bottomsection_Menu = height_of_Bottomsection_UI / 6;
         margin_from_Top_Menue = height_of_Top_UI/4;
+        amount_of_ready_items_in_UI = CityBuildDataBase.getInstance().getBuildings().size();
 
         //Elements Setzen in UI Max: amount_of_items_in_UI //Rest wird außerhalb gerendert
-        CityBuildDataBase.getInstance().setBuildings(this);
         /*buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
         buildingpath.add(new Buildingname(11, "/building/Blacksmith.png", "Smith",this));
         buildingpath.add(new Buildingname(12,"/res/building/Church.png", "Church",this));
@@ -73,16 +74,18 @@ public class UI {
         buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
         buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));*/
 
-        setUiImages(CityBuildDataBase.getInstance().getBuildings());
+        setUiImages(CityBuildDataBase.getInstance().getBuildings(), CityBuildDataBase.getInstance().getIcons());
 
     }
 
-    public void setUiImages(ArrayList<Buildingname> buildingpath){
+    public void setUiImages(ArrayList<Buildingname> buildingpath, ArrayList<Buildingname> icons){
 
             try {
-                for (int i = 0;i < amount_of_ready_items_in_UI;i++) {
+                for (int i = 0;i < buildingpath.size();i++) {
                     setBottomUIimage(i, buildingpath.get(i).getId(),buildingpath.get(i).getPath(), buildingpath.get(i).getName());
-                    setTopUIimage(i, buildingpath.get(i).getId(), buildingpath.get(i).getPath(), buildingpath.get(i).getName());
+                }
+                for(int i = 0; i < icons.size(); i++){
+                    setTopUIimage(i, icons.get(i).getId(), icons.get(i).getPath(), icons.get(i).getName());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -188,15 +191,15 @@ public class UI {
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
         //UI Elemente setzten Optionen, Building remove
-        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(0), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(1), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[6].image, calculateRightTopMenuPos(0), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[5].image, calculateRightTopMenuPos(1), margin_from_Top_Menue, null);
 
         //UI Elemente setzen //Ressourcen
-        g2.drawImage(tileTopMenue[9].image, calculateRessourceTopMenuPos(1), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[11].image, calculateRessourceTopMenuPos(2), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(3), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[10].image, calculateRessourceTopMenuPos(4), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(5), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(1), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[1].image, calculateRessourceTopMenuPos(2), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[2].image, calculateRessourceTopMenuPos(3), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[3].image, calculateRessourceTopMenuPos(4), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[4].image, calculateRessourceTopMenuPos(5), margin_from_Top_Menue, null);
 
         //Fare des Coutner setzen
         g2.setColor(Color.white);
@@ -269,9 +272,6 @@ public class UI {
         this.amount_of_section_in_Bottom_UI = amount_of_section_in_Bottom_UI;
     }
 
-    public void addAmount_of_ready_items_in_UI() {
-        this.amount_of_ready_items_in_UI++;
-    }
 
     public int getAmount_of_section_in_Bottom_UI() {
         return amount_of_section_in_Bottom_UI;
