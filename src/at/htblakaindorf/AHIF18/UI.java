@@ -191,8 +191,8 @@ public class UI {
         g2.fillRoundRect(x, y, width, height, 0, 0);
 
         //UI Elemente setzten Optionen, Building remove
-        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(0), margin_from_Top_Menue, null);
-        g2.drawImage(tileTopMenue[0].image, calculateRightTopMenuPos(1), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[5].image, calculateRightTopMenuPos(0), margin_from_Top_Menue, null);
+        g2.drawImage(tileTopMenue[6].image, calculateRightTopMenuPos(1), margin_from_Top_Menue, null);
 
         //UI Elemente setzen //Ressourcen
         g2.drawImage(tileTopMenue[0].image, calculateRessourceTopMenuPos(1), margin_from_Top_Menue, null);
