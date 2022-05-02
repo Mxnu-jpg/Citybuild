@@ -4,6 +4,7 @@ import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Player extends Entity{
@@ -163,13 +164,29 @@ public class Player extends Entity{
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY())/gp.getTileSize())+1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX())/gp.getTileSize())+1);
 
-        //TODO: Wenn Gebäude gebaut Ressourcen abziehen
-
-
         System.out.println("Builded, Col:" + col);
         System.out.println("Row:" + row);
-        if(!gp.getTileM().isObstacle(col, row))
-        gp.getTileM().setBuilding(col,row, tile);
+        if(!gp.getTileM().isObstacle(col, row)) {
+            int[] cost = tile.getCosts();
+            if(getWood()<cost[0]){
+                return;
+            }
+
+            if(getStone()<cost[1]) {
+                return;
+            }
+            if(getIron()<cost[2]) {
+                return;
+            }
+            if(getGold()<cost[3]) {
+                return;
+            }
+            setWood(getWood()-tile.getCosts()[0]);
+            setStone(getStone()-tile.getCosts()[1]);
+            setIron(getIron()-tile.getCosts()[2]);
+            setGold(getGold()-tile.getCosts()[3]);
+            gp.getTileM().setBuilding(col, row, tile);
+        }
 
     }
     private void removeElementMap(){
