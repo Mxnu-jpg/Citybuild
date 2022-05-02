@@ -69,7 +69,7 @@ public class CityBuildDataBase {
         tiles.add(tile);
     }
 
-    public void setBuildings(UI ui) {
+    public void setUiIcons(UI ui) {
         for (Tile tile : tiles) {
             if (tile.getId() >= 10 && tile.getId() < 30) {
                 buildings.add(new Buildingname(tile.getId(), tile.getPath(), tile.getName(), ui));

@@ -13,7 +13,6 @@ public class Buildingname {
         this.name = name;
         this.path = path;
         this.ui = ui;
-
         this.id = id;
     }
 

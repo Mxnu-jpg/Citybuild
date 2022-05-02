@@ -43,7 +43,7 @@ public class UI {
     Tile[] tileTopMenue = new Tile[100];
 
     public UI(GamePanel gp) {
-        CityBuildDataBase.getInstance().setBuildings(this);
+        CityBuildDataBase.getInstance().setUiIcons(this);
         this.gp = gp;
         buildingpath = new ArrayList<Buildingname>();
         amount_of_items_in_UI = 10;

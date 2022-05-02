@@ -30,7 +30,6 @@ public class Tile {
         this.costs = costs;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
