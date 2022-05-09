@@ -88,7 +88,7 @@ public class TileManager {
                 for (int i = 0; i < splitLine.length - 1; i++) {
                     //System.out.println(splitLine[i]);
                     //Switch -> id -> neues Objekt erstellen
-                    createSpecificBuilding(Integer.parseInt(splitLine[i]));
+                    createSpecificBuilding(Integer.parseInt(splitLine[i]), col, row);
                 }
             }
             CityBuildDataBase.getInstance().setTileList(tilesList);
@@ -358,7 +358,7 @@ public class TileManager {
 
         }
     }
-    public void createSpecificBuilding(int id){
+    public void createSpecificBuilding(int id, int col, int row){
         switch (id){
             case 0:
                 tilesList.add(new Grass());
