@@ -1,13 +1,12 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
+import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -339,7 +338,8 @@ public class TileManager {
     public ArrayList<Tile> getTilesList() {
         return tilesList;
     }
-    public void loadPlayerMapTileObjects(){
+
+    public void loadPlayerMapTileObjects() {
         try {
             BufferedReader brPlayerFile = new BufferedReader(new FileReader(playerFile));
             String line = "";
@@ -354,36 +354,36 @@ public class TileManager {
                 }
             }
             brPlayerFile.close();
-        }catch (IOException e){
+        } catch (IOException e) {
 
         }
     }
-    public void createSpecificBuilding(int id, int col, int row){
-        switch (id){
+
+    public void createSpecificBuilding(int id, int col, int row) {
+        //Update bei neuen Building
+        switch (id) {
             case 0:
-                tilesList.add(new Grass());
+                tilesList.add(new Grass(col, row));
             case 1:
-                tilesList.add(new Tree());
+                tilesList.add(new Tree(col, row));
             case 10:
-                tilesList.add(new House());
+                tilesList.add(new House(col, row));
             case 11:
-                tilesList.add(new Blacksmith());
+                tilesList.add(new Blacksmith(col, row));
             case 12:
-                tilesList.add(new Church());
+                tilesList.add(new Church(col, row));
             case 13:
-                tilesList.add(new Fisher());
+                tilesList.add(new Fisher(col, row));
             case 14:
-                tilesList.add(new Windmill());
+                tilesList.add(new Windmill(col, row));
             case 15:
-                tilesList.add(new CoalMine());
+                tilesList.add(new CoalMine(col, row));
             case 16:
-                tilesList.add(new IronMine());
+                tilesList.add(new IronMine(col, row));
             case 17:
-                tilesList.add(new Farmer());
+                tilesList.add(new Farmer(col, row));
             case 18:
-                tilesList.add(new Bakery());
-            case 30:
-                tilesList.add(new Grass());
+                tilesList.add(new Bakery(col, row));
         }
     }
 }
