@@ -23,6 +23,8 @@ public class TileManager {
     private File playerFile = Paths.get("", "data/map", "Playermap.txt").toFile();
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
     private ArrayList<Tile> tilesList;
+    private ArrayList<Tile> tileObjectsList;
+
 
     public void setG2M(Graphics2D g2M) {
         this.g2M = g2M;
@@ -31,6 +33,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         try {
             tilesList = new ArrayList<>();
+            tileObjectsList = new ArrayList<>();
             System.out.printf(playerFile.getPath());
             playerFile.setWritable(true);
             this.gp = gp;
@@ -39,6 +42,7 @@ public class TileManager {
             getTileImage();
             BufferedReader br = new BufferedReader(new FileReader(playerFile));
             loadMap(br);
+            loadPlayerMapTileObjects();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,11 +83,12 @@ public class TileManager {
             String line = "";
             String[] splitLine;
 
-            while((line = brMap.readLine()) != null) {
+            while ((line = brMap.readLine()) != null) {
                 splitLine = line.split(" ");
-                for (int i = 0; i < splitLine.length-1; i++) {
+                for (int i = 0; i < splitLine.length - 1; i++) {
                     System.out.println(splitLine[i]);
-                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i]))) ;
+                    //Switch -> id -> neues Objekt erstellen
+                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
                 }
             }
             brMap.close();
@@ -93,11 +98,9 @@ public class TileManager {
 
     }
 
-    private void getTileImage() {
+    public void getTileImage() {
         CityBuildDataBase.getInstance().setTileSize(gp);
-
         List<Tile> tiles = CityBuildDataBase.getInstance().getTiles();
-
         for (Tile tile1 : tiles) {
             tile[tile1.getId()] = tile1;
         }
@@ -117,7 +120,6 @@ public class TileManager {
             e.printStackTrace();
         }
     }*/
-
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
@@ -254,8 +256,8 @@ public class TileManager {
     public void removeBuilding(int colpos, int rowpos) {
         //TODO:überschreibe wert von Playerfile mit dem Wert der gleichen Stelle von Defaultmap
         try {
-            String linePlayer = "";
-            String lineDefault = "";
+            String linePlayer;
+            String lineDefault;
             String helpLine = "";
             String[] linesPlayer = new String[50];
             String[] linesDefault = new String[50];
@@ -335,5 +337,24 @@ public class TileManager {
 
     public ArrayList<Tile> getTilesList() {
         return tilesList;
+    }
+    public void loadPlayerMapTileObjects(){
+        try {
+            BufferedReader brPlayerFile = new BufferedReader(new FileReader(playerFile));
+            String line = "";
+            String[] splitLine;
+
+            while ((line = brPlayerFile.readLine()) != null) {
+                splitLine = line.split(" ");
+                for (int i = 0; i < splitLine.length - 1; i++) {
+                    //System.out.println(splitLine[i]);
+                    //Switch -> id -> neues Objekt erstellen
+                    tileObjectsList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
+                }
+            }
+            brPlayerFile.close();
+        }catch (IOException e){
+
+        }
     }
 }
