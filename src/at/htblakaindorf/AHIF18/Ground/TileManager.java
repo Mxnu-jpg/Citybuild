@@ -86,9 +86,9 @@ public class TileManager {
             while ((line = brMap.readLine()) != null) {
                 splitLine = line.split(" ");
                 for (int i = 0; i < splitLine.length - 1; i++) {
-                    System.out.println(splitLine[i]);
+                    //System.out.println(splitLine[i]);
                     //Switch -> id -> neues Objekt erstellen
-                    tilesList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
+                    createSpecificBuilding(Integer.parseInt(splitLine[i]));
                 }
             }
             brMap.close();
@@ -355,6 +355,34 @@ public class TileManager {
             brPlayerFile.close();
         }catch (IOException e){
 
+        }
+    }
+    public void createSpecificBuilding(int id){
+        switch (id){
+            case 0:
+                tilesList.add(new Grass());
+            case 1:
+                tilesList.add(new Tree());;
+            case 10:
+                tilesList.add(new House());;
+            case 11:
+                tilesList.add(new Blacksmith());;
+            case 12:
+                tilesList.add(new Church());;
+            case 13:
+                tilesList.add(new Fisher());;
+            case 14:
+                tilesList.add(new Windmill());;
+            case 15:
+                tilesList.add(new CoalMine());;
+            case 16:
+                tilesList.add(new IronMine());;
+            case 17:
+                tilesList.add(new Farmer());;
+            case 18:
+                tilesList.add(new Bakery());;
+            case 30:
+                tilesList.add(new Grass());;
         }
     }
 }
