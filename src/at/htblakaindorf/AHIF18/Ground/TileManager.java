@@ -61,6 +61,8 @@ public class TileManager {
                         int num = Integer.parseInt(numbers[col]);
                         mapTileNum[col][row] = num;
 
+                        createSpecificBuilding(num, col, row);
+                        CityBuildDataBase.getInstance().setTileList(tilesList);
                         col++;
                     } catch (ArrayIndexOutOfBoundsException e) {
                         JOptionPane.showMessageDialog(null,
@@ -77,21 +79,6 @@ public class TileManager {
                 }
             }
             br.close();
-
-            BufferedReader brMap = new BufferedReader(new FileReader(defaultFile));
-            String line = "";
-            String[] splitLine;
-
-            while ((line = brMap.readLine()) != null) {
-                splitLine = line.split(" ");
-                for (int i = 0; i < splitLine.length - 1; i++) {
-                    //System.out.println(splitLine[i]);
-                    //Switch -> id -> neues Objekt erstellen
-                    createSpecificBuilding(Integer.parseInt(splitLine[i]), col, row);
-                }
-            }
-            CityBuildDataBase.getInstance().setTileList(tilesList);
-            brMap.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -359,31 +346,51 @@ public class TileManager {
         }
     }
 
+    /**
+     * Adds each kind of building with its position on the map to a list.
+     * @param id id of the building which is added
+     * @param col column position of the building
+     * @param row row position of the building
+     */
     public void createSpecificBuilding(int id, int col, int row) {
         //Update bei neuen Building
         switch (id) {
             case 0:
-                tilesList.add(new Grass(col, row));
+
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Grass(col, row));
+                break;
             case 1:
-                tilesList.add(new Tree(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Tree(col, row));
+                break;
             case 10:
-                tilesList.add(new House(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new House(col, row));
+                break;
             case 11:
-                tilesList.add(new Blacksmith(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith(col, row));
+                break;
             case 12:
-                tilesList.add(new Church(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Church(col, row));
+                break;
             case 13:
-                tilesList.add(new Fisher(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Fisher(col, row));
+                break;
             case 14:
-                tilesList.add(new Windmill(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Windmill(col, row));
+                break;
             case 15:
-                tilesList.add(new CoalMine(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new CoalMine(col, row));
+                break;
             case 16:
-                tilesList.add(new IronMine(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine(col, row));
+                break;
             case 17:
-                tilesList.add(new Farmer(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer(col, row));
+                break;
             case 18:
-                tilesList.add(new Bakery(col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Bakery(col, row));
+                break;
+            default:
+                break;
         }
     }
 }

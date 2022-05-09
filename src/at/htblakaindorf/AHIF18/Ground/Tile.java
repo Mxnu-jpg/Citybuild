@@ -13,7 +13,6 @@ public class Tile {
     private boolean building;
     private int[] costs;
 
-
     public String getName() {
         return name;
     }
@@ -69,4 +68,5 @@ public class Tile {
     public int[] getCosts() {
         return costs;
     }
+
 }

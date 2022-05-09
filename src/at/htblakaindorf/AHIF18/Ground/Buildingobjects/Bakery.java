@@ -9,4 +9,9 @@ public class Bakery extends Tile {
         this.col = col;
         this.row = row;
     }
+
+    @Override
+    public String toString() {
+        return "Bakery{}";
+    }
 }
