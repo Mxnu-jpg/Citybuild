@@ -91,6 +91,7 @@ public class TileManager {
                     createSpecificBuilding(Integer.parseInt(splitLine[i]));
                 }
             }
+            CityBuildDataBase.getInstance().setTileList(tilesList);
             brMap.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -362,27 +363,27 @@ public class TileManager {
             case 0:
                 tilesList.add(new Grass());
             case 1:
-                tilesList.add(new Tree());;
+                tilesList.add(new Tree());
             case 10:
-                tilesList.add(new House());;
+                tilesList.add(new House());
             case 11:
-                tilesList.add(new Blacksmith());;
+                tilesList.add(new Blacksmith());
             case 12:
-                tilesList.add(new Church());;
+                tilesList.add(new Church());
             case 13:
-                tilesList.add(new Fisher());;
+                tilesList.add(new Fisher());
             case 14:
-                tilesList.add(new Windmill());;
+                tilesList.add(new Windmill());
             case 15:
-                tilesList.add(new CoalMine());;
+                tilesList.add(new CoalMine());
             case 16:
-                tilesList.add(new IronMine());;
+                tilesList.add(new IronMine());
             case 17:
-                tilesList.add(new Farmer());;
+                tilesList.add(new Farmer());
             case 18:
-                tilesList.add(new Bakery());;
+                tilesList.add(new Bakery());
             case 30:
-                tilesList.add(new Grass());;
+                tilesList.add(new Grass());
         }
     }
 }

@@ -18,11 +18,13 @@ public class CityBuildDataBase {
     private ArrayList<Tile> tiles;
     private ArrayList<Buildingname> buildings;
     private ArrayList<Buildingname> icons;
+    private ArrayList<Tile> tileList;
 
     private CityBuildDataBase() {
         tiles = new ArrayList<>();
         buildings = new ArrayList<>();
         icons = new ArrayList<>();
+        tileList = new ArrayList<>();
 
         try {
             //Costs: Wood, Stone, Iron, Gold
@@ -105,4 +107,11 @@ public class CityBuildDataBase {
         return icons;
     }
 
+    public ArrayList<Tile> getTileList() {
+        return tileList;
+    }
+
+    public void setTileList(ArrayList<Tile> tileList) {
+        this.tileList = tileList;
+    }
 }
