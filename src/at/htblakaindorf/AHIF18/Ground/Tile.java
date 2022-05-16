@@ -1,5 +1,6 @@
 package at.htblakaindorf.AHIF18.Ground;
 
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
 import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBehaviour;
 
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ public class Tile{
     private boolean building;
     private int[] costs;
     private int[] earnings;
+    private ProduceBehaviour produceBehaviour = new ProduceAverage();
 
     public String getName() {
         return name;
@@ -78,5 +80,12 @@ public class Tile{
 
     public void setEarnings(int[] earnings) {
         this.earnings = earnings;
+    }
+
+    public void setProduceBehaviour(ProduceBehaviour behaviour){
+        this.produceBehaviour = behaviour;
+    }
+    public void produce(){
+        produceBehaviour.produce(this.earnings);
     }
 }

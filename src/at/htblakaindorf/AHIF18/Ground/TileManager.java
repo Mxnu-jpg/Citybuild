@@ -1,12 +1,14 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
 import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class TileManager {
     int mapTileNum[][];
     private File playerFile = Paths.get("", "data/map", "Playermap.txt").toFile();
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
+    private File finalMapFile = Paths.get("", "data/map", "Finalmap.txt").toFile();
     private ArrayList<Tile> tilesList;
     private ArrayList<Tile> tileObjectsList;
 
@@ -39,7 +42,8 @@ public class TileManager {
             tile = new Tile[100];
             mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
             getTileImage();
-            BufferedReader br = new BufferedReader(new FileReader(playerFile));
+            buildMap();
+            BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
             loadMap(br);
             loadPlayerMapTileObjects();
         } catch (FileNotFoundException e) {
@@ -62,7 +66,7 @@ public class TileManager {
                         mapTileNum[col][row] = num;
 
                         createSpecificBuilding(num, col, row);
-                        CityBuildDataBase.getInstance().setTileList(tilesList);
+                        CityBuildDataBase.getInstance().setMapList(tilesList);
                         col++;
                     } catch (ArrayIndexOutOfBoundsException e) {
                         JOptionPane.showMessageDialog(null,
@@ -340,6 +344,7 @@ public class TileManager {
                 for (int i = 0; i < splitLine.length - 1; i++) {
                     //System.out.println(splitLine[i]);
                     //Switch -> id -> neues Objekt erstellen
+
                     tileObjectsList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
                 }
             }
@@ -359,10 +364,15 @@ public class TileManager {
         //Update bei neuen Building
         switch (id) {
             case 0:
-
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Grass(col, row));
                 break;
             case 1:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Sand(col, row));
+                break;
+            case 2:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Flowers(col, row));
+                break;
+            case 3:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Tree(col, row));
                 break;
             case 10:
@@ -394,6 +404,59 @@ public class TileManager {
                 break;
             default:
                 break;
+        }
+    }
+    public void setProductionRate(){
+        for (Tile tile1 : tilesList) {
+            tile1.setProduceBehaviour(new ProduceAverage());
+            tile1.produce();
+        }
+    }
+    /*public int getGroundIDFromPosition(int col, int row){
+        int id = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }*/
+
+    public void buildMap(){
+        try {
+            String playerLine = "";
+            String defaultLine = "";
+            String finalMap = "";
+
+            BufferedReader brPlayerMap = new BufferedReader(new FileReader(playerFile));
+            BufferedReader brDefaultMap = new BufferedReader(new FileReader(defaultFile));
+
+            while((playerLine = brPlayerMap.readLine()) != null
+                    && (defaultLine = brDefaultMap.readLine()) != null){
+
+                String[] playerIDs = playerLine.split(" ");
+                String[] defaultIDs = defaultLine.split(" ");;
+
+                for(int i = 0; i < 50; i++){
+                    //System.out.println(playerIDs[i] + " " + defaultIDs[i]);
+                    if(!playerIDs[i].matches("[0-9]")){
+                        finalMap += playerIDs[i] + " ";
+                    }else{
+                        finalMap += defaultIDs[i] + " ";
+                    }
+                    if(i == 49){
+                        finalMap += "\n";
+                    }
+                }
+            }
+            BufferedWriter bw = new BufferedWriter(new FileWriter(finalMapFile));
+            bw.flush();
+            bw.write(finalMap);
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
