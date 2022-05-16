@@ -105,7 +105,7 @@ public class Player extends Entity{
 
         if(kH.isInfo() == true){
             kH.setSysinfo(false);
-            System.out.println("System - Info:");
+            System.out.println("System - Info:" + gp.getX() + ", " );
         }
     }
     public void topMenuClicked(){

@@ -1,9 +1,11 @@
 package at.htblakaindorf.AHIF18.Ground;
 
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBehaviour;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
-public class Tile {
+public class Tile{
 
     private String name;
     public BufferedImage image;
@@ -12,6 +14,7 @@ public class Tile {
     private int id;
     private boolean building;
     private int[] costs;
+    private int[] earnings;
 
     public String getName() {
         return name;
@@ -69,4 +72,11 @@ public class Tile {
         return costs;
     }
 
+    public int[] getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(int[] earnings) {
+        this.earnings = earnings;
+    }
 }

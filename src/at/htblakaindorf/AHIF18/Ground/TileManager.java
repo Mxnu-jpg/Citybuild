@@ -127,6 +127,9 @@ public class TileManager {
             if (gp.getPlayer().screenX > gp.getPlayer().worldX) {
                 screenX = worldX;
             }
+            if (gp.getPlayer().screenY > gp.getPlayer().worldY + gp.getTileSize()) {
+               screenY = worldY;
+            }
             if (gp.getPlayer().screenY > gp.getPlayer().worldY + gp.getUi().getHeight_of_Top_UI()) {
                 screenY = worldY + gp.getUi().getHeight_of_Top_UI();
             }
@@ -149,7 +152,7 @@ public class TileManager {
                     //draw Map transparent
                     if (tileNum != 0)
                         g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
-                    g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
+                        g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 } catch (NullPointerException e) {
                     System.out.println("Die ausgewählte Ressource(Bild) nicht vorhanden oder nicht initialisiert, ID-Map:" + tileNum);
@@ -162,7 +165,7 @@ public class TileManager {
 
                 if (tileNum != 0)
                     g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
-                g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
             }
             worldCol++;
             if (worldCol == gp.getMaxWorldCol()) {
@@ -314,8 +317,8 @@ public class TileManager {
                 counter++;
             }
 
-            lineCol = lines[rowpos - 1].split(" ");
-            id = Integer.parseInt(lineCol[colpos - 1]);
+            lineCol = lines[rowpos -1].split(" ");
+            id = Integer.parseInt(lineCol[colpos-1]);
         } catch (IOException e) {
             e.printStackTrace();
         }
