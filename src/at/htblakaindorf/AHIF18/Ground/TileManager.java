@@ -127,7 +127,7 @@ public class TileManager {
             worldY = worldRow * gp.getTileSize();
             screenX = (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
             screenY = (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
-            //Camera am Rand
+            //Kamera am Rand
             if (gp.getPlayer().screenX > gp.getPlayer().worldX) {
                 screenX = worldX;
             }
