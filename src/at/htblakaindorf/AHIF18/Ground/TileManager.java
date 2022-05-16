@@ -21,7 +21,6 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
-    private File playerFile = Paths.get("", "data/map", "Playermap.txt").toFile();
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
     private File finalMapFile = Paths.get("", "data/map", "Finalmap.txt").toFile();
     private ArrayList<Tile> tilesList;
@@ -36,8 +35,7 @@ public class TileManager {
         try {
             tilesList = new ArrayList<>();
             tileObjectsList = new ArrayList<>();
-            System.out.printf(playerFile.getPath());
-            playerFile.setWritable(true);
+            finalMapFile.setWritable(true);
             this.gp = gp;
             tile = new Tile[100];
             mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
@@ -219,7 +217,7 @@ public class TileManager {
             String defaultLine = "";
             String finalMap = "";
 
-            BufferedReader brPlayerMap = new BufferedReader(new FileReader(playerFile));
+            BufferedReader brPlayerMap = new BufferedReader(new FileReader(finalMapFile));
             BufferedReader brDefaultMap = new BufferedReader(new FileReader(defaultFile));
 
             while ((playerLine = brPlayerMap.readLine()) != null
@@ -298,7 +296,7 @@ public class TileManager {
             loadMap(b);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
-                    "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + playerFile.getPath(), "Ressource konnte nicht gefunden werden",
+                    "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + finalMapFile.getPath(), "Ressource konnte nicht gefunden werden",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (IOException e) {
@@ -374,7 +372,7 @@ public class TileManager {
         int id = 0;
         try {
 
-            BufferedReader br = new BufferedReader(new FileReader(playerFile));
+            BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
 
             int counter = 0;
             String line = "";
@@ -396,7 +394,7 @@ public class TileManager {
 
     public void loadPlayerMapTileObjects() {
         try {
-            BufferedReader brPlayerFile = new BufferedReader(new FileReader(playerFile));
+            BufferedReader brPlayerFile = new BufferedReader(new FileReader(finalMapFile));
             String line = "";
             String[] splitLine;
 
@@ -421,7 +419,7 @@ public class TileManager {
             tile1.produce();
         }
     }
-    /*public int getGroundIDFromPosition(int col, int row){
+    public int getGroundIDFromPosition(int col, int row){
         int id = 0;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultFile));
@@ -429,7 +427,7 @@ public class TileManager {
             e.printStackTrace();
         }
         return id;
-    }*/
+    }
 
     public boolean isObstacle(int colpos, int rowpos) {
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isCollision();
