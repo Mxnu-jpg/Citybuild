@@ -123,7 +123,7 @@ public class TileManager {
             worldY = worldRow * gp.getTileSize();
             screenX = (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
             screenY = (worldY - gp.getPlayer().worldY + gp.getPlayer().screenY);
-            //Camera am Rand
+            //Kamera am Rand
             if (gp.getPlayer().screenX > gp.getPlayer().worldX) {
                 screenX = worldX;
             }
@@ -359,7 +359,6 @@ public class TileManager {
         //Update bei neuen Building
         switch (id) {
             case 0:
-
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Grass(col, row));
                 break;
             case 1:

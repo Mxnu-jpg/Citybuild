@@ -44,15 +44,18 @@ public class Player extends Entity{
 
     public void update(){
         if(kH.isUp() == true){
-            if(worldY!=screenY-gp.getUi().getHeight_of_Top_UI())
+            int y = screenY-gp.getUi().getHeight_of_Top_UI();
+            if(worldY>y)
             worldY -= speed;
+            System.out.println(screenY  + " - " + gp.getUi().getHeight_of_Top_UI());
             System.out.println(worldY);
-            System.out.println(worldX);
+            System.out.println("WorldY:" + worldY);
+            System.out.println("WorldX" + worldX);
             System.out.println("ScreenX:" + screenX);
             System.out.println("ScreenY:" + screenY);
         }
         if(kH.isDown() == true){
-            if(worldY!=gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_Bottom_UI())//not perfect
+            if(worldY<gp.getWorldHeight()-screenY+gp.getUi().getHeight_of_Bottom_UI())//not perfect
             worldY += speed;
             System.out.println(worldY);
             System.out.println(worldX);
@@ -64,7 +67,7 @@ public class Player extends Entity{
             System.out.println(worldX);
         }
         if(kH.isRight() == true){
-            if(worldX!=gp.getWorldWidth() - screenX)//not perfect
+            if(worldX<=gp.getWorldWidth() - screenX)//not perfect
             worldX += speed;
             System.out.println(worldY);
             System.out.println(worldX);
@@ -170,6 +173,10 @@ public class Player extends Entity{
 
         System.out.println("Builded, Col:" + col);
         System.out.println("Row:" + row);
+        if(col>= gp.getMaxWorldCol())
+            col = gp.getMaxWorldCol();
+        if(row >= gp.getMaxWorldRow())
+            row = gp.getMaxWorldRow();
         if(!gp.getTileM().isObstacle(col, row)) {
             int[] cost = db.getTileById(tile.getId()).getCosts();
 
@@ -223,6 +230,8 @@ public class Player extends Entity{
     public void draw(Graphics2D g2){
         //g2.setColor(Color.black);//Black
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
+
+
     }
     //Setter
     public void setBuildingID(int buildingID) {
