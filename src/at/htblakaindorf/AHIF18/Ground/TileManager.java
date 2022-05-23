@@ -2,6 +2,8 @@ package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBad;
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceGood;
 import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
@@ -438,8 +440,8 @@ public class TileManager {
     public void setProductionRate() {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
-            System.out.println(getGroundIDFromPosition(building.getCol(), building.getRow()));
-            switch (getGroundIDFromPosition(building.getCol(), building.getRow())){
+            int id = getGroundIDFromPosition(building.getCol(), building.getRow());
+            switch (id){
                 case 0:
                     building.setProduceBehaviour(new ProduceAverage());
                     break;
@@ -459,13 +461,13 @@ public class TileManager {
         try {
             BufferedReader br = new BufferedReader(new FileReader(defaultFile));
             String line;
-            int counter = 1;
-
+            int counter = 0;
 
             while((line = br.readLine()) != null){
                 String[] splittedLine = line.split(" ");
-                if(counter == row){
+                if(counter == col){
                     result = Integer.parseInt(splittedLine[col]);
+                    break;
                 }else{
                     result = 0;
                 }
