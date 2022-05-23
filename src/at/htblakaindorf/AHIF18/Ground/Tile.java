@@ -18,6 +18,18 @@ public class Tile{
     private int[] earnings;
     private ProduceBehaviour produceBehaviour = new ProduceAverage();
 
+    public Tile() {
+    }
+
+    public Tile(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings) {
+        this.name = name;
+        this.collision = collision;
+        this.id = id;
+        this.building = building;
+        this.costs = costs;
+        this.earnings = earnings;
+    }
+
     public String getName() {
         return name;
     }

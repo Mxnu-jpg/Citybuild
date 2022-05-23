@@ -2,16 +2,10 @@ package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
 import at.htblakaindorf.AHIF18.Ground.Tile;
 
-public class Bakery extends Tile {
-    int col, row;
+public class Bakery extends Building {
 
-    public Bakery(int col, int row) {
-        this.col = col;
-        this.row = row;
-    }
-
-    @Override
-    public String toString() {
-        return "Bakery{}";
+    public Bakery(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings, int col, int row) {
+        super(name, collision, id, building, costs, earnings, col, row);
     }
 }
+

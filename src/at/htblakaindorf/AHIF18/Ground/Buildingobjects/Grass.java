@@ -2,12 +2,9 @@ package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
 import at.htblakaindorf.AHIF18.Ground.Tile;
 
-public class Grass extends Tile {
+public class Grass extends Building {
 
-    int col, row;
-
-    public Grass(int col, int row) {
-        this.col = col;
-        this.row = row;
+    public Grass(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings, int col, int row) {
+        super(name, collision, id, building, costs, earnings, col, row);
     }
 }
