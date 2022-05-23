@@ -10,7 +10,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     /*
     //Resolution HD:1920x1080 WQHD:2560x1440
     final int screenWidth = 1920;
@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
     //Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
-    int tileSize = originalTitleSize*scale;
+    int tileSize = originalTitleSize * scale;
     final int maxScreenCol = 16;
     final int maxScreenRow = 9;
     final int screenWidth = tileSize * maxScreenCol;
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread;
     KeyHandler kH = new KeyHandler(this);
-    Player player = new Player(this,kH);
+    Player player = new Player(this, kH);
     UI ui = new UI(this);
     TileManager tileM = new TileManager(this);
 
@@ -60,70 +60,69 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth,screenHeight));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         //this.setBackground(new Color(0f,0f,0f,0f));
-        this.setBackground(new Color(0f,0f,0f,0f));
+        this.setBackground(new Color(0f, 0f, 0f, 0f));
         this.setDoubleBuffered(true);
         this.addMouseListener(kH);
         this.addMouseMotionListener(kH);
         this.addKeyListener(kH);
         this.setFocusable(true);
-        tempScreen = new BufferedImage(screenWidth,screenHeight, BufferedImage.TYPE_INT_ARGB);
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
     }
 
-    public void startGameThread(){
+    public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        gameThread.run();
     }
 
 
-    public void update(){
+    public void update() {
         player.update();
     }
 
     public void changeZoom(int i) {
-    oldWorldWidth = tileSize * maxWorldCol;
+        oldWorldWidth = tileSize * maxWorldCol;
 
-        if((tileSize >=85)){
-            if(i<0){
+        if ((tileSize >= 85)) {
+            if (i < 0) {
                 tileSize += i;
             }
 
-        }else if((tileSize <= 35)){
-            if(i>0){
+        } else if ((tileSize <= 35)) {
+            if (i > 0) {
                 tileSize += i;
             }
 
-        }
-        else{
-                tileSize += i;
+        } else {
+            tileSize += i;
         }
         System.out.println(tileSize);
 
-    newWorldWidth = tileSize * maxWorldCol;
-
-    double multiplier = (double)newWorldWidth/oldWorldWidth;
-    double x = player.worldX * multiplier;
-    double y = player.worldY * multiplier;
-
-    player.worldX = x;
-    player.worldY = y;
-
-    System.out.println(tileSize);
-    System.out.println(scale);
-    System.out.println(worldWidth);
-    System.out.println(worldHeight);
-    System.out.println(screenWidth);
-    System.out.println(screenHeight);
-    }
-    public void resetZoom() { //Not Working!!
-        oldWorldWidth = tileSize * maxWorldCol;
-        tileSize = originalTitleSize*scale;
         newWorldWidth = tileSize * maxWorldCol;
 
-        double multiplier = (double)newWorldWidth/oldWorldWidth;
+        double multiplier = (double) newWorldWidth / oldWorldWidth;
+        double x = player.worldX * multiplier;
+        double y = player.worldY * multiplier;
+
+        player.worldX = x;
+        player.worldY = y;
+
+        System.out.println(tileSize);
+        System.out.println(scale);
+        System.out.println(worldWidth);
+        System.out.println(worldHeight);
+        System.out.println(screenWidth);
+        System.out.println(screenHeight);
+    }
+
+    public void resetZoom() { //Not Working!!
+        oldWorldWidth = tileSize * maxWorldCol;
+        tileSize = originalTitleSize * scale;
+        newWorldWidth = tileSize * maxWorldCol;
+
+        double multiplier = (double) newWorldWidth / oldWorldWidth;
         double x = player.worldX * multiplier;
         double y = player.worldY * multiplier;
 
@@ -131,20 +130,22 @@ public class GamePanel extends JPanel implements Runnable{
         player.worldY = y;
     }
 
-    public void drawtotempScreen(){
+    public void drawtotempScreen() {
 
         tileM.draw(g2); //Draw Ground
         player.draw(g2); // Draw Player
         ui.draw(g2);
     }
-    public void drawtoScreen(){
-    Graphics g2 = getGraphics();
-        g2.drawImage(tempScreen, 0, 0,screenWidth2, screenHeight2, null);
+
+    public void drawtoScreen() {
+        Graphics g2 = getGraphics();
+        g2.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g2.dispose();
     }
-    public void paintComponent(Graphics g){
+
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         tileM.setG2M(g2);
 
         /*
@@ -167,7 +168,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double prodcueInterval = 0;
         double delta = 0;
         long lastTime = System.nanoTime();
@@ -178,18 +179,18 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("Gameloop");
         System.out.println(System.nanoTime());
 
-        while (gameThread != null){
+        while (gameThread != null) {
             currentTime = System.nanoTime();
-            delta += (currentTime - lastTime)/drawInterval;
-            timer +=(currentTime- lastTime);
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
             lastTime = currentTime;
 
 
-            if(prodcueInterval == 10){
+            if (prodcueInterval == 10) {
                 prodcueInterval = 0;
                 player.produce();
             }
-            if(delta >=1){
+            if (delta >= 1) {
                 update();
                 repaint();
                 /*drawtotempScreen();
@@ -197,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
                 drawCount++;
             }
-            if(timer >= 1000000000){
+            if (timer >= 1000000000) {
                 //System.out.println("FPS:" + drawCount);
                 prodcueInterval++;
                 drawCount = 0;
@@ -242,6 +243,7 @@ public class GamePanel extends JPanel implements Runnable{
     public int getFPS() {
         return FPS;
     }
+
     public Thread getGameThread() {
         return gameThread;
     }

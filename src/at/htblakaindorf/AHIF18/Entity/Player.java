@@ -9,10 +9,7 @@ import com.sun.security.jgss.GSSUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Player extends Entity {
 
@@ -46,7 +43,7 @@ public class Player extends Entity {
         //spawn
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
-        speed = 4;
+        speed = 10;
     }
 
     public void update() {
@@ -241,34 +238,30 @@ public class Player extends Entity {
         buildingEarnings = new HashMap<>();
 
         for (Tile tile : tiles) {
-            int[] earnings = {tile.getEarnings()[0], tile.getEarnings()[1],
-                    tile.getEarnings()[2], tile.getEarnings()[3], tile.getEarnings()[4]};
-            // System.out.println(tile.getName());
-                if (buildingCounter.get(tile.getId()) == null) {
-                    buildingCounter.put(tile.getId(), 1);
-                } else {
-                    buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
-                }
-                //System.out.println(tile.getEarnings()[0] + " " + tile.getEarnings()[1] + " " + tile.getEarnings()[3]);
-                for (Integer i = 0; i < buildingCounter.get(tile.getId()); i++) {
-                    earnings[0] += tile.getEarnings()[0];
-                    earnings[1] += tile.getEarnings()[1];
-                    earnings[2] += tile.getEarnings()[2];
-                    earnings[3] += tile.getEarnings()[3];
-                    earnings[4] += tile.getEarnings()[4];
-                }
-                buildingEarnings.put(tile.getId(), earnings);
+            int[] earnings = new int[tile.getEarnings().length];
+            if (buildingCounter.get(tile.getId()) == null) {
+                buildingCounter.put(tile.getId(), 1);
+            } else {
+                buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
+            }
 
-                Set<Integer> set = buildingEarnings.keySet();
-                for (Integer integer : set) {
-                    setFood(getFood() + buildingEarnings.get(integer)[0]);
-                    setWood(getWood() + buildingEarnings.get(integer)[1]);
-                    setStone(getStone() + buildingEarnings.get(integer)[2]);
-                    setIron(getIron() + buildingEarnings.get(integer)[3]);
-                    setGold(getGold() + buildingEarnings.get(integer)[4]);
+            for (Integer i = 0; i < buildingCounter.get(tile.getId()); i++) {
+                for (int j = 0; j < 5; j++) {
+                    earnings[j] += tile.getEarnings()[j];
                 }
             }
+            buildingEarnings.put(tile.getId(), earnings);
         }
+        Set<Integer> set = buildingEarnings.keySet();
+        for (Integer integer : set) {
+            setFood(getFood() + buildingEarnings.get(integer)[0]);
+            setWood(getWood() + buildingEarnings.get(integer)[1]);
+            setStone(getStone() + buildingEarnings.get(integer)[2]);
+            System.out.println(buildingEarnings.get(integer)[3]);
+            setIron(getIron() + buildingEarnings.get(integer)[3]);
+            setGold(getGold() + buildingEarnings.get(integer)[4]);
+        }
+    }
 
     public void draw(Graphics2D g2) {
         //g2.setColor(Color.black);//Black
