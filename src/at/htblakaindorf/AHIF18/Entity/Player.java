@@ -36,8 +36,6 @@ public class Player extends Entity {
         this.gp = gp;
         this.kH = keyH;
         db = CityBuildDataBase.getInstance();
-        buildingCounter = new HashMap<>();
-        buildingEarnings = new HashMap<>();
 
         screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2);
         screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
@@ -239,30 +237,38 @@ public class Player extends Entity {
 
     public void produce() {
         ArrayList<Tile> tiles = db.getMapList();
+        buildingCounter = new HashMap<>();
+        buildingEarnings = new HashMap<>();
 
         for (Tile tile : tiles) {
-            if(buildingCounter.get(tile.getId()) == null){
-                buildingCounter.put(tile.getId(), 1);
-            }else{
-                buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
-            }
-            buildingEarnings.put(tile.getId(), new int[]{tile.getEarnings()[0] * buildingCounter.get(tile.getId()),
-                    tile.getEarnings()[1] * buildingCounter.get(tile.getId()),
-                    tile.getEarnings()[2] * buildingCounter.get(tile.getId()),
-                    tile.getEarnings()[3] * buildingCounter.get(tile.getId()),
-                    tile.getEarnings()[4] * buildingCounter.get(tile.getId())});
-        }
-        Set<Integer> set = buildingEarnings.keySet();
-        for (Integer integer : set) {
-            System.out.println(getIron() + " - " + buildingEarnings.get(integer)[3]);
-            setFood(getFood() + buildingEarnings.get(integer)[0]);
-            setWood(getWood() + buildingEarnings.get(integer)[1]);
-            setStone(getStone() + buildingEarnings.get(integer)[2]);
-            setIron(getIron() + buildingEarnings.get(integer)[3]);
-            setGold(getGold() +buildingEarnings.get(integer)[4]);
-        }
+            int[] earnings = {tile.getEarnings()[0], tile.getEarnings()[1],
+                    tile.getEarnings()[2], tile.getEarnings()[3], tile.getEarnings()[4]};
+            // System.out.println(tile.getName());
+                if (buildingCounter.get(tile.getId()) == null) {
+                    buildingCounter.put(tile.getId(), 1);
+                } else {
+                    buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
+                }
+                //System.out.println(tile.getEarnings()[0] + " " + tile.getEarnings()[1] + " " + tile.getEarnings()[3]);
+                for (Integer i = 0; i < buildingCounter.get(tile.getId()); i++) {
+                    earnings[0] += tile.getEarnings()[0];
+                    earnings[1] += tile.getEarnings()[1];
+                    earnings[2] += tile.getEarnings()[2];
+                    earnings[3] += tile.getEarnings()[3];
+                    earnings[4] += tile.getEarnings()[4];
+                }
+                buildingEarnings.put(tile.getId(), earnings);
 
-    }
+                Set<Integer> set = buildingEarnings.keySet();
+                for (Integer integer : set) {
+                    setFood(getFood() + buildingEarnings.get(integer)[0]);
+                    setWood(getWood() + buildingEarnings.get(integer)[1]);
+                    setStone(getStone() + buildingEarnings.get(integer)[2]);
+                    setIron(getIron() + buildingEarnings.get(integer)[3]);
+                    setGold(getGold() + buildingEarnings.get(integer)[4]);
+                }
+            }
+        }
 
     public void draw(Graphics2D g2) {
         //g2.setColor(Color.black);//Black

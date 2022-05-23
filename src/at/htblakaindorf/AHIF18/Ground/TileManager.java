@@ -46,12 +46,13 @@ public class TileManager {
             defMapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
             getTileImage();
             buildMap();
+            BufferedReader b = new BufferedReader(new FileReader(defaultFile));
+            loadMap(b, defMapTileNum);
+
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(br,mapTileNum);
+            loadMap(br, mapTileNum);
             loadPlayerMapTileObjects();
 
-            BufferedReader b = new BufferedReader(new FileReader(defaultFile));
-            loadMap(b,defMapTileNum);
             setProductionRate();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class TileManager {
                     try {
                         int num = Integer.parseInt(numbers[col]);
                         map[col][row] = num;
-
+                        System.out.println(num);
                         createSpecificBuilding(num, col, row);
                         CityBuildDataBase.getInstance().setMapList(tilesList);
                         col++;
@@ -141,7 +142,7 @@ public class TileManager {
                     worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
                     //draw Map transparent
-                    if (!(tileNum >=0 && tileNum <10))
+                    if (!(tileNum >= 0 && tileNum < 10))
                         g2.drawImage(tile[defTileMap].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                     g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
@@ -177,64 +178,68 @@ public class TileManager {
      * @param row row position of the building
      */
     public void createSpecificBuilding(int id, int col, int row) {
+        if(tilesList.size() == 2500){
+            tilesList.remove(row * gp.getMaxWorldRow() + col);
+        }
         //Update bei neuen Building
         switch (id) {
             case 0:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Grass("Grass", false, 0,
-                        false, new int[]{0,0,0,0},new int[]{0,0,0,0,0}, col, row));
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 1:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Sand("Sand", false, 1,
-                        false, new int[]{0,0,0,0},new int[]{0,0,0,0,0}, col, row));
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 2:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Flowers("Flowers", false, 2,
-                        false, new int[]{0,0,0,0},new int[]{0,0,0,0,0}, col, row));
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 3:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Tree("Tree", false, 3,
-                        false, new int[]{0,0,0,0},new int[]{0,0,0,0,0}, col, row));
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 10:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new House("House", true, 10,
-                        true, new int[]{50,0,0,0},new int[]{-10,0, 0,0,5}, col, row));
+                        true, new int[]{50, 0, 0, 0}, new int[]{-10, 0, 0, 0, 5}, col, row));
                 break;
             case 11:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith("Blacksmith", true, 11,
-                        true, new int[]{80,10,0,100},new int[]{0,0,0,20,0}, col, row));
+                        true, new int[]{80, 10, 0, 100}, new int[]{0, 0, 0, 20, 0}, col, row));
                 break;
             case 12:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Church("Church", true, 12,
-                        true, new int[]{0,300,10,1000},new int[]{0,0,0,0,50}, col, row));
+                        true, new int[]{0, 300, 10, 1000}, new int[]{0, 0, 0, 0, 50}, col, row));
                 break;
             case 13:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Fisher("Fisher", true, 13,
-                        true, new int[]{20,0,0,0},new int[]{2,0,0,0,0}, col, row));
+                        true, new int[]{20, 0, 0, 0}, new int[]{2, 0, 0, 0, 0}, col, row));
                 break;
             case 14:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Windmill("Windmill", true, 14,
-                        true, new int[]{200,0,0,10},new int[]{5,0,0,0,0}, col, row));
+                        true, new int[]{200, 0, 0, 10}, new int[]{5, 0, 0, 0, 0}, col, row));
                 break;
             case 15:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new CoalMine("CoalMine", true, 15,
-                        true, new int[]{40,0,0,50},new int[]{0,0,15,15,0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 15, 15, 0}, col, row));
                 break;
             case 16:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine("IronMine", true, 16,
-                        true, new int[]{70,5,0,100},new int[]{0,0,0,50,0}, col, row));
+                        true, new int[]{70, 5, 0, 100}, new int[]{0, 0, 0, 50, 0}, col, row));
                 break;
             case 17:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer("Farmer", true, 17,
-                        true, new int[]{40,0,0,50},new int[]{8,0,0,0,0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{8, 0, 0, 0, 0}, col, row));
                 break;
             case 18:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Bakery("Bakery", true, 18,
-                        true, new int[]{40,0,0,50},new int[]{10,0 ,0,0,0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{10, 0, 0, 0, 0}, col, row));
                 break;
             default:
                 break;
         }
     }
+
     /**
      * Writes each Tile from @defaultFile into the @finalMapFile
      */
@@ -270,18 +275,20 @@ public class TileManager {
             bw.flush();
             bw.write(finalMap);
             bw.close();
+            setProductionRate();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Adds each kind of building with its position on the map to a list.
      *
-     * @param colbuidling  column position of the buidling on the map
-     * @param rowbuilding  row position of the building on the map
-     * @param building     Tile Object which will be added to the Map
+     * @param colbuidling column position of the buidling on the map
+     * @param rowbuilding row position of the building on the map
+     * @param building    Tile Object which will be added to the Map
      */
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
         try {
@@ -325,7 +332,8 @@ public class TileManager {
             fw.write(content.getBytes(StandardCharsets.UTF_8));
             fw.close();
             BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b,mapTileNum);
+            loadMap(b, mapTileNum);
+            setProductionRate();
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
                     "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + finalMapFile.getPath(), "Ressource konnte nicht gefunden werden",
@@ -388,7 +396,8 @@ public class TileManager {
             fw.close();
 
             BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b,mapTileNum);
+            loadMap(b, mapTileNum);
+            setProductionRate();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -396,10 +405,11 @@ public class TileManager {
 
     /**
      * Returns the ID of the Tile which is currently on the place of the given column and row
+     *
      * @param colpos column-position of the Tile
      * @param rowpos row-position of the tile
      * @return ID of the Tile
-     * */
+     */
     public int getIdFromPosition(int colpos, int rowpos) {
         int id = 0;
         try {
@@ -449,7 +459,7 @@ public class TileManager {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
-            switch (id){
+            switch (id) {
                 case 0:
                     building.setProduceBehaviour(new ProduceAverage());
                     break;
@@ -464,29 +474,29 @@ public class TileManager {
             }
         }
     }
-    public int getGroundIDFromPosition(int col, int row){
+
+    public int getGroundIDFromPosition(int col, int row) {
         int result = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(defaultFile));
             String line;
-            int counter = 0;
+            int counterRow = 0;
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] splittedLine = line.split(" ");
-                if(counter == col){
+                if (row == counterRow) {
                     result = Integer.parseInt(splittedLine[col]);
-                    break;
-                }else{
-                    result = 0;
+                } else {
+                    return 0;
                 }
-                counter++;
+                counterRow++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-            return result;
+        return result;
     }
 
     public boolean isObstacle(int colpos, int rowpos) {
