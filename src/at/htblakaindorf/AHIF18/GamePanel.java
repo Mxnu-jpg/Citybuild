@@ -168,6 +168,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         double drawInterval = 1000000000/FPS;
+        double prodcueInterval = 0;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -183,6 +184,11 @@ public class GamePanel extends JPanel implements Runnable{
             timer +=(currentTime- lastTime);
             lastTime = currentTime;
 
+
+            if(prodcueInterval == 10){
+                prodcueInterval = 0;
+                player.produce();
+            }
             if(delta >=1){
                 update();
                 repaint();
@@ -193,11 +199,13 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if(timer >= 1000000000){
                 //System.out.println("FPS:" + drawCount);
+                prodcueInterval++;
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
+
 
     public void setScale(int scale) {
         this.scale = scale;

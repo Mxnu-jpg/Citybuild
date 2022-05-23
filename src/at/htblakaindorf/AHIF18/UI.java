@@ -66,19 +66,6 @@ public class UI {
         amount_of_ready_items_in_UI = CityBuildDataBase.getInstance().getBuildings().size();
 
         //Elements Setzen in UI Max: amount_of_items_in_UI //Rest wird außerhalb gerendert
-        /*buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
-        buildingpath.add(new Buildingname(11, "/building/Blacksmith.png", "Smith",this));
-        buildingpath.add(new Buildingname(12,"/res/building/Church.png", "Church",this));
-        buildingpath.add(new Buildingname(13, "/building/Fisher.png", "Fisher",this));
-        buildingpath.add(new Buildingname(14,"/res/building/Windmill.png", "Windmill",this));
-        buildingpath.add(new Buildingname(15, "/building/Coal Mine.png", "Coal Mine",this));
-        buildingpath.add(new Buildingname(16, "/building/Iron Mine.png", "Irone Mine",this));
-        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));
-        buildingpath.add(new Buildingname(10,"/res/building/House1.png", "Villager",this));*/
-
         setUiImages(CityBuildDataBase.getInstance().getBuildings(), CityBuildDataBase.getInstance().getIcons());
 
     }

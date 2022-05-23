@@ -141,7 +141,7 @@ public class TileManager {
                     worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().screenY) {
                 try {
                     //draw Map transparent
-                    if (tileNum != 0)
+                    if (!(tileNum >=0 && tileNum <10))
                         g2.drawImage(tile[defTileMap].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                     g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
@@ -235,7 +235,9 @@ public class TileManager {
                 break;
         }
     }
-
+    /**
+     * Writes each Tile from @defaultFile into the @finalMapFile
+     */
     public void buildMap() {
         try {
             String playerLine = "";
@@ -274,7 +276,13 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Adds each kind of building with its position on the map to a list.
+     *
+     * @param colbuidling  column position of the buidling on the map
+     * @param rowbuilding  row position of the building on the map
+     * @param building     Tile Object which will be added to the Map
+     */
     public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));

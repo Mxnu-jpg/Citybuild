@@ -123,7 +123,6 @@ public class Player extends Entity {
                 }
             }
         }
-        produce();
     }
 
     public void topMenuClicked() {
@@ -242,7 +241,6 @@ public class Player extends Entity {
         ArrayList<Tile> tiles = db.getMapList();
 
         for (Tile tile : tiles) {
-            System.out.println(tile.getEarnings());
             if(buildingCounter.get(tile.getId()) == null){
                 buildingCounter.put(tile.getId(), 1);
             }else{
@@ -256,6 +254,7 @@ public class Player extends Entity {
         }
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
+            System.out.println(getIron() + " - " + buildingEarnings.get(integer)[3]);
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
