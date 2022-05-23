@@ -127,7 +127,6 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
         return menueClicked;
     }
 
-
     //Setter
     public void setSysinfo(boolean sysinfo) {
         this.sysinfo = sysinfo;

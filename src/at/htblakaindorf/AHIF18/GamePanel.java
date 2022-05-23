@@ -134,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void drawtotempScreen(){
 
         tileM.draw(g2); //Draw Ground
-        player.draw(g2);
+        player.draw(g2); // Draw Player
         ui.draw(g2);
     }
     public void drawtoScreen(){

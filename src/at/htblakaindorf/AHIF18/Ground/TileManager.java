@@ -2,14 +2,13 @@ package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBad;
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceGood;
 import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ public class TileManager {
     Tile[] tile;
     Graphics2D g2M;
     int mapTileNum[][];
+    int defMapTileNum[][];
+
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
     private File finalMapFile = Paths.get("", "data/map", "Finalmap.txt").toFile();
     private ArrayList<Tile> tilesList;
@@ -40,11 +41,15 @@ public class TileManager {
             this.gp = gp;
             tile = new Tile[100];
             mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
+            defMapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
             getTileImage();
             buildMap();
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(br);
+            loadMap(br,mapTileNum);
             loadPlayerMapTileObjects();
+
+            BufferedReader b = new BufferedReader(new FileReader(defaultFile));
+            loadMap(b,defMapTileNum);
             setProductionRate();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -52,7 +57,7 @@ public class TileManager {
 
     }
 
-    public void loadMap(BufferedReader br) {
+    public void loadMap(BufferedReader br, int map[][]) {
         try {
             int col = 0;
             int row = 0;
@@ -63,7 +68,7 @@ public class TileManager {
                     String numbers[] = line.split(" ");
                     try {
                         int num = Integer.parseInt(numbers[col]);
-                        mapTileNum[col][row] = num;
+                        map[col][row] = num;
 
                         createSpecificBuilding(num, col, row);
                         CityBuildDataBase.getInstance().setMapList(tilesList);
@@ -93,6 +98,7 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
         int tileNum;
+        int defTileMap;
         int worldX;
         int worldY;
         double screenX;
@@ -101,6 +107,7 @@ public class TileManager {
 
         while (worldCol < gp.getMaxWorldCol() && worldRow < gp.getMaxWorldRow()) {
             tileNum = mapTileNum[worldCol][worldRow];
+            defTileMap = defMapTileNum[worldCol][worldRow];
             worldX = worldCol * gp.getTileSize();
             worldY = worldRow * gp.getTileSize();
             screenX = (worldX - gp.getPlayer().worldX + gp.getPlayer().screenX);
@@ -133,7 +140,7 @@ public class TileManager {
                 try {
                     //draw Map transparent
                     if (tileNum != 0)
-                        g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
+                        g2.drawImage(tile[defTileMap].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                     g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 } catch (NullPointerException e) {
@@ -145,9 +152,10 @@ public class TileManager {
                     rightOffset > gp.worldWidth - gp.getPlayer().worldX ||
                     bottomOffset > gp.worldHeight - gp.getPlayer().worldY) {
 
-                if (tileNum != 0)
+               /* if (tileNum != 0)
                     g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                 g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
+                */
             }
             worldCol++;
             if (worldCol == gp.getMaxWorldCol()) {
@@ -240,6 +248,7 @@ public class TileManager {
 
                 String[] playerIDs = playerLine.split(" ");
                 String[] defaultIDs = defaultLine.split(" ");
+                ;
 
                 for (int i = 0; i < 50; i++) {
                     //System.out.println(playerIDs[i] + " " + defaultIDs[i]);
@@ -305,9 +314,8 @@ public class TileManager {
             fw.flush();
             fw.write(content.getBytes(StandardCharsets.UTF_8));
             fw.close();
-
             BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b);
+            loadMap(b,mapTileNum);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
                     "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + finalMapFile.getPath(), "Ressource konnte nicht gefunden werden",
@@ -370,7 +378,7 @@ public class TileManager {
             fw.close();
 
             BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b);
+            loadMap(b,mapTileNum);
         } catch (IOException e) {
             e.printStackTrace();
         }
