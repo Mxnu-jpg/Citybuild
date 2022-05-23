@@ -12,10 +12,10 @@ import java.io.BufferedReader;
 
 public class GamePanel extends JPanel implements Runnable {
     /*
-    //Resolution HD:1920x1080 WQHD:2560x1440
+    Resolution HD:1920x1080 WQHD:2560x1440
     final int screenWidth = 1920;
     final int screenHeight = 1080;
-    //Tilemanagement
+    Tilemanagement
     final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
     int tileSize = originalTitleSize*scale;
@@ -34,9 +34,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     //FPS
     final int FPS = 60;
-    //FULLSCREEN
-    int screenWidth2 = screenWidth;
-    int screenHeight2 = screenHeight;
     Graphics2D g2;
     BufferedImage tempScreen;
 
@@ -45,12 +42,6 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = new Player(this, kH);
     UI ui = new UI(this);
     TileManager tileM = new TileManager(this);
-
-
-    //Zoom
-    int oldWorldWidth;
-    int newWorldWidth;
-
 
     //WORLD SETTINGS
     private final int maxWorldCol = 50;
@@ -81,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         player.update();
     }
-
+    /*
     public void changeZoom(int i) {
         oldWorldWidth = tileSize * maxWorldCol;
 
@@ -142,28 +133,28 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g2.dispose();
     }
-
+    */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        tileM.setG2M(g2);
 
         /*
         AffineTransform trans = new AffineTransform();
         trans.scale(2, 2);
         g2.setTransform(trans);
+        double drawStart = 0;
+        drawStart = System.nanoTime();
         */
-        //double drawStart = 0;
-        //drawStart = System.nanoTime();
         tileM.draw(g2); //Draw Ground
         player.draw(g2);
         ui.draw(g2);
-        //double drawEnd = System.nanoTime();
-        //double passed = drawEnd-drawStart;
-        //g2.setColor(Color.white);
-        //g2.drawString("Draw Time: " + 1000000000, 10, 400);
-        //System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
-
+        /*
+        double drawEnd = System.nanoTime();
+        double passed = drawEnd-drawStart;
+        g2.setColor(Color.white);
+        g2.drawString("Draw Time: " + 1000000000, 10, 400);
+        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
+        */
     }
 
     @Override
@@ -207,30 +198,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
-    public void setScale(int scale) {
-        this.scale = scale;
-    }
-
-    public int getOriginalTitleSize() {
-        return originalTitleSize;
-    }
-
-    public int getScale() {
-        return scale;
-    }
-
     public int getTileSize() {
         return tileSize;
     }
 
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
-    }
 
     public int getScreenWidth() {
         return screenWidth;
@@ -240,13 +211,6 @@ public class GamePanel extends JPanel implements Runnable {
         return screenHeight;
     }
 
-    public int getFPS() {
-        return FPS;
-    }
-
-    public Thread getGameThread() {
-        return gameThread;
-    }
 
     public int getMaxWorldCol() {
         return maxWorldCol;
@@ -276,5 +240,31 @@ public class GamePanel extends JPanel implements Runnable {
         return tileM;
     }
 
+    /*
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
 
+    public int getOriginalTitleSize() {
+        return originalTitleSize;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+    public int getFPS() {
+        return FPS;
+    }
+
+    public Thread getGameThread() {
+        return gameThread;
+    }
+    */
 }

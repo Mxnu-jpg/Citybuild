@@ -1,6 +1,13 @@
 package at.htblakaindorf.AHIF18.Ground.Behaviours;
 
-public class ProduceGood implements ProduceBehaviour{
+/**
+ * Good Produce-Behaviour for {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building}
+ * placed on a {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Flowers} tile
+ *
+ * @author Marcel Schmidl
+ * @version 1.0
+ * */
+public class  ProduceGood implements ProduceBehaviour{
     @Override
     public int[] produce(int[] earnings) {
 

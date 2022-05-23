@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
 /**
- * Dataclass for the Tiles placed on the Map
+ * Dataclass for the Tiles placed on the map
  *
  * @author Manuel Reinprecht, Marcel Schmidl
  * @version 1.0

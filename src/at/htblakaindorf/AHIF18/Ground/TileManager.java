@@ -15,30 +15,30 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
+/**
+ * Management class for all {@link Tile}s on the map
+ *
+ * @author Manuel Reinprecht
+ * @author Marcel Schmidl
+ * @version 1.2
+ * */
 public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
-    Graphics2D g2M;
     int mapTileNum[][];
     int defMapTileNum[][];
 
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
     private File finalMapFile = Paths.get("", "data/map", "Finalmap.txt").toFile();
     private ArrayList<Tile> tilesList;
-    private ArrayList<Tile> tileObjectsList;
-
-
-    public void setG2M(Graphics2D g2M) {
-        this.g2M = g2M;
-    }
 
     public TileManager(GamePanel gp) {
         try {
             tilesList = new ArrayList<>();
-            tileObjectsList = new ArrayList<>();
             finalMapFile.setWritable(true);
             this.gp = gp;
             tile = new Tile[100];
@@ -51,7 +51,6 @@ public class TileManager {
 
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
             loadMap(br, mapTileNum);
-            loadPlayerMapTileObjects();
 
             setProductionRate();
         } catch (FileNotFoundException e) {
@@ -60,6 +59,12 @@ public class TileManager {
 
     }
 
+    /**
+     * Load the playermap with the given {@link BufferedReader} and set the {@link Building}s
+     *
+     * @param br BufferedReader to load the map
+     * @param map contains id's of the map
+     * */
     public void loadMap(BufferedReader br, int map[][]) {
         try {
             int col = 0;
@@ -241,12 +246,12 @@ public class TileManager {
     }
 
     /**
-     * Writes each Tile from @defaultFile into the @finalMapFile
+     * Writes each {@link Tile} from defaultMap into the finalMap
      */
     public void buildMap() {
         try {
-            String playerLine = "";
-            String defaultLine = "";
+            String playerLine;
+            String defaultLine;
             String finalMap = "";
 
             BufferedReader brPlayerMap = new BufferedReader(new FileReader(finalMapFile));
@@ -284,72 +289,47 @@ public class TileManager {
     }
 
     /**
-     * Adds each kind of building with its position on the map to a list.
+     * Adds a {@link Building} with its position on the map to a {@link List}.
      *
-     * @param colbuidling column position of the buidling on the map
-     * @param rowbuilding row position of the building on the map
-     * @param building    Tile Object which will be added to the Map
+     * @param colpos column position of the {@link Building} on the map
+     * @param rowpos row position of the {@link Building} on the map
+     * @param building {@link Tile} which will be added to the map
      */
-    public void setBuilding(int colbuidling, int rowbuilding, Tile building) {
+    public void setBuilding(int colpos, int rowpos, Tile building) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
 
             int counter = 0;
-            String line = "";
-            String helpLine = "";
-            String[] lines = new String[50];
-            String[] lineCol;
+            String line;
+            String[] linesPlayer = new String[50];
+            String[] lineColPlayer;
 
 
             while ((line = br.readLine()) != null) {
-                lines[counter] = line;
+                linesPlayer[counter] = line;
                 counter++;
             }
 
-            lineCol = lines[rowbuilding - 1].split(" ");
-            lineCol[colbuidling - 1] = building.getId() + "";
+            lineColPlayer = linesPlayer[rowpos - 1].split(" ");
+            lineColPlayer[colpos - 1] = building.getId() + "";
 
-            for (int i = 0; i < lineCol.length; i++) {
-                if (i == lineCol.length - 1) {
-                    helpLine += lineCol[i];
-                } else {
-                    helpLine += lineCol[i] + " ";
-                }
-            }
-            lines[rowbuilding - 1] = helpLine;
 
-            FileOutputStream fw = new FileOutputStream(finalMapFile, false);
-            String content = "";
-            for (int i = 0; i < lines.length; i++) {
-                if (i == lines.length - 1) {
-                    content += lines[i];
-                } else {
-                    content += lines[i] + "\n";
-                }
-            }
-            //System.out.println(content);
-            fw.flush();
-            fw.write(content.getBytes(StandardCharsets.UTF_8));
-            fw.close();
-            BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b, mapTileNum);
-            setProductionRate();
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null,
-                    "Die ausgewählte Map konnte nicht gefunden werden, Quelle: " + finalMapFile.getPath(), "Ressource konnte nicht gefunden werden",
-                    JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            writeNewFile(lineColPlayer, linesPlayer, rowpos);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Removes the {@link Building} on the given position from the map
+     *
+     * @param colpos column position of the {@link Building} on the map
+     * @param rowpos row position of the {@link Building} on the map
+     * */
     public void removeBuilding(int colpos, int rowpos) {
-        //TODO:überschreibe wert von Playerfile mit dem Wert der gleichen Stelle von Defaultmap
         try {
             String linePlayer;
             String lineDefault;
-            String helpLine = "";
             String[] linesPlayer = new String[50];
             String[] linesDefault = new String[50];
 
@@ -368,47 +348,61 @@ public class TileManager {
             }
 
             lineColPlayer = linesPlayer[rowpos - 1].split(" ");
-
             lineColDefault = linesDefault[rowpos - 1].split(" ");
+
             lineColPlayer[colpos - 1] = lineColDefault[colpos - 1];
 
-            for (int i = 0; i < lineColPlayer.length; i++) {
-                if (i == lineColPlayer.length - 1) {
-                    helpLine += lineColPlayer[i];
-                } else {
-                    helpLine += lineColPlayer[i] + " ";
-                }
-            }
-            linesPlayer[rowpos - 1] = helpLine;
 
-            FileOutputStream fw = new FileOutputStream(finalMapFile, false);
-            String content = "";
-            for (int i = 0; i < linesPlayer.length; i++) {
-                if (i == linesPlayer.length - 1) {
-                    content += linesPlayer[i];
-                } else {
-                    content += linesPlayer[i] + "\n";
-                }
-            }
-            //System.out.println(content);
-            fw.flush();
-            fw.write(content.getBytes(StandardCharsets.UTF_8));
-            fw.close();
-
-            BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
-            loadMap(b, mapTileNum);
-            setProductionRate();
+            writeNewFile(lineColPlayer, linesPlayer, rowpos);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Returns the ID of the Tile which is currently on the place of the given column and row
+     * Writes the new lines into the map
      *
-     * @param colpos column-position of the Tile
-     * @param rowpos row-position of the tile
-     * @return ID of the Tile
+     * @param rowpos row position of the {@link Tile}
+     * @param lineColPlayer column IDs of the gamemap
+     * @param linesPlayer lines of the gamemap file
+     * */
+    public void writeNewFile(String[] lineColPlayer, String[] linesPlayer, int rowpos) throws IOException {
+       String line = "";
+
+        for (int i = 0; i < lineColPlayer.length; i++) {
+            if (i == lineColPlayer.length - 1) {
+                line += lineColPlayer[i];
+            } else {
+                line += lineColPlayer[i] + " ";
+            }
+        }
+        linesPlayer[rowpos - 1] = line;
+
+        FileOutputStream fw = new FileOutputStream(finalMapFile, false);
+        String content = "";
+        for (int i = 0; i < linesPlayer.length; i++) {
+            if (i == linesPlayer.length - 1) {
+                content += linesPlayer[i];
+            } else {
+                content += linesPlayer[i] + "\n";
+            }
+        }
+        fw.flush();
+        fw.write(content.getBytes(StandardCharsets.UTF_8));
+        fw.close();
+
+        BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
+        loadMap(b, mapTileNum);
+        setProductionRate();
+    }
+
+
+    /**
+     * Returns the ID of the {@link Tile} which is currently on the place of the given column and row
+     *
+     * @param colpos column position of the {@link Tile}
+     * @param rowpos row position of the {@link Tile}
+     * @return ID of the {@link Tile}
      */
     public int getIdFromPosition(int colpos, int rowpos) {
         int id = 0;
@@ -434,27 +428,10 @@ public class TileManager {
         return id;
     }
 
-    public void loadPlayerMapTileObjects() {
-        try {
-            BufferedReader brPlayerFile = new BufferedReader(new FileReader(finalMapFile));
-            String line = "";
-            String[] splitLine;
-
-            while ((line = brPlayerFile.readLine()) != null) {
-                splitLine = line.split(" ");
-                for (int i = 0; i < splitLine.length - 1; i++) {
-                    //System.out.println(splitLine[i]);
-                    //Switch -> id -> neues Objekt erstellen
-
-                    tileObjectsList.add(CityBuildDataBase.getInstance().getTileById(Integer.parseInt(splitLine[i])));
-                }
-            }
-            brPlayerFile.close();
-        } catch (IOException e) {
-
-        }
-    }
-
+    /**
+     * Sets the production rate of every {@link Building} on the map base on the
+     * {@link Tile} they are placed on
+     * */
     public void setProductionRate() {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
@@ -476,7 +453,15 @@ public class TileManager {
         }
     }
 
-    public int getGroundIDFromPosition(int col, int row) {
+    /**
+     * Returns the ID of the {@link Tile} which is the ground on the given position
+     *
+     * @param colpos column position of the {@link Tile}
+     * @param rowpos row position of the {@link Tile}
+     *
+     * @return returns the ID of the {@link Tile}
+     * */
+    public int getGroundIDFromPosition(int colpos, int rowpos) {
         int result = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(defaultFile));
@@ -485,8 +470,8 @@ public class TileManager {
 
             while ((line = br.readLine()) != null) {
                 String[] splittedLine = line.split(" ");
-                if (row == counterRow) {
-                    result = Integer.parseInt(splittedLine[col]);
+                if (rowpos == counterRow) {
+                    result = Integer.parseInt(splittedLine[colpos]);
                 }
                 counterRow++;
             }
@@ -498,20 +483,42 @@ public class TileManager {
         return result;
     }
 
+    /**
+     * Checks if the {@link Tile} on the given position is an obstacle or not
+     *
+     * @param colpos column position of the {@link Tile}
+     * @param rowpos row position of the {@link Tile}
+     *
+     * @return true, if the {@link Tile} is an obstacle
+     */
     public boolean isObstacle(int colpos, int rowpos) {
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isCollision();
     }
 
+    /**
+     * Checks if the {@link Tile} on the given position is an {@link Building} or not
+     *
+     * @param colpos column position of the {@link Tile}
+     * @param rowpos row position of the {@link Tile}
+     *
+     * @return true, if the {@link Tile} is an {@link Building}
+     */
     public boolean isBuilding(int colpos, int rowpos) {
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isBuilding();
     }
 
+
+    /**
+     * Sets the size of the {@link Tile} based on the {@link GamePanel} and
+     * the {@link Tile} for the {@link Image}
+     * */
     public void getTileImage() {
         CityBuildDataBase.getInstance().setTileSize(gp);
         List<Tile> tiles = CityBuildDataBase.getInstance().getTiles();
         for (Tile tile1 : tiles) {
             tile[tile1.getId()] = tile1;
         }
+
     }
 
     public ArrayList<Tile> getTilesList() {
