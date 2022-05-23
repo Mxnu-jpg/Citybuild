@@ -6,6 +6,12 @@ import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBehaviour;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
+/**
+ * Dataclass for the Tiles placed on the Map
+ *
+ * @author Manuel Reinprecht, Marcel Schmidl
+ * @version 1.0
+ * */
 public class Tile{
 
     private String name;

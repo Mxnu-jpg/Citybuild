@@ -472,6 +472,7 @@ public class TileManager {
                 default:
                     return;
             }
+            building.produce();
         }
     }
 
@@ -486,8 +487,6 @@ public class TileManager {
                 String[] splittedLine = line.split(" ");
                 if (row == counterRow) {
                     result = Integer.parseInt(splittedLine[col]);
-                } else {
-                    return 0;
                 }
                 counterRow++;
             }
