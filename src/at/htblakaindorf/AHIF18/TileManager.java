@@ -48,10 +48,10 @@ public class TileManager {
 
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
             loadMap(br, mapTileNum);
-            setProductionRate();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -90,10 +90,10 @@ public class TileManager {
                 }
             }
             br.close();
+            setProductionRate();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void draw(Graphics2D g2) {
@@ -287,12 +287,12 @@ public class TileManager {
             bw.flush();
             bw.write(finalMap);
             bw.close();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -325,7 +325,6 @@ public class TileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setProductionRate();
     }
 
     /**
@@ -401,7 +400,6 @@ public class TileManager {
 
         BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
         loadMap(b, mapTileNum);
-        setProductionRate();
     }
 
 
@@ -440,11 +438,10 @@ public class TileManager {
      * Sets the production rate of every {@link Building} on the map base on the
      * {@link Tile} they are placed on
      * */
-    public void setProductionRate() {
+    public void setProductionRate() { // die Überprüfungen werden nach ca 200 tiles nicht mehr richtig ausgeführt
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
-
             switch (id) {
                 case 0:
                     building.setProduceBehaviour(new ProduceFoodAverage());
