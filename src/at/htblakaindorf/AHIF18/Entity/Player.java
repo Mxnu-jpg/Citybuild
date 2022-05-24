@@ -245,7 +245,7 @@ public class Player extends Entity {
         boolean blacksmithonMap = false;
         boolean coalmineOnMap = false;
         boolean bakeryOnMap = false;
-        boolean WindmillonMap= false;
+        boolean windmillonMap= false;
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
         int fsum = 0;
@@ -276,6 +276,11 @@ public class Player extends Entity {
             blacksmithonMap = true;
         if(buildingCounter.get(15) != null)
             coalmineOnMap = true;
+        if(buildingCounter.get(14) != null)
+             windmillonMap = true;
+        if(buildingCounter.get(18) != null)
+             bakeryOnMap = true;
+
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
 

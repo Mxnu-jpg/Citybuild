@@ -48,6 +48,7 @@ public class TileManager {
 
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
             loadMap(br, mapTileNum);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
