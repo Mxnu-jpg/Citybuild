@@ -14,6 +14,7 @@ public class ProduceFoodBad implements ProduceBehaviour{
      * @return */
     @Override
     public int[] produce(int[] earnings) {
+        if(!(earnings[0] <= 0))
             earnings[0] = (int)(earnings[0] * 0.8);
         return earnings;
     }

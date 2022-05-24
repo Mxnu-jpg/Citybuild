@@ -269,7 +269,8 @@ public class Player extends Entity {
                     buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
             if(tile.getId() >= 10)
-                System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
+                System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
+                        ", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
         }
 
         if(buildingCounter.get(11) != null)
@@ -283,7 +284,7 @@ public class Player extends Entity {
 
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
-
+            if(windmillonMap && bakeryOnMap)
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
