@@ -59,7 +59,7 @@ public class Player extends Entity {
             System.out.println("ScreenY:" + screenY);
         }
         if (kH.isDown() == true) {
-            if (worldY < gp.getWorldHeight() - screenY + gp.getUi().getHeight_of_Bottom_UI())//not perfect
+            if (worldY < gp.getWorldHeight() - screenY + gp.getUi().getHeight_of_Bottom_UI()- gp.getTileSize())
                 worldY += speed;
             System.out.println(worldY);
             System.out.println(worldX);
@@ -71,7 +71,7 @@ public class Player extends Entity {
             System.out.println(worldX);
         }
         if (kH.isRight() == true) {
-            if (worldX <= gp.getWorldWidth() - screenX)//not perfect
+            if (worldX <= gp.getWorldWidth() - screenX - gp.getTileSize())
                 worldX += speed;
             System.out.println(worldY);
             System.out.println(worldX);
@@ -234,6 +234,10 @@ public class Player extends Entity {
 
     public void produce() {
         ArrayList<Tile> tiles = db.getMapList();
+        boolean blacksmithonMap = false;
+        boolean coalmineOnMap = false;
+        boolean bakeryOnMap = false;
+        boolean WindmillonMap= false;
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
 
@@ -252,12 +256,17 @@ public class Player extends Entity {
             }
             buildingEarnings.put(tile.getId(), earnings);
         }
+        if(buildingCounter.get(11) != null)
+            blacksmithonMap = true;
+        if(buildingCounter.get(15) != null)
+            coalmineOnMap = true;
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
+
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
-            System.out.println(buildingEarnings.get(integer)[3]);
+            if(blacksmithonMap && coalmineOnMap)
             setIron(getIron() + buildingEarnings.get(integer)[3]);
             setGold(getGold() + buildingEarnings.get(integer)[4]);
         }
