@@ -94,7 +94,6 @@ public class Tile{
     public int[] getEarnings() {
         return earnings;
     }
-
     public void setEarnings(int[] earnings) {
         this.earnings = earnings;
     }

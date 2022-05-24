@@ -1,8 +1,9 @@
-package at.htblakaindorf.AHIF18.Ground;
+package at.htblakaindorf.AHIF18;
 
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Behaviours.*;
 import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
+import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
@@ -51,7 +52,6 @@ public class TileManager {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -237,7 +237,7 @@ public class TileManager {
                 break;
             case 16:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine("IronMine", true, 16,
-                        true, new int[]{70, 5, 0, 100}, new int[]{0, 0, 0, 50, 0}, col, row));
+                        true, new int[]{70, 5, 0, 100}, new int[]{0, 0, 0, 10, 0}, col, row));
                 break;
             case 17:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer("Farmer", true, 17,
@@ -325,6 +325,7 @@ public class TileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setProductionRate();
     }
 
     /**
@@ -400,6 +401,7 @@ public class TileManager {
 
         BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
         loadMap(b, mapTileNum);
+        setProductionRate();
     }
 
 
@@ -442,6 +444,7 @@ public class TileManager {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
+
             switch (id) {
                 case 0:
                     building.setProduceBehaviour(new ProduceFoodAverage());

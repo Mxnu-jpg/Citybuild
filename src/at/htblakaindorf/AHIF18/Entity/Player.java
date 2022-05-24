@@ -199,7 +199,6 @@ public class Player extends Entity {
                 JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf Kohlefelder platziert werden", "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             if (getWood() < cost[0]) {
                 JOptionPane.showMessageDialog(null, "Leider reicht der Bestand von Holz für dieses Gebäude nicht aus\n", "Zu wenig Holz", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -232,7 +231,6 @@ public class Player extends Entity {
         System.out.println("Row:" + row);
 
         if (gp.getTileM().isBuilding(col, row)) {
-
             setWood(getWood() + db.getTileById(gp.getTileM().getIdFromPosition(col, row)).getCosts()[0] / 4);
             setStone(getStone() + db.getTileById(gp.getTileM().getIdFromPosition(col, row)).getCosts()[1] / 4);
             setIron(getIron() + db.getTileById(gp.getTileM().getIdFromPosition(col, row)).getCosts()[2] / 4);
@@ -242,6 +240,7 @@ public class Player extends Entity {
     }
 
     public void produce() {
+
         ArrayList<Tile> tiles = db.getMapList();
         boolean blacksmithonMap = false;
         boolean coalmineOnMap = false;
@@ -249,22 +248,30 @@ public class Player extends Entity {
         boolean WindmillonMap= false;
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
+        int fsum = 0;
+        int wsum = 0;
+        int ssum = 0;
+        int isum = 0;
+        int gsum = 0;
 
         for (Tile tile : tiles) {
-            int[] earnings = new int[tile.getEarnings().length];
+            buildingEarnings.put(tile.getId(), new int[]{0,0,0,0,0});
+        }
+
+        for (Tile tile : tiles) {
             if (buildingCounter.get(tile.getId()) == null) {
                 buildingCounter.put(tile.getId(), 1);
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
+            buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
+                    buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
+                    buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
-            for (Integer i = 0; i < buildingCounter.get(tile.getId()); i++) {
-                for (int j = 0; j < 5; j++) {
-                    earnings[j] += tile.getEarnings()[j];
-                }
-            }
-            buildingEarnings.put(tile.getId(), earnings);
+            if(tile.getId() == 17)
+                System.out.println("Farm: " + tile.getEarnings()[0]);
         }
+
         if(buildingCounter.get(11) != null)
             blacksmithonMap = true;
         if(buildingCounter.get(15) != null)
@@ -278,21 +285,25 @@ public class Player extends Entity {
             if(blacksmithonMap && coalmineOnMap)
             setIron(getIron() + buildingEarnings.get(integer)[3]);
             setGold(getGold() + buildingEarnings.get(integer)[4]);
+
+            fsum = fsum + buildingEarnings.get(integer)[0];
+            wsum = wsum + buildingEarnings.get(integer)[1];
+            ssum = ssum + buildingEarnings.get(integer)[2];
+            isum = isum + buildingEarnings.get(integer)[3];
+            gsum = gsum + buildingEarnings.get(integer)[4];
         }
+        System.out.println("--------------------------------");
+        System.out.println("Foodsum:" + fsum);
+        System.out.println("Woodsum:" + wsum);
+        System.out.println("Stonesum:" + ssum);
+        System.out.println("Ironsum:" + isum);
+        System.out.println("Goldsum:" + gsum);
     }
 
     public void draw(Graphics2D g2) {
         //g2.setColor(Color.black);//Black
         //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
-
-
     }
-
-    //Setter
-    public void setBuildingID(int buildingID) {
-        this.buildingID = buildingID;
-    }
-
     //Getter
     public int getWood() {
         return wood;

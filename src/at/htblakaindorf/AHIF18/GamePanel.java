@@ -1,14 +1,10 @@
 package at.htblakaindorf.AHIF18;
 
 import at.htblakaindorf.AHIF18.Entity.Player;
-import at.htblakaindorf.AHIF18.Ground.TileManager;
-
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 
 public class GamePanel extends JPanel implements Runnable {
     /*
@@ -177,7 +173,7 @@ public class GamePanel extends JPanel implements Runnable {
             lastTime = currentTime;
 
 
-            if (prodcueInterval == 10) {
+            if (prodcueInterval == 5) {
                 prodcueInterval = 0;
                 player.produce();
             }

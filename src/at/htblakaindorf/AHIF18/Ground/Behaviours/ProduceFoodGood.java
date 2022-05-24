@@ -10,7 +10,7 @@ package at.htblakaindorf.AHIF18.Ground.Behaviours;
 public class ProduceFoodGood implements ProduceBehaviour{
     @Override
     public int[] produce(int[] earnings) {
-            earnings[0] = (int) (earnings[0] * 1.2);
+        earnings[0] = (int) (earnings[0] * 1.4);
         return earnings;
     }
 }

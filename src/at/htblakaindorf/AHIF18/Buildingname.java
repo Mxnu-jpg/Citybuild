@@ -1,8 +1,5 @@
 package at.htblakaindorf.AHIF18;
 
-import lombok.Data;
-
-
 public class Buildingname {
     String name;
     String path;
