@@ -7,17 +7,14 @@ package at.htblakaindorf.AHIF18.Ground.Behaviours;
  * @author Marcel Schmidl
  * @version 1.0
  * */
-public class ProduceBad implements ProduceBehaviour{
+public class ProduceFoodBad implements ProduceBehaviour{
     /**
      * Sets the earnings of each building based on the produce-behaviour
      *
      * @return */
     @Override
     public int[] produce(int[] earnings) {
-
-        for (int i = 0; i < earnings.length; i++) {
-            earnings[i] = (int) (earnings[i] * 0.8);
-        }
+            earnings[0] = (int)(earnings[0]*0.8);
         return earnings;
     }
 }

@@ -7,10 +7,9 @@ package at.htblakaindorf.AHIF18.Ground.Behaviours;
  * @author Marcel Schmidl
  * @version 1.0
  * */
-public class ProduceAverage implements ProduceBehaviour{
+public class ProduceFoodAverage implements ProduceBehaviour{
     @Override
     public int[] produce(int[] earnings) {
-
         return earnings;
     }
 }

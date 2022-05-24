@@ -86,8 +86,6 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     public void mouseClicked(MouseEvent e) {
         mouseClicked = true;
         mousePressed = false;
-        //Listen
-        System.out.println(gp.getTileM().getTilesList().get(10).getId());
     }
 
     @Override

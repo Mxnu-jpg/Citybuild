@@ -1,10 +1,9 @@
 package at.htblakaindorf.AHIF18.Ground;
 
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
+import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceFoodAverage;
 import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBehaviour;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 
 /**
  * Dataclass for the Tiles placed on the map
@@ -20,14 +19,15 @@ public class Tile{
     private boolean collision;
     private int id;
     private boolean building;
+    private boolean normal;
     private int[] costs;
     private int[] earnings;
-    private ProduceBehaviour produceBehaviour = new ProduceAverage();
+    private ProduceBehaviour produceBehaviour = new ProduceFoodAverage();
 
     public Tile() {
     }
 
-    public Tile(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings) {
+    public Tile(String name, int id, int[] costs, int[] earnings, boolean collision, boolean building) {
         this.name = name;
         this.collision = collision;
         this.id = id;
@@ -87,7 +87,6 @@ public class Tile{
     public void setBuilding(boolean isBuilding) {
         this.building = isBuilding;
     }
-
     public int[] getCosts() {
         return costs;
     }
@@ -105,5 +104,13 @@ public class Tile{
     }
     public void produce(){
         produceBehaviour.produce(this.earnings);
+    }
+
+    public boolean isNormal() {
+        return normal;
+    }
+
+    public void setNormal(boolean normal) {
+        this.normal = normal;
     }
 }

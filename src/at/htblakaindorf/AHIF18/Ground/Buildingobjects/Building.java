@@ -6,7 +6,7 @@ public class Building extends Tile {
     int col, row;
 
     public Building(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings, int col, int row) {
-        super(name, collision, id, building, costs, earnings);
+        super(name, id, costs, earnings, collision, building);
         this.col = col;
         this.row = row;
     }

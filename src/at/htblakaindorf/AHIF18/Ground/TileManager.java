@@ -1,21 +1,17 @@
 package at.htblakaindorf.AHIF18.Ground;
 
 import at.htblakaindorf.AHIF18.GamePanel;
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceAverage;
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBad;
-import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceGood;
+import at.htblakaindorf.AHIF18.Ground.Behaviours.*;
 import at.htblakaindorf.AHIF18.Ground.Buildingobjects.*;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.Buffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -51,7 +47,6 @@ public class TileManager {
 
             BufferedReader br = new BufferedReader(new FileReader(finalMapFile));
             loadMap(br, mapTileNum);
-
             setProductionRate();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -77,7 +72,6 @@ public class TileManager {
                     try {
                         int num = Integer.parseInt(numbers[col]);
                         map[col][row] = num;
-                        System.out.println(num);
                         createSpecificBuilding(num, col, row);
                         CityBuildDataBase.getInstance().setMapList(tilesList);
                         col++;
@@ -182,6 +176,7 @@ public class TileManager {
      * @param col column position of the building
      * @param row row position of the building
      */
+    //REAL EARNINGS
     public void createSpecificBuilding(int id, int col, int row) {
         if(tilesList.size() == 2500){
             tilesList.remove(row * gp.getMaxWorldRow() + col);
@@ -204,29 +199,41 @@ public class TileManager {
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Tree("Tree", false, 3,
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
+            case 4:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Stone("Stone", false, 4,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
+            case 5:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Ironfield("Ironfield", false, 5,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
+            case 6:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Coalfield("Coal", false, 6,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
             case 10:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new House("House", true, 10,
                         true, new int[]{50, 0, 0, 0}, new int[]{-10, 0, 0, 0, 5}, col, row));
                 break;
             case 11:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith("Blacksmith", true, 11,
-                        true, new int[]{80, 10, 0, 100}, new int[]{0, 0, 0, 20, 0}, col, row));
+                        true, new int[]{80, 10, 0, 100}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 12:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Church("Church", true, 12,
-                        true, new int[]{0, 300, 10, 1000}, new int[]{0, 0, 0, 0, 50}, col, row));
+                        true, new int[]{0, 300, 10, 1000}, new int[]{0, 0, 0, 0, 100}, col, row));
                 break;
             case 13:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Fisher("Fisher", true, 13,
-                        true, new int[]{20, 0, 0, 0}, new int[]{2, 0, 0, 0, 0}, col, row));
+                        true, new int[]{20, 0, 0, 0}, new int[]{10, 0, 0, 0, 0}, col, row));
                 break;
             case 14:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Windmill("Windmill", true, 14,
-                        true, new int[]{200, 0, 0, 10}, new int[]{5, 0, 0, 0, 0}, col, row));
+                        true, new int[]{200, 0, 0, 10}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 15:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new CoalMine("CoalMine", true, 15,
-                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 15, 15, 0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 16:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine("IronMine", true, 16,
@@ -234,11 +241,11 @@ public class TileManager {
                 break;
             case 17:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer("Farmer", true, 17,
-                        true, new int[]{40, 0, 0, 50}, new int[]{8, 0, 0, 0, 0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{20, 0, 0, 0, 0}, col, row));
                 break;
             case 18:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Bakery("Bakery", true, 18,
-                        true, new int[]{40, 0, 0, 50}, new int[]{10, 0, 0, 0, 0}, col, row));
+                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             default:
                 break;
@@ -280,7 +287,7 @@ public class TileManager {
             bw.flush();
             bw.write(finalMap);
             bw.close();
-            setProductionRate();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -393,7 +400,6 @@ public class TileManager {
 
         BufferedReader b = new BufferedReader(new FileReader(finalMapFile));
         loadMap(b, mapTileNum);
-        setProductionRate();
     }
 
 
@@ -438,13 +444,19 @@ public class TileManager {
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
             switch (id) {
                 case 0:
-                    building.setProduceBehaviour(new ProduceAverage());
+                    building.setProduceBehaviour(new ProduceFoodAverage());
                     break;
                 case 1:
-                    building.setProduceBehaviour(new ProduceBad());
+                    building.setProduceBehaviour(new ProduceFoodBad());
                     break;
                 case 2:
-                    building.setProduceBehaviour(new ProduceGood());
+                    building.setProduceBehaviour(new ProduceFoodGood());
+                    break;
+                case 5:
+                    building.setProduceBehaviour(new ProduceIronBad());
+                    break;
+                case 6:
+                    building.setProduceBehaviour(new ProduceIronGood());
                     break;
                 default:
                     return;
@@ -506,6 +518,9 @@ public class TileManager {
     public boolean isBuilding(int colpos, int rowpos) {
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isBuilding();
     }
+    public boolean isNormal(int colpos, int rowpos) {
+        return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isNormal();
+    }
 
 
     /**
@@ -523,5 +538,13 @@ public class TileManager {
 
     public ArrayList<Tile> getTilesList() {
         return tilesList;
+    }
+
+    public Tile[] getTile() {
+        return tile;
+    }
+
+    public void setTile(Tile[] tile) {
+        this.tile = tile;
     }
 }

@@ -191,6 +191,15 @@ public class Player extends Entity {
         if (!gp.getTileM().isObstacle(col, row)) {
             int[] cost = db.getTileById(tile.getId()).getCosts();
 
+            if(tile.getId() == 16 && !(gp.getTileM().getIdFromPosition(col,row) == 5 || gp.getTileM().getIdFromPosition(col,row) == 6)){
+                JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenfelder platziert werden", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(tile.getId() == 15 && !(gp.getTileM().getIdFromPosition(col,row) == 4)){
+                JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf Kohlefelder platziert werden", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             if (getWood() < cost[0]) {
                 JOptionPane.showMessageDialog(null, "Leider reicht der Bestand von Holz für dieses Gebäude nicht aus\n", "Zu wenig Holz", JOptionPane.ERROR_MESSAGE);
                 return;
