@@ -268,8 +268,8 @@ public class Player extends Entity {
                     buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
                     buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
-            if(tile.getId() == 17)
-                System.out.println("Farm: " + tile.getEarnings()[0]);
+            if(tile.getId() >= 10)
+                System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
         }
 
         if(buildingCounter.get(11) != null)
