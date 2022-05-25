@@ -1,11 +1,9 @@
 package at.htblakaindorf.AHIF18.Entity;
 
 import at.htblakaindorf.AHIF18.GamePanel;
-import at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
-import com.sun.security.jgss.GSSUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,12 +133,8 @@ public class Player extends Entity {
         //Bottom Menu clicked
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
                 kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu()) {
-            if (kH.isMenueClicked())
-                kH.setMenueClicked(false);
-            else {
                 kH.setMenueClicked(true);
                 elementsLineClicked();
-            }
         }
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
             sectionLineClicked();
@@ -259,6 +253,7 @@ public class Player extends Entity {
         boolean coalmineOnMap = false;
         boolean bakeryOnMap = false;
         boolean windmillonMap= false;
+        int instantfood = 0;
         String protocols = "";
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
@@ -278,9 +273,12 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-                        buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
-                    buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
-                    buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
+            if(tile.getId() == db.getIDperName("Fischer")) // alle Buildings die ohne Kette funktionieren
+                instantfood += tile.getEarnings()[0];
+            else    //landen alle Buildigns die eine Kette haben
+                buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
+                buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
+                buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
             if(tile.getId() >= 10)
                 System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
@@ -297,15 +295,15 @@ public class Player extends Entity {
              windmillonMap = true;
         if(buildingCounter.get(db.getIDperName("Baeckerei")) != null)
              bakeryOnMap = true;
-
+        System.out.println(instantfood);
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
 
-            if(windmillonMap && bakeryOnMap)
+            if(windmillonMap && bakeryOnMap)    // Kette Wenn alles da ist dann Food neu setzten
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
-            if(blacksmithonMap && coalmineOnMap)
+            if(blacksmithonMap && coalmineOnMap)    // Kette Wenn alles da ist dann Iron neu setzten
             setIron(getIron() + buildingEarnings.get(integer)[3]);
             setGold(getGold() + buildingEarnings.get(integer)[4]);
 
@@ -315,6 +313,7 @@ public class Player extends Entity {
             isum = isum + buildingEarnings.get(integer)[3];
             gsum = gsum + buildingEarnings.get(integer)[4];
         }
+        setFood(getFood() + instantfood); // Addiert das Essen aller Gebäude die keine Kette haben
         System.out.println("--------------------------------");
         System.out.println("Foodsum:" + fsum);
         System.out.println("Woodsum:" + wsum);
