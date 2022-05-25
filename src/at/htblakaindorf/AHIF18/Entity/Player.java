@@ -295,7 +295,7 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-            if(tile.getId() == db.getIDperName("Fischer")) // alle Buildings die ohne Kette funktionieren
+            if(tile.getId() == db.getIDperName("Fischer") || tile.getId() == db.getIDperName("Haus")) // alle Buildings die ohne Kette funktionieren
                 instantfood += tile.getEarnings()[0];
             else    //landen alle Buildigns die eine Kette haben
                 buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
@@ -309,7 +309,7 @@ public class Player extends Entity {
                         ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
             }
         }
-
+        System.out.println(instantfood);
         if(buildingCounter.get(db.getIDperName("Schmiede")) != null)
             blacksmithonMap = true;
         if(buildingCounter.get(db.getIDperName("Kohlemine")) != null)
