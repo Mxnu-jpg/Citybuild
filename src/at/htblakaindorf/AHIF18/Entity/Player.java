@@ -115,11 +115,8 @@ public class Player extends Entity {
 
         if (kH.isInfo() == true) {
             kH.setSysinfo(false);
-            for (Tile tile : CityBuildDataBase.getInstance().getMapList()) {
-                if (tile != null) {
-                    System.out.println(tile.getName());
-                }
-            }
+            updateProtocol();
+            System.out.println(gp.getUi().getMapProtocols());
         }
     }
 
@@ -162,8 +159,11 @@ public class Player extends Entity {
     private void optionsLineClicked() { // work
         for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element() && kH.getPointerPosition().getX() >= gp.getUi().calculateRightTopMenuPos(i)) {
-                if (i == 0) // Options
+                if (i == 0) { // Options
                     System.out.println("options");
+                    updateProtocol();
+                    System.out.println(gp.getUi().getMapProtocols());
+                }
                 if (i == 1) { //Remove building
                     System.out.println("Removed Clicked");
                     kH.setRemoveBuilding(true);
@@ -246,6 +246,28 @@ public class Player extends Entity {
         }
     }
 
+    public void updateProtocol(){ // soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
+        ArrayList<Tile> tiles = db.getMapList();
+        String protocols = "";
+
+        for (Tile tile : tiles) {
+            buildingEarnings.put(tile.getId(), new int[]{0,0,0,0,0});
+        }
+
+        for (Tile tile : tiles) {
+            if (buildingCounter.get(tile.getId()) == null) {
+                buildingCounter.put(tile.getId(), 1);
+            } else {
+                buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
+            }
+            if(tile.getId() >= 10) {
+                protocols += tile.getName() + " earnings: " + tile.getEarnings()[0] + ", " + tile.getEarnings()[1] +
+                        ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
+            }
+        }
+        gp.getUi().setMapInfos(protocols);
+    }
+
     public void produce() {
 
         ArrayList<Tile> tiles = db.getMapList();
@@ -280,11 +302,12 @@ public class Player extends Entity {
                 buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
                 buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
-            if(tile.getId() >= 10)
-                System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
-                        ", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
-            protocols += (tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
-                    ", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
+            if(tile.getId() >= 10) {
+                System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] + " " + tile.getEarnings()[1] +
+                        ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4]);
+                protocols += tile.getName() + " earnings: " + tile.getEarnings()[0] + ", " + tile.getEarnings()[1] +
+                        ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
+            }
         }
 
         if(buildingCounter.get(db.getIDperName("Schmiede")) != null)
@@ -295,7 +318,6 @@ public class Player extends Entity {
              windmillonMap = true;
         if(buildingCounter.get(db.getIDperName("Baeckerei")) != null)
              bakeryOnMap = true;
-        System.out.println(instantfood);
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
 
@@ -320,7 +342,8 @@ public class Player extends Entity {
         System.out.println("Stonesum:" + ssum);
         System.out.println("Ironsum:" + isum);
         System.out.println("Goldsum:" + gsum);
-        gp.getUi().setMapInfos();
+        System.out.println("--------------------------------");
+        gp.getUi().setMapInfos(protocols);
     }
 
     public void draw(Graphics2D g2) {
@@ -371,4 +394,5 @@ public class Player extends Entity {
     public void setIron(int iron) {
         this.iron = iron;
     }
+
 }

@@ -34,6 +34,7 @@ public class UI {
     private int margin_from_Top_Menue;
     private int ressource_top_box;
     private int right_top_box;
+    private String mapProtocols;
     private Color bottomMenu = Color.darkGray;
     private Color topBar = Color.darkGray;
     private Color uiElements = Color.gray;
@@ -166,7 +167,8 @@ public class UI {
             g2.drawImage(tileBottomMenue[i].image, calculateMenuePos(i), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
         }
     }
-    public void setMapInfos() { // Großßßße Funktion
+    public void setMapInfos(String protocol) {
+       mapProtocols = protocol;
     }
 
     public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height) {
@@ -261,19 +263,11 @@ public class UI {
         return margin_from_Bottomsection_Menu;
     }
 
-    public Tile getTile (int pos){
-        return tileBottomMenue[pos];
+    public Tile getTile (int pos){return tileBottomMenue[pos];}
 
-    }
+    public void setAmount_of_items_in_UI(int amount_of_items_in_UI) {this.amount_of_items_in_UI = amount_of_items_in_UI;}
 
-    public void setAmount_of_items_in_UI(int amount_of_items_in_UI) {
-        this.amount_of_items_in_UI = amount_of_items_in_UI;
-    }
-
-    public void setAmount_of_section_in_Bottom_UI(int amount_of_section_in_Bottom_UI) {
-        this.amount_of_section_in_Bottom_UI = amount_of_section_in_Bottom_UI;
-    }
-
+    public void setAmount_of_section_in_Bottom_UI(int amount_of_section_in_Bottom_UI) {this.amount_of_section_in_Bottom_UI = amount_of_section_in_Bottom_UI;}
 
     public int getAmount_of_section_in_Bottom_UI() {
         return amount_of_section_in_Bottom_UI;
@@ -306,6 +300,8 @@ public class UI {
     public int getRight_top_box() {
         return right_top_box;
     }
+
+    public String getMapProtocols() {return mapProtocols;}
 
 
 }
