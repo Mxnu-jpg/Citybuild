@@ -166,6 +166,8 @@ public class UI {
             g2.drawImage(tileBottomMenue[i].image, calculateMenuePos(i), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
         }
     }
+    public void setMapInfos() { // Großßßße Funktion
+    }
 
     public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(sectionElements);
@@ -304,5 +306,7 @@ public class UI {
     public int getRight_top_box() {
         return right_top_box;
     }
+
+
 }
 

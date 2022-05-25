@@ -22,11 +22,11 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     private int buildingID;
-    private int food = 100;
-    private int wood = 1000;
-    private int stone = 1000;
-    private int iron = 10;
-    private int gold = 10000;
+    private int food;
+    private int wood;
+    private int stone;
+    private int iron;
+    private int gold;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -44,6 +44,11 @@ public class Player extends Entity {
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
         speed = 10;
+        setFood(100);
+        setWood(1000);
+        setStone(1000);
+        setIron(10);
+        setGold(10000);
     }
 
     public void update() {
@@ -191,12 +196,20 @@ public class Player extends Entity {
         if (!gp.getTileM().isObstacle(col, row)) {
             int[] cost = db.getTileById(tile.getId()).getCosts();
 
-            if(tile.getId() == 16 && !(gp.getTileM().getIdFromPosition(col,row) == 5 || gp.getTileM().getIdFromPosition(col,row) == 6)){
-                JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenfelder platziert werden", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            if(tile.getId() == db.getIDperName("Eisenmine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("wenig Eisenerz") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("viel Eisenerz"))){
+                JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenerz platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if(tile.getId() == 15 && !(gp.getTileM().getIdFromPosition(col,row) == 4)){
-                JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf Kohlefelder platziert werden", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            if(tile.getId() == db.getIDperName("Kohlemine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Kohlefeld"))){
+                JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf einem Kohlefelder platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischloses Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreiches Wasser"))){
+                JOptionPane.showMessageDialog(null, "Ein Fischer kann nur auf Wasser platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(tile.getId() == db.getIDperName("Steinmetz") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Stein"))){
+                JOptionPane.showMessageDialog(null, "Ein Steinmetz kann nur auf Stein platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (getWood() < cost[0]) {
@@ -246,6 +259,7 @@ public class Player extends Entity {
         boolean coalmineOnMap = false;
         boolean bakeryOnMap = false;
         boolean windmillonMap= false;
+        String protocols = "";
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
         int fsum = 0;
@@ -264,26 +278,29 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-            buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
+                        buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
                     buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
                     buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
             if(tile.getId() >= 10)
                 System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
                         ", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
+            protocols += (tile.getName() + " earnings: " + tile.getEarnings()[0] +", " +tile.getEarnings()[1] +
+                    ", " + tile.getEarnings()[2] +", " + tile.getEarnings()[3]+", " + tile.getEarnings()[4]);
         }
 
-        if(buildingCounter.get(11) != null)
+        if(buildingCounter.get(db.getIDperName("Schmiede")) != null)
             blacksmithonMap = true;
-        if(buildingCounter.get(15) != null)
+        if(buildingCounter.get(db.getIDperName("Kohlemine")) != null)
             coalmineOnMap = true;
-        if(buildingCounter.get(14) != null)
+        if(buildingCounter.get(db.getIDperName("Muehle")) != null)
              windmillonMap = true;
-        if(buildingCounter.get(18) != null)
+        if(buildingCounter.get(db.getIDperName("Baeckerei")) != null)
              bakeryOnMap = true;
 
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
+
             if(windmillonMap && bakeryOnMap)
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
@@ -304,6 +321,7 @@ public class Player extends Entity {
         System.out.println("Stonesum:" + ssum);
         System.out.println("Ironsum:" + isum);
         System.out.println("Goldsum:" + gsum);
+        gp.getUi().setMapInfos();
     }
 
     public void draw(Graphics2D g2) {

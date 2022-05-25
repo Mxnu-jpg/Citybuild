@@ -182,7 +182,7 @@ public class TileManager {
         if(tilesList.size() == 2500){
             tilesList.remove(row * gp.getMaxWorldRow() + col);
         }
-        //Update bei neuen Building
+        //Update bei neuen Building // muss synchron mit db sein
         switch (id) {
             case 0:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Grass("Grass", false, 0,
@@ -201,15 +201,27 @@ public class TileManager {
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 4:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Stone("Stone", false, 4,
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Coalfield("Coalfield", false, 4,
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 5:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Ironfield("Ironfield", false, 5,
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Ironfield("Ironfield Good", false, 5,
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 6:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Coalfield("Coal", false, 6,
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Ironfield("Ironfield Good", false, 6,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
+            case 7:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Stone("Stone", false, 7,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
+            case 8:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Water("Water Bad", false, 8,
+                        false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
+                break;
+            case 9:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Water("Water Good", false, 9,
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 10:
@@ -217,36 +229,40 @@ public class TileManager {
                         true, new int[]{50, 0, 0, 0}, new int[]{-10, 0, 0, 0, 5}, col, row));
                 break;
             case 11:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith("Blacksmith", true, 11,
-                        true, new int[]{80, 10, 0, 100}, new int[]{0, 0, 0, 0, 0}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Church("Kirche", true, 11,
+                        true, new int[]{0, 400, 5, 1000}, new int[]{0, 0, 0, 0, 100}, col, row));
                 break;
             case 12:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Church("Church", true, 12,
-                        true, new int[]{0, 300, 10, 1000}, new int[]{0, 0, 0, 0, 100}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith("Schmiede", true, 12,
+                        true, new int[]{180, 0, 10, 300}, new int[]{0, 0, 0, 0, 100}, col, row));
                 break;
             case 13:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Fisher("Fisher", true, 13,
-                        true, new int[]{20, 0, 0, 0}, new int[]{10, 0, 0, 0, 0}, col, row));
+                        true, new int[]{20, 0, 0, 50}, new int[]{10, 0, 0, 0, 0}, col, row));
                 break;
             case 14:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Windmill("Windmill", true, 14,
-                        true, new int[]{200, 0, 0, 10}, new int[]{0, 0, 0, 0, 0}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer("Bauer", true, 14,
+                        true, new int[]{200, 0, 0, 10}, new int[]{20, 0, 0, 0, 0}, col, row));
                 break;
             case 15:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new CoalMine("CoalMine", true, 15,
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Windmill("Mühle", true, 15,
                         true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 16:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine("IronMine", true, 16,
-                        true, new int[]{70, 5, 0, 100}, new int[]{0, 0, 0, 10, 0}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Bakery("Bäcker", true, 16,
+                        true, new int[]{70, 5, 0, 100}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 17:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Farmer("Farmer", true, 17,
-                        true, new int[]{40, 0, 0, 50}, new int[]{20, 0, 0, 0, 0}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new CoalMine("Kohlemine", true, 17,
+                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 18:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Bakery("Bakery", true, 18,
-                        true, new int[]{40, 0, 0, 50}, new int[]{0, 0, 0, 0, 0}, col, row));
+                tilesList.add((row * gp.getMaxWorldRow() + col), new IronMine("Eisenmine", true, 18,
+                        true, new int[]{40, 0, 0, 100}, new int[]{0, 0, 0, 5, 0}, col, row));
+                break;
+            case 19:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Stonemason("Steinmetz", true, 19,
+                        true, new int[]{30, 0, 0, 40}, new int[]{0, 0, 20, 0, 0}, col, row));
                 break;
             default:
                 break;
@@ -439,7 +455,7 @@ public class TileManager {
      * Sets the production rate of every {@link Building} on the map base on the
      * {@link Tile} they are placed on
      * */
-    public void setProductionRate() { // die Überprüfungen werden nach ca 200 tiles nicht mehr richtig ausgeführt
+    public void setProductionRate() { // Alle Tiles müssen case haben
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
@@ -453,14 +469,26 @@ public class TileManager {
                 case 2:
                     building.setProduceBehaviour(new ProduceFoodGood());
                     break;
+                case 3:
+                    building.setProduceBehaviour(new ProduceAllAverage());
+                    break;
+                case 4:
+                    building.setProduceBehaviour(new ProduceAllAverage());
+                    // default funktioniert nicht richtig bei diesem Pattern alle weiteren
+                    // Felder werden nicht in den switch reinspringen
+                    break;
                 case 5:
                     building.setProduceBehaviour(new ProduceIronBad());
                     break;
                 case 6:
                     building.setProduceBehaviour(new ProduceIronGood());
                     break;
-                default:
-                    return;
+                case 8:
+                    building.setProduceBehaviour(new ProduceFishBad());
+                    break;
+                case 9:
+                    building.setProduceBehaviour(new ProduceFishGood());
+                    break;
             }
             building.produce();
         }
@@ -518,9 +546,6 @@ public class TileManager {
      */
     public boolean isBuilding(int colpos, int rowpos) {
         return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isBuilding();
-    }
-    public boolean isNormal(int colpos, int rowpos) {
-        return CityBuildDataBase.getInstance().getTileById(getIdFromPosition(colpos, rowpos)).isNormal();
     }
 
 

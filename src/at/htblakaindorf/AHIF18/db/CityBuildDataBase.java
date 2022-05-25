@@ -7,6 +7,7 @@ import at.htblakaindorf.AHIF18.UI;
 import at.htblakaindorf.AHIF18.UtilityTool;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,30 +34,34 @@ public class CityBuildDataBase {
 
         try {
             //Costs: Wood, Stone, Iron, Gold
-            setTiles(0, "/res/tiles/ground/Grass.png", "Grass", new int[]{},new int[]{}, false, false,false);
-            setTiles(1, "/res/tiles/ground/Sand.png", "Sand", new int[]{},new int[]{}, false, false,false);
-            setTiles(2, "/res/tiles/ground/Flowers.png", "Flowers", new int[]{},new int[]{}, false, false,false);
-            setTiles(3, "/res/tiles/ground/Tree.png", "Tree", new int[]{},new int[]{}, true, false,false);
-            setTiles(4, "/tiles/ground/coalfield.png", "Colefield", new int[]{},new int[]{}, false, false,false);
-            setTiles(5, "/tiles/ground/ironfield bad.png", "Ironfield Bad", new int[]{},new int[]{}, false, false,false);
-            setTiles(6, "/res/tiles/ground/IronField.png", "Ironfield Good", new int[]{},new int[]{}, false, false,false);
-            setTiles(10, "/res/building/House1.png", "Villager Building", new int[]{50,0,0,0},new int[]{}, true, true,true);
-            setTiles(11, "/res/building/Blacksmith.png", "Blacksmith", new int[]{80,10,0,100},new int[]{0, 0, 00, 0},true, true,true);
-            setTiles(12, "/res/building/Church.png", "Church", new int[]{0,300,10,1000},new int[]{0, 0, 0, 100},true, true,true);
-            setTiles(13, "/res/building/Fisher.png", "Fisher", new int[]{20,0,0,0},new int[]{25, 0, 0, 0},true, true,false);
-            setTiles(14, "/res/building/Windmill.png", "Windmill", new int[]{200,0,0,10},new int[]{0,0,0,0},true, true,true);
-            setTiles(15, "/res/building/Coal Mine.png", "Coal Mine", new int[]{50,0,0,50},new int[]{0, 0, 0, 0},true,true,false);
-            setTiles(16, "/res/building/Iron Mine.png", "Iron Mine", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true,false);
-            setTiles(17, "/res/building/WheatFarm.png", "Wheat Farm", new int[]{45,0,0,50},new int[]{50,0,0,0},true, true,true);
-            setTiles(18, "/res/building/Bakery.png", "Bakery", new int[]{45,0,0,50},new int[]{0,0,0,0},true, true,true);
-            setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", new int[]{},new int[]{},true, false,true);
-            setTiles(31, "/res/icons/Bread.png", "Bread", new int[]{},new int[]{},false, false,false);
-            setTiles(32, "/res/icons/Wood.png", "Wood",new int[]{},new int[]{}, false, false,false);
-            setTiles(33, "/res/icons/Stone.png", "Stone",new int[]{},new int[]{}, false, false,false);
-            setTiles(34, "/res/icons/Iron_Ingot.png", "Iron",new int[]{},new int[]{}, false, false,false);
-            setTiles(35, "/res/icons/Gold_Ingot.png", "Gold",new int[]{},new int[]{}, false, false,false);
-            setTiles(36, "/res/icons/Delete_Building.png", "Delete",new int[]{},new int[]{}, false, false,false);
-            setTiles(37, "/res/icons/Settings.png", "Settings",new int[]{},new int[]{}, false, false,false);
+            setTiles(0, "/res/tiles/ground/Grass.png", "Grass", new int[]{},new int[]{}, false, false);
+            setTiles(1, "/res/tiles/ground/Sand.png", "Sand", new int[]{},new int[]{}, false, false);
+            setTiles(2, "/res/tiles/ground/Flowers.png", "Wiese", new int[]{},new int[]{}, false, false);
+            setTiles(3, "/res/tiles/ground/Tree.png", "Baum", new int[]{},new int[]{}, true, false);
+            setTiles(4, "/tiles/ground/coalfield.png", "Kohlefeld", new int[]{},new int[]{}, false, false);
+            setTiles(5, "/tiles/ground/ironfield bad.png", "wenig Eisenerz", new int[]{},new int[]{}, false, false);
+            setTiles(6, "/res/tiles/ground/IronField.png", "viel Eisenerz", new int[]{},new int[]{}, false, false);
+            setTiles(7, "/res/tiles/ground/stone.png", "Stein", new int[]{},new int[]{}, false, false);
+            setTiles(8, "/res/tiles/ground/IronField.png", "Fischloses Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(9, "/res/tiles/ground/IronField.png", "Fischreiches Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(10, "/res/building/House1.png", "Haus", new int[]{50,0,0,0},new int[]{}, true, true);
+            setTiles(11, "/res/building/Church.png", "Kirche", new int[]{0,300,10,1000},new int[]{0, 0, 0, 100},true, true);
+            setTiles(12, "/res/building/Blacksmith.png", "Schmiede", new int[]{80,10,0,100},new int[]{0, 0, 00, 0},true, true);
+            setTiles(13, "/res/building/Fisher.png", "Fischer", new int[]{20,0,0,0},new int[]{25, 0, 0, 0},true, true);
+            setTiles(14, "/res/building/WheatFarm.png", "Wheat Farm", new int[]{45,0,0,50},new int[]{50,0,0,0},true, true);
+            setTiles(15, "/res/building/Windmill.png", "Muehle", new int[]{200,0,0,10},new int[]{0,0,0,0},true, true);
+            setTiles(16, "/res/building/Bakery.png", "Baeckerei", new int[]{45,0,0,50},new int[]{0,0,0,0},true, true);
+            setTiles(17, "/res/building/Coal Mine.png", "Kohlemine", new int[]{50,0,0,50},new int[]{0, 0, 0, 0},true,true);
+            setTiles(18, "/res/building/Iron Mine.png", "Eisenmine", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true);
+            setTiles(19, "/res/building/Stonemason.png", "Steinmetz", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true);
+            setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", new int[]{},new int[]{},true, false);
+            setTiles(31, "/res/icons/Bread.png", "Bread", new int[]{},new int[]{},false, false);
+            setTiles(32, "/res/icons/Wood.png", "Wood",new int[]{},new int[]{}, false, false);
+            setTiles(33, "/res/icons/Stone.png", "Stone",new int[]{},new int[]{}, false, false);
+            setTiles(34, "/res/icons/Iron_Ingot.png", "Iron",new int[]{},new int[]{}, false, false);
+            setTiles(35, "/res/icons/Gold_Ingot.png", "Gold",new int[]{},new int[]{}, false, false);
+            setTiles(36, "/res/icons/Delete_Building.png", "Delete",new int[]{},new int[]{}, false, false);
+            setTiles(37, "/res/icons/Settings.png", "Settings",new int[]{},new int[]{}, false, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +74,7 @@ public class CityBuildDataBase {
         return instance;
     }
 
-    public void setTiles(int id, String path, String name,int[] costs, int[] earnings, boolean collision, boolean isBuilding, boolean normal) throws IOException {
+    public void setTiles(int id, String path, String name,int[] costs, int[] earnings, boolean collision, boolean isBuilding) throws IOException {
         Tile tile = new Tile();
         tile.setCollision(collision);
         tile.setPath(path);
@@ -79,7 +84,6 @@ public class CityBuildDataBase {
         tile.setEarnings(earnings);
         tile.setName(name);
         tile.setBuilding(isBuilding);
-        tile.setNormal(normal);
         tiles.add(tile);
     }
     public void setUiIcons(UI ui) {
@@ -107,6 +111,22 @@ public class CityBuildDataBase {
         for (Tile tile : tiles) {
             tile.image = uTool.scaleImage(tile.image, gp.getTileSize(), gp.getTileSize());
         }
+    }
+    public int getIDperName(String name){
+        for (Tile tile : tiles) {
+           if(tile.getName().equals(name))
+               return tile.getId();
+        }
+        JOptionPane.showMessageDialog(null, "Leider gab es  waehrend der Berechung des Spieles einen Fehler, CityBuildDatabase, getIPperName\n", "Fehler", JOptionPane.ERROR_MESSAGE);
+        return 0;
+    }
+    public String getNameperID(int id){
+        for (Tile tile : tiles) {
+            if(tile.getId() == id)
+                return tile.getName();
+        }
+        JOptionPane.showMessageDialog(null, "Leider gab es  waehrend der Berechung des Spieles einen Fehler, CityBuildDatabase, getNameperIP\n", "Fehler", JOptionPane.ERROR_MESSAGE);
+        return "";
     }
 
     public ArrayList<Buildingname> getBuildings() {

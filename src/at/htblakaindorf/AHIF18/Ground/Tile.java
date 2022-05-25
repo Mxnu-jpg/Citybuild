@@ -19,7 +19,6 @@ public class Tile{
     private boolean collision;
     private int id;
     private boolean building;
-    private boolean normal;
     private int[] costs;
     private int[] earnings;
     private ProduceBehaviour produceBehaviour = new ProduceFoodAverage();
@@ -103,13 +102,5 @@ public class Tile{
     }
     public void produce(){
         produceBehaviour.produce(this.earnings);
-    }
-
-    public boolean isNormal() {
-        return normal;
-    }
-
-    public void setNormal(boolean normal) {
-        this.normal = normal;
     }
 }
