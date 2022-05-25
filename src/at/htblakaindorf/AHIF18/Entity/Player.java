@@ -309,7 +309,6 @@ public class Player extends Entity {
                         ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
             }
         }
-        System.out.println(instantfood);
         if(buildingCounter.get(db.getIDperName("Schmiede")) != null)
             blacksmithonMap = true;
         if(buildingCounter.get(db.getIDperName("Kohlemine")) != null)
