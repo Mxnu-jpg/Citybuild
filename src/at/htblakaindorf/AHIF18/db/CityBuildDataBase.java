@@ -38,12 +38,12 @@ public class CityBuildDataBase {
             setTiles(1, "/res/tiles/ground/Sand.png", "Sand", new int[]{},new int[]{}, false, false);
             setTiles(2, "/res/tiles/ground/Flowers.png", "Wiese", new int[]{},new int[]{}, false, false);
             setTiles(3, "/res/tiles/ground/Tree.png", "Baum", new int[]{},new int[]{}, true, false);
-            setTiles(4, "/tiles/ground/coalfield.png", "Kohlefeld", new int[]{},new int[]{}, false, false);
-            setTiles(5, "/tiles/ground/ironfield bad.png", "wenig Eisenerz", new int[]{},new int[]{}, false, false);
-            setTiles(6, "/res/tiles/ground/IronField.png", "viel Eisenerz", new int[]{},new int[]{}, false, false);
-            setTiles(7, "/res/tiles/ground/stone.png", "Stein", new int[]{},new int[]{}, false, false);
-            setTiles(8, "/res/tiles/ground/IronField.png", "Fischloses Wasser", new int[]{},new int[]{}, false, false);
-            setTiles(9, "/res/tiles/ground/IronField.png", "Fischreiches Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(4, "/tiles/ground/Coal-Ore.png", "Kohlefeld", new int[]{},new int[]{}, false, false);
+            setTiles(5, "/tiles/ground/Bad-Iron-Ore.png", "wenig Eisenerz", new int[]{},new int[]{}, false, false);
+            setTiles(6, "/res/tiles/ground/Iron-Ore.png", "viel Eisenerz", new int[]{},new int[]{}, false, false);
+            setTiles(7, "/res/tiles/ground/Stone-Field.png", "Stein", new int[]{},new int[]{}, false, false);
+            setTiles(8, "/res/tiles/ground/Normal Water.png", "Fischloses Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(9, "/res/tiles/ground/Rewarding Water.png", "Fischreiches Wasser", new int[]{},new int[]{}, false, false);
             setTiles(10, "/res/building/House1.png", "Haus", new int[]{50,0,0,0},new int[]{}, true, true);
             setTiles(11, "/res/building/Church.png", "Kirche", new int[]{0,300,10,1000},new int[]{0, 0, 0, 100},true, true);
             setTiles(12, "/res/building/Blacksmith.png", "Schmiede", new int[]{80,10,0,100},new int[]{0, 0, 00, 0},true, true);
@@ -53,7 +53,7 @@ public class CityBuildDataBase {
             setTiles(16, "/res/building/Bakery.png", "Baeckerei", new int[]{45,0,0,50},new int[]{0,0,0,0},true, true);
             setTiles(17, "/res/building/Coal Mine.png", "Kohlemine", new int[]{50,0,0,50},new int[]{0, 0, 0, 0},true,true);
             setTiles(18, "/res/building/Iron Mine.png", "Eisenmine", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true);
-            setTiles(19, "/res/building/Stonemason.png", "Steinmetz", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true);
+            setTiles(19, "/res/building/Quarry.png", "Steinbruch", new int[]{70,5,0,100},new int[]{0, 0, 50, 0},true, true);
             setTiles(30, "/res/tiles/ground/Farmer Wheatfield.png", "Wheatfield", new int[]{},new int[]{},true, false);
             setTiles(31, "/res/icons/Bread.png", "Bread", new int[]{},new int[]{},false, false);
             setTiles(32, "/res/icons/Wood.png", "Wood",new int[]{},new int[]{}, false, false);
