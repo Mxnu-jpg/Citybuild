@@ -7,6 +7,7 @@ import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class Player extends Entity {
@@ -79,18 +80,16 @@ public class Player extends Entity {
             System.out.println(worldY);
             System.out.println(worldX);
         }
-        for(int i=0;i<gp.getUi().getAmount_of_items_in_UI();i++)
+        for(int i=0;i<gp.getUi().getAmount_of_items_in_UI();i++) // nach tooltipanzige muss wenn bei neuer Sache nochmal neu angezeigt werden, tooltip wird nicht geupdated
         if((kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i) && gp.getUi().calculateMenuePos(i)+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getX())
                 && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu() <= kH.getPointerPosition().getY()
                 && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu()+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getY()){
-
-            System.out.println("Costs: " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[0] + ", "
+            //Tooltips
+            gp.setToolTipText("Costs: " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[0] + ", "
                     + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[1] + ", "
-                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[3]);
-            System.out.println("Earnings: " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[0] + ", "
+                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[3] + " Earnings: " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[0] + ", "
                     + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[1] + ", "
                     + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[3]);
-            //Tooltips
         }
         if (kH.isMouseClicked() == true) {
             kH.clearMouseClick();
