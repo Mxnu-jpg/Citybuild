@@ -79,6 +79,19 @@ public class Player extends Entity {
             System.out.println(worldY);
             System.out.println(worldX);
         }
+        for(int i=0;i<gp.getUi().getAmount_of_items_in_UI();i++)
+        if((kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i) && gp.getUi().calculateMenuePos(i)+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getX())
+                && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu() <= kH.getPointerPosition().getY()
+                && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu()+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getY()){
+
+            System.out.println("Costs: " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[0] + ", "
+                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[1] + ", "
+                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[3]);
+            System.out.println("Earnings: " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[0] + ", "
+                    + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[1] + ", "
+                    + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[3]);
+            //Tooltips
+        }
         if (kH.isMouseClicked() == true) {
             kH.clearMouseClick();
             //Der Tile in der Mitte hat scale * originaltilesize das muss man hinzurechenn mouse = tilesize + screen
@@ -198,7 +211,7 @@ public class Player extends Entity {
                 JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf einem Kohlefelder platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            else if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischloses Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreiches Wasser"))){
+            else if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreichem Wasser"))){
                 JOptionPane.showMessageDialog(null, "Ein Fischer kann nur auf Wasser platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -224,7 +237,6 @@ public class Player extends Entity {
                 JOptionPane.showMessageDialog(null, "Leider reicht der Bestand von Gold für dieses Gebäude nicht aus\n", "Zu wenig Gold", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             System.out.println();
             setWood(getWood() - cost[0]);
             setStone(getStone() - cost[1]);
@@ -251,7 +263,7 @@ public class Player extends Entity {
         }
     }
 
-    public void updateProtocol(){ // soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
+    public void updateProtocol(){// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
         String protocols = "";
 
@@ -327,7 +339,7 @@ public class Player extends Entity {
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
-            if(blacksmithonMap && coalmineOnMap)    // Kette Wenn alles da ist dann Iron neu setzten
+            if(blacksmithonMap && coalmineOnMap)// Kette Wenn alles da ist dann Iron neu setzten
             setIron(getIron() + buildingEarnings.get(integer)[3]);
             setGold(getGold() + buildingEarnings.get(integer)[4]);
 

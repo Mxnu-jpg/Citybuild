@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * Dataclass for the Tiles placed on the map
  *
- * @author Manuel Reinprecht, Marcel Schmidl
+ * @author Manuel Reinprecht, Marcel S6chmidl
  * @version 1.0
  * */
 public class Tile{

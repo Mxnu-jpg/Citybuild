@@ -562,10 +562,6 @@ public class TileManager {
 
     }
 
-    public ArrayList<Tile> getTilesList() {
-        return tilesList;
-    }
-
     public Tile[] getTile() {
         return tile;
     }
