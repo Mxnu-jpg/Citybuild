@@ -194,18 +194,23 @@ public class Player extends Entity {
                 JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenerz platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if(tile.getId() == db.getIDperName("Kohlemine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Kohlefeld"))){
+            else if(tile.getId() == db.getIDperName("Kohlemine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Kohlefeld"))){
                 JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf einem Kohlefelder platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischloses Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreiches Wasser"))){
+            else if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischloses Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreiches Wasser"))){
                 JOptionPane.showMessageDialog(null, "Ein Fischer kann nur auf Wasser platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if(tile.getId() == db.getIDperName("Steinmetz") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Stein"))){
+            else if(tile.getId() == db.getIDperName("Steinbruch") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Stein"))){
                 JOptionPane.showMessageDialog(null, "Ein Steinmetz kann nur auf Stein platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            else if(((tile.getId() >= 10 && tile.getId() <= 12)  || (tile.getId() >= 14 && tile.getId() <= 16)) && gp.getTileM().getIdFromPosition(col,row) <= 9 && gp.getTileM().getIdFromPosition(col,row) >= 3 ){
+                JOptionPane.showMessageDialog(null, "Eine " + tile.getName()+ " kann nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)) +" platziert werden.", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             if (getWood() < cost[0]) {
                 JOptionPane.showMessageDialog(null, "Leider reicht der Bestand von Holz für dieses Gebäude nicht aus\n", "Zu wenig Holz", JOptionPane.ERROR_MESSAGE);
                 return;

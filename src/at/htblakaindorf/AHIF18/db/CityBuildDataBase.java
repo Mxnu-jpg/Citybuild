@@ -42,13 +42,13 @@ public class CityBuildDataBase {
             setTiles(5, "/tiles/ground/Bad-Iron-Ore.png", "wenig Eisenerz", new int[]{},new int[]{}, false, false);
             setTiles(6, "/res/tiles/ground/Iron-Ore.png", "viel Eisenerz", new int[]{},new int[]{}, false, false);
             setTiles(7, "/res/tiles/ground/Stone-Field.png", "Stein", new int[]{},new int[]{}, false, false);
-            setTiles(8, "/res/tiles/ground/Normal Water.png", "Fischloses Wasser", new int[]{},new int[]{}, false, false);
-            setTiles(9, "/res/tiles/ground/Rewarding Water.png", "Fischreiches Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(8, "/res/tiles/ground/Normal Water.png", "Wasser", new int[]{},new int[]{}, false, false);
+            setTiles(9, "/res/tiles/ground/Rewarding Water.png", "Fischreichem Wasser", new int[]{},new int[]{}, false, false);
             setTiles(10, "/res/building/House1.png", "Haus", new int[]{50,0,0,0},new int[]{}, true, true);
             setTiles(11, "/res/building/Church.png", "Kirche", new int[]{0,300,10,1000},new int[]{0, 0, 0, 100},true, true);
             setTiles(12, "/res/building/Blacksmith.png", "Schmiede", new int[]{80,10,0,100},new int[]{0, 0, 00, 0},true, true);
             setTiles(13, "/res/building/Fisher.png", "Fischer", new int[]{20,0,0,0},new int[]{25, 0, 0, 0},true, true);
-            setTiles(14, "/res/building/WheatFarm.png", "Wheat Farm", new int[]{45,0,0,50},new int[]{50,0,0,0},true, true);
+            setTiles(14, "/res/building/WheatFarm.png", "Bauer", new int[]{45,0,0,50},new int[]{50,0,0,0},true, true);
             setTiles(15, "/res/building/Windmill.png", "Muehle", new int[]{200,0,0,10},new int[]{0,0,0,0},true, true);
             setTiles(16, "/res/building/Bakery.png", "Baeckerei", new int[]{45,0,0,50},new int[]{0,0,0,0},true, true);
             setTiles(17, "/res/building/Coal Mine.png", "Kohlemine", new int[]{50,0,0,50},new int[]{0, 0, 0, 0},true,true);
@@ -113,12 +113,16 @@ public class CityBuildDataBase {
         }
     }
     public int getIDperName(String name){
-        for (Tile tile : tiles) {
-           if(tile.getName().equals(name))
-               return tile.getId();
+        try {
+            for (Tile tile : tiles) {
+                if (tile.getName().equals(name))
+                    return tile.getId();
+            }
+            return 0;
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Leider gab es  waehrend der Berechung des Spieles einen Fehler, CityBuildDatabase, getIPperName\n", "Fehler", JOptionPane.ERROR_MESSAGE);
+            return 0;
         }
-        JOptionPane.showMessageDialog(null, "Leider gab es  waehrend der Berechung des Spieles einen Fehler, CityBuildDatabase, getIPperName\n", "Fehler", JOptionPane.ERROR_MESSAGE);
-        return 0;
     }
     public String getNameperID(int id){
         for (Tile tile : tiles) {

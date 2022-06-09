@@ -197,7 +197,7 @@ public class TileManager {
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 3:
-                tilesList.add((row * gp.getMaxWorldRow() + col), new Tree("Tree", false, 3,
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Tree("Tree", true, 3,
                         false, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0, 0}, col, row));
                 break;
             case 4:
