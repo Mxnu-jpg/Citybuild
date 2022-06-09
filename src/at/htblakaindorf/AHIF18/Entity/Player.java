@@ -280,7 +280,7 @@ public class Player extends Entity {
         boolean coalmineOnMap = false;
         boolean bakeryOnMap = false;
         boolean windmillonMap= false;
-        int instantfood = 0;
+        int chainfood = 0;
         String protocols = "";
         buildingCounter = new HashMap<>();
         buildingEarnings = new HashMap<>();
@@ -300,8 +300,8 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-            if(tile.getId() == db.getIDperName("Fischer") || tile.getId() == db.getIDperName("Haus")) // alle Buildings die ohne Kette funktionieren
-                instantfood += tile.getEarnings()[0];
+            if(tile.getId() == db.getIDperName("Bauer")) // alle Buildings die mit Kette funktionieren
+                chainfood += tile.getEarnings()[0];
             else    //landen alle Buildigns die eine Kette haben
                 buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
                 buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
@@ -324,8 +324,6 @@ public class Player extends Entity {
              bakeryOnMap = true;
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
-
-            if(windmillonMap && bakeryOnMap)    // Kette Wenn alles da ist dann Food neu setzten
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
@@ -339,7 +337,8 @@ public class Player extends Entity {
             isum = isum + buildingEarnings.get(integer)[3];
             gsum = gsum + buildingEarnings.get(integer)[4];
         }
-        setFood(getFood() + instantfood); // Addiert das Essen aller Gebäude die keine Kette haben
+        if (windmillonMap && bakeryOnMap)
+        setFood(getFood() + chainfood); // Addiert das Essen aller Gebäude die eine Kette haben
         System.out.println("--------------------------------");
         System.out.println("Foodsum:" + fsum);
         System.out.println("Woodsum:" + wsum);
