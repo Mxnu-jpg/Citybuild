@@ -1,6 +1,7 @@
 package at.htblakaindorf.AHIF18;
 
 import at.htblakaindorf.AHIF18.Entity.Player;
+import at.htblakaindorf.AHIF18.bl.IOAccess;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+
     }
 
 

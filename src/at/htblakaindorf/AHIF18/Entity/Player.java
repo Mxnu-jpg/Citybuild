@@ -3,6 +3,7 @@ package at.htblakaindorf.AHIF18.Entity;
 import at.htblakaindorf.AHIF18.GamePanel;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.KeyHandler;
+import at.htblakaindorf.AHIF18.bl.IOAccess;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.swing.*;
@@ -43,11 +44,14 @@ public class Player extends Entity {
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
         speed = 10;
-        setFood(100);
-        setWood(1000);
-        setStone(1000);
-        setIron(10);
-        setGold(10000);
+        String[] resources = IOAccess.loadResources();
+        setFood(Integer.parseInt(resources[0]));
+        setWood(Integer.parseInt(resources[1]));
+        setStone(Integer.parseInt(resources[2]));
+        setIron(Integer.parseInt(resources[3]));
+        setGold(Integer.parseInt(resources[4]));
+
+
     }
 
     public void update() {
@@ -130,6 +134,8 @@ public class Player extends Entity {
             updateProtocol();
             System.out.println(gp.getUi().getMapProtocols());
         }
+        IOAccess.storeResources(getFood(),
+                getWood(), getStone(), getIron(), getGold());
     }
 
     public void topMenuClicked() {
