@@ -49,7 +49,7 @@ public class UI {
         CityBuildDataBase.getInstance().setUiIcons(this);
         this.gp = gp;
         buildingpath = new ArrayList<Buildingname>();
-        amount_of_items_in_UI = 10;
+        amount_of_items_in_UI = 11;
         amount_of_section_in_Bottom_UI = 6; // max 11
         amount_of_top_menue_items = 2;
         amount_of_top_menue_ressource_items = 5;

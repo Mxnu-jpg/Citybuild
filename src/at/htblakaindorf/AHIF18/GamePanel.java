@@ -63,96 +63,21 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
 
     public void update() {
         player.update();
     }
-    /*
-    public void changeZoom(int i) {
-        oldWorldWidth = tileSize * maxWorldCol;
 
-        if ((tileSize >= 85)) {
-            if (i < 0) {
-                tileSize += i;
-            }
-
-        } else if ((tileSize <= 35)) {
-            if (i > 0) {
-                tileSize += i;
-            }
-
-        } else {
-            tileSize += i;
-        }
-        System.out.println(tileSize);
-
-        newWorldWidth = tileSize * maxWorldCol;
-
-        double multiplier = (double) newWorldWidth / oldWorldWidth;
-        double x = player.worldX * multiplier;
-        double y = player.worldY * multiplier;
-
-        player.worldX = x;
-        player.worldY = y;
-
-        System.out.println(tileSize);
-        System.out.println(scale);
-        System.out.println(worldWidth);
-        System.out.println(worldHeight);
-        System.out.println(screenWidth);
-        System.out.println(screenHeight);
-    }
-
-    public void resetZoom() { //Not Working!!
-        oldWorldWidth = tileSize * maxWorldCol;
-        tileSize = originalTitleSize * scale;
-        newWorldWidth = tileSize * maxWorldCol;
-
-        double multiplier = (double) newWorldWidth / oldWorldWidth;
-        double x = player.worldX * multiplier;
-        double y = player.worldY * multiplier;
-
-        player.worldX = x;
-        player.worldY = y;
-    }
-
-    public void drawtotempScreen() {
-
-        tileM.draw(g2); //Draw Ground
-        player.draw(g2); // Draw Player
-        ui.draw(g2);
-    }
-
-    public void drawtoScreen() {
-        Graphics g2 = getGraphics();
-        g2.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        g2.dispose();
-    }
-    */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        /*
-        AffineTransform trans = new AffineTransform();
-        trans.scale(2, 2);
-        g2.setTransform(trans);
-        double drawStart = 0;
-        drawStart = System.nanoTime();
-        */
         tileM.draw(g2); //Draw Ground
         player.draw(g2);
         ui.draw(g2);
-        /*
-        double drawEnd = System.nanoTime();
-        double passed = drawEnd-drawStart;
-        g2.setColor(Color.white);
-        g2.drawString("Draw Time: " + 1000000000, 10, 400);
-        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
-        */
+
     }
 
     @Override
@@ -237,32 +162,4 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager getTileM() {
         return tileM;
     }
-
-    /*
-    public void setScale(int scale) {
-        this.scale = scale;
-    }
-
-    public int getOriginalTitleSize() {
-        return originalTitleSize;
-    }
-
-    public int getScale() {
-        return scale;
-    }
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
-    }
-    public int getFPS() {
-        return FPS;
-    }
-
-    public Thread getGameThread() {
-        return gameThread;
-    }
-    */
 }

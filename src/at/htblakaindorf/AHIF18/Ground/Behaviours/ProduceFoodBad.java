@@ -1,7 +1,7 @@
 package at.htblakaindorf.AHIF18.Ground.Behaviours;
 
 /**
- *  Bad Produce-Behaviour for {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building}
+ *  Bad Food Produce-Behaviour for {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building}
  *  placed on a {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Sand} tile
  *
  * @author Marcel Schmidl
@@ -11,7 +11,7 @@ public class ProduceFoodBad implements ProduceBehaviour{
     /**
      * Sets the earnings of each building based on the produce-behaviour
      *
-     * @return */
+     * @return earnings based on the ground tile*/
     @Override
     public int[] produce(int[] earnings) {
         if(!(earnings[0] <= 0))

@@ -13,11 +13,11 @@ import java.util.*;
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler kH;
-    CityBuildDataBase db;
-    Map<Integer, Integer> buildingCounter;
-    Map<Integer, int[]> buildingEarnings;
+    private GamePanel gp;
+    private KeyHandler kH;
+    private CityBuildDataBase db;
+    private Map<Integer, Integer> buildingCounter;
+    private Map<Integer, int[]> buildingEarnings;
 
     public final int screenX;
     public final int screenY;
@@ -40,7 +40,6 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        //spawn
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
         speed = 10;
@@ -155,15 +154,14 @@ public class Player extends Entity {
             sectionLineClicked();
     }
 
-    private void sectionLineClicked() {
+    public void sectionLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++)
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i)) {
-                updateUiElements(i);
                 System.out.println("Section clicked, Section: " + (i + 1) + ", Name: ");
             }
     }
 
-    private void elementsLineClicked() {
+    public void elementsLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i)) {
                 System.out.println("Elements clicked, Elements: " + (i + 1) + ", Name: " + gp.getUi().getTile(i).getName());
@@ -174,7 +172,7 @@ public class Player extends Entity {
         }
     }
 
-    private void optionsLineClicked() { // work
+    public void optionsLineClicked() { // work
         for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element() && kH.getPointerPosition().getX() >= gp.getUi().calculateRightTopMenuPos(i)) {
                 if (i == 0) { // Options
@@ -190,12 +188,7 @@ public class Player extends Entity {
         }
     }
 
-
-    private void updateUiElements(int i) {
-
-    }
-
-    private void buildElementonMap(Tile tile) {
+    public void buildElementonMap(Tile tile) {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
 
@@ -252,7 +245,7 @@ public class Player extends Entity {
 
     }
 
-    private void removeElementMap() {
+    public void removeElementMap() {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
 
@@ -367,8 +360,6 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        //g2.setColor(Color.black);//Black
-        //g2.setColor(new Color(0f,0f,0f,0f));//new Color(0f,0f,0f,0f)
     }
     //Getter
     public int getWood() {

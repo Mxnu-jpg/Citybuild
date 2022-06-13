@@ -177,12 +177,10 @@ public class TileManager {
      * @param col column position of the building
      * @param row row position of the building
      */
-    //REAL EARNINGS
     public void createSpecificBuilding(int id, int col, int row) {
         if(tilesList.size() == 2500){
             tilesList.remove(row * gp.getMaxWorldRow() + col);
         }
-        //Update bei neuen Building // muss synchron mit db sein
         switch (id) {
             case 0:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Grass("Grass", false, 0,
@@ -230,11 +228,11 @@ public class TileManager {
                 break;
             case 11:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Church("Kirche", true, 11,
-                        true, new int[]{0, 400, 5, 1000}, new int[]{0, 0, 0, 0, 100}, col, row));
+                        true, new int[]{0, 400, 25, 1000}, new int[]{-20, 0, 0, 0, 100}, col, row));
                 break;
             case 12:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Blacksmith("Schmiede", true, 12,
-                        true, new int[]{180, 0, 10, 300}, new int[]{0, 0, 0, 0, 100}, col, row));
+                        true, new int[]{180, 0, 50, 300}, new int[]{0, 0, 0, 0, 100}, col, row));
                 break;
             case 13:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Fisher("Fisher", true, 13,
@@ -263,6 +261,10 @@ public class TileManager {
             case 19:
                 tilesList.add((row * gp.getMaxWorldRow() + col), new Stonemason("Steinmetz", true, 19,
                         true, new int[]{30, 0, 0, 40}, new int[]{0, 0, 20, 0, 0}, col, row));
+                break;
+            case 20:
+                tilesList.add((row * gp.getMaxWorldRow() + col), new Lumberjack("Holzfäller", true, 20,
+                        true, new int[]{25, 40, 0, 0}, new int[]{0, 25, 0, 0, 0}, col, row));
                 break;
             default:
                 break;
@@ -455,7 +457,7 @@ public class TileManager {
      * Sets the production rate of every {@link Building} on the map base on the
      * {@link Tile} they are placed on
      * */
-    public void setProductionRate() { // Alle Tiles müssen case haben
+    public void setProductionRate() {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
             int id = getGroundIDFromPosition(building.getCol(), building.getRow());
@@ -474,8 +476,6 @@ public class TileManager {
                     break;
                 case 4:
                     building.setProduceBehaviour(new ProduceAllAverage());
-                    // default funktioniert nicht richtig bei diesem Pattern alle weiteren
-                    // Felder werden nicht in den switch reinspringen
                     break;
                 case 5:
                     building.setProduceBehaviour(new ProduceIronBad());
