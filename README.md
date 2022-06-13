@@ -1,1 +1,2 @@
-# Citybuild für Groß und Klein :^)
+# Citybuild
+ -> JDK 17 required
