@@ -40,6 +40,7 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
+        //spawn
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
         speed = 10;
@@ -136,13 +137,17 @@ public class Player extends Entity {
         IOAccess.storeResources(getFood(),
                 getWood(), getStone(), getIron(), getGold());
     }
-
+    /**
+     * Onclick if topmenue is Clicked
+     * */
     public void topMenuClicked() {
         System.out.println("Top Menue");
         if (kH.getPointerPosition().getY() >= gp.getUi().getMargin_from_Top_Menue() && kH.getPointerPosition().getY() <= gp.getUi().getHeight_of_Top_UI() - gp.getUi().getMargin_from_Top_Menue())
             optionsLineClicked();
     }
-
+    /**
+     *Onclick if bottommenue is Clicked
+     * */
     public void bottomMenuClicked() {
         //Bottom Menu clicked
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
@@ -153,15 +158,20 @@ public class Player extends Entity {
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
             sectionLineClicked();
     }
-
-    public void sectionLineClicked() {
+    /**
+     *Onclick if bottomsection menue is Clicked
+     * */
+    private void sectionLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++)
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i)) {
+                updateUiElements(i);
                 System.out.println("Section clicked, Section: " + (i + 1) + ", Name: ");
             }
     }
-
-    public void elementsLineClicked() {
+    /**
+     *Onclick if menue element is Clicked
+     * */
+    private void elementsLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i)) {
                 System.out.println("Elements clicked, Elements: " + (i + 1) + ", Name: " + gp.getUi().getTile(i).getName());
@@ -171,8 +181,10 @@ public class Player extends Entity {
             }
         }
     }
-
-    public void optionsLineClicked() { // work
+    /**
+     *Onclick if option is Clicked
+     * */
+    private void optionsLineClicked() { // work
         for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element() && kH.getPointerPosition().getX() >= gp.getUi().calculateRightTopMenuPos(i)) {
                 if (i == 0) { // Options
@@ -188,7 +200,16 @@ public class Player extends Entity {
         }
     }
 
-    public void buildElementonMap(Tile tile) {
+
+    private void updateUiElements(int i) {
+
+    }
+
+    /**
+     * Builds building on map
+     * @param tile tile which will be placed
+     * */
+    private void buildElementonMap(Tile tile) {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
 
@@ -244,8 +265,10 @@ public class Player extends Entity {
         }
 
     }
-
-    public void removeElementMap() {
+    /**
+     * removes Building from Map
+     * */
+    private void removeElementMap() {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
 
@@ -260,7 +283,9 @@ public class Player extends Entity {
             gp.getTileM().removeBuilding(col, row);
         }
     }
-
+    /**
+     * gets Earnings and Cost from every placeable map
+     * */
     public void updateProtocol(){// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
         String protocols = "";

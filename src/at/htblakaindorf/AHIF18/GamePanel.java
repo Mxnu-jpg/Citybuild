@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+
     }
 
 
@@ -70,14 +71,31 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    /**
+     * Displays every Tile and UI in the Runningtime
+     * */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        //RenderCalculator
+        /*
+        AffineTransform trans = new AffineTransform();
+        trans.scale(2, 2);
+        g2.setTransform(trans);
+        double drawStart = 0;
+        drawStart = System.nanoTime();
+        */
         tileM.draw(g2); //Draw Ground
         player.draw(g2);
         ui.draw(g2);
-
+        /*
+        double drawEnd = System.nanoTime();
+        double passed = drawEnd-drawStart;
+        g2.setColor(Color.white);
+        g2.drawString("Draw Time: " + 1000000000, 10, 400);
+        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
+        */
     }
 
     @Override

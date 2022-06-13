@@ -93,35 +93,50 @@ public class UI {
     }
 
     /**
-     * Calculates
-     *
-     * @param  i of every Building in the SchoolDB
+     * Calculates the positions of the images in the right corner of the UI
+     * @param  i amount of Images in the right corner
      * */
     public int calculateRightTopMenuPos(int i){
 
         return gp.getScreenWidth() -  (right_top_box / amount_of_top_menue_items) * (i+1);
     }
+    /**
+     * Calculates the position of the images in the Topmenue
+     * @param  i amount of Images in the Topmenue
+     * */
     public int calculateRessourceTopMenuPos(int i){
 
         return  ((ressource_top_box / amount_of_top_menue_ressource_items) * i)
                 - (gp.getScreenWidth()/amount_of_top_menue_ressource_items)/2;
     }
-
+    /**
+     * Calculates the position of the images in the Menue
+     * @param  i amount of Images in the Menue
+     * */
     public int calculateMenuePos(int i) {//Synchron zu amount_of_items_in_UI-1
 
         if (amount_of_items_in_UI == 0)
             return middle_object;
-        return (gp.getScreenWidth() / amount_of_items_in_UI) * i + middle_object; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
+        return (gp.getScreenWidth() / amount_of_items_in_UI) * i + middle_object;
     }
-
-    public int calculateBottomMenuePos(int i) {//Synchron zu amount_of_items_in_Bottom_UI-1
+    /**
+     * Calculates the position of the rectangles in the BottomMenuesection
+     * @param  i amount of rectangles in the BottomMenuesection
+     * */
+    public int calculateBottomMenuePos(int i) {
         if (amount_of_section_in_Bottom_UI == 1)
-            return middle_object_Bottom_menue; // sehr sehr leichte zu wenig Pixel vermutlich wegen int zwischen (2-4) pixel
+            return middle_object_Bottom_menue;
         return (((gp.getScreenWidth() / amount_of_section_in_Bottom_UI) * i) / (amount_of_section_in_Bottom_UI / (amount_of_section_in_Bottom_UI / 2)))
                 + gp.getScreenWidth() / 2 - ((((gp.getScreenWidth() / amount_of_section_in_Bottom_UI) * amount_of_section_in_Bottom_UI) / (amount_of_section_in_Bottom_UI / (amount_of_section_in_Bottom_UI / 2))) -
                 ((gp.getScreenWidth() / amount_of_section_in_Bottom_UI) / (amount_of_section_in_Bottom_UI / (amount_of_section_in_Bottom_UI / 2))) + menuetilesize) / 2; // Meine Zwangsstörungen kicken diese scheiß 3
     }
-
+    /**
+     *
+     * @param  index index at with location of the rectangle the image appear
+     * @param  id id of Image
+     * @param  imagePath Imagepath of Image
+     * @param  name Name of Image
+     * */
     private void setBottomUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
@@ -136,6 +151,13 @@ public class UI {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+    /**
+     * Calculates the position of the rectangles in the BottomMenuesection
+     * @param  index index at with location of the rectangle the ressource appear
+     * @param  id id of Image
+     * @param  imagePath Imagepath of Image
+     * @param  name Name of Image
+     * */
     private void setTopUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
@@ -150,7 +172,14 @@ public class UI {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * displays the Menue
+     * @param  g2 Graphiccomponent to display the Menue
+     * @param  x x location of Menue
+     * @param  y y location of Menue
+     * @param  width width of Menue
+     * @param  height height of Image
+     * */
     public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(bottomMenu);
         //Bottom MenuBar
@@ -180,11 +209,14 @@ public class UI {
             g2.drawImage(tileBottomMenue[i].image, calculateMenuePos(i), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
         }
     }
-    public void setMapInfos(String protocol) {
-       mapProtocols = protocol;
-    }
-
-    public void showBottomMenufromBottomMenue(Graphics2D g2, int x, int y, int width, int height) {
+    /**
+     * displays the Menue
+     * @param  g2 Graphiccomponent to display the Menue
+     * @param  y y location of Menue
+     * @param  width width of Menue
+     * @param  height height of Image
+     * */
+    public void showBottomMenufromBottomMenue(Graphics2D g2, int y, int width, int height) {
         g2.setColor(sectionElements);
 
         g2.fillRoundRect(calculateBottomMenuePos(0), y, width, height, 0, 0);
@@ -194,7 +226,13 @@ public class UI {
         g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
         g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
     }
-
+    /**
+     * displays the Menue
+     * @param  g2 Graphiccomponent to display the Menue
+     * @param  y y location of Menue
+     * @param  width width of Menue
+     * @param  height height of Image
+     * */
     public void showTopBar(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(topBar);
         g2.fillRoundRect(x, y, width, height, 0, 0);
@@ -210,7 +248,7 @@ public class UI {
         g2.drawImage(tileTopMenue[3].image, calculateRessourceTopMenuPos(4), margin_from_Top_Menue, null);
         g2.drawImage(tileTopMenue[4].image, calculateRessourceTopMenuPos(5), margin_from_Top_Menue, null);
 
-        //Farbe des Coutner setzen
+        //Farbe des Counter setzen
         g2.setColor(Color.white);
         //Counter der Ressourcen setzen
         //gibt dir die Pixel zurück wie lange der String mit dem eingelesenen Text ist:
@@ -236,11 +274,16 @@ public class UI {
     public void updateUiElements(){
         //section
     }
-
+    public void setMapInfos(String protocol) {
+        mapProtocols = protocol;
+    }
+    /**
+     * executes the menue functions to show the top and bottom menue
+     * */
     public void draw(Graphics2D g2) {
 
         showBottomMenu(g2, 0, gp.getScreenHeight() - height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
-        showBottomMenufromBottomMenue(g2, 0, gp.getScreenHeight() - height_of_Bottomsection_UI - margin_from_Bottomsection_Menu, menuetilesize, height_of_Bottomsection_UI);
+        showBottomMenufromBottomMenue(g2, gp.getScreenHeight() - height_of_Bottomsection_UI - margin_from_Bottomsection_Menu, menuetilesize, height_of_Bottomsection_UI);
         showTopBar(g2, 0, 0, gp.getScreenWidth(), height_of_Top_UI);
 
        /* g2.setColor(Color.green);
