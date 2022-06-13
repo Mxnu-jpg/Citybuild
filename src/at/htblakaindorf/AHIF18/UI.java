@@ -95,8 +95,7 @@ public class UI {
     /**
      * Calculates
      *
-     * @param  Arraylist of every Building in the SchoolDB
-     * @param  contains icons for the Topmenue
+     * @param  i of every Building in the SchoolDB
      * */
     public int calculateRightTopMenuPos(int i){
 
