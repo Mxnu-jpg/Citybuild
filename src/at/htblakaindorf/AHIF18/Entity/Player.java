@@ -232,7 +232,7 @@ public class Player extends Entity {
                 JOptionPane.showMessageDialog(null, "Ein Steinmetz kann nur auf Stein platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            else if(((tile.getId() >= 10 && tile.getId() <= 12)  || (tile.getId() >= 14 && tile.getId() <= 16)) && gp.getTileM().getIdFromPosition(col,row) <= 9 && gp.getTileM().getIdFromPosition(col,row) >= 3 ){
+            else if(((tile.getId() >= 10 && tile.getId() <= 12)  || (tile.getId() >= 14 && tile.getId() <= 16) || tile.getId() >= 20) && gp.getTileM().getIdFromPosition(col,row) <= 9 && gp.getTileM().getIdFromPosition(col,row) >= 3 ){
                 JOptionPane.showMessageDialog(null, "Eine " + tile.getName()+ " kann nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)) +" platziert werden.", "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
