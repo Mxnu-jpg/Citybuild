@@ -58,8 +58,8 @@ public class TileManager {
     /**
      * Load the playermap with the given {@link BufferedReader} and set the {@link Building}s
      *
-     * @param br  BufferedReader to load the map
-     * @param map contains id's of the map
+     * @param br  {@link BufferedReader} to load the map
+     * @param map contains ID's of the map
      */
     public void loadMap(BufferedReader br, int map[][]) {
         try {
@@ -97,6 +97,11 @@ public class TileManager {
         }
     }
 
+    /**
+     * Draws the map new, everytime the {@link at.htblakaindorf.AHIF18.Entity.Player} moves or makes an action
+     *
+     * @param g2 {@link Graphics2D} which are used to build the map
+     */
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
@@ -173,9 +178,9 @@ public class TileManager {
     }
 
     /**
-     * Adds each kind of building with its position on the map to a list.
+     * Adds each kind of {@link Building} with its position on the map to a {@link List}.
      *
-     * @param id  id of the building which is added
+     * @param id  ID of the building which is added
      * @param col column position of the building
      * @param row row position of the building
      */
@@ -456,7 +461,7 @@ public class TileManager {
     }
 
     /**
-     * Sets the production rate of every {@link Building} on the map base on the
+     * Sets the production rate of every {@link Building} on the map based on the
      * {@link Tile} they are placed on
      */
     public void setProductionRate() {
@@ -501,7 +506,7 @@ public class TileManager {
      *
      * @param colpos column position of the {@link Tile}
      * @param rowpos row position of the {@link Tile}
-     * @return returns the ID of the {@link Tile}
+     * @return the ID of the {@link Tile}
      */
     public int getGroundIDFromPosition(int colpos, int rowpos) {
         int result = 0;

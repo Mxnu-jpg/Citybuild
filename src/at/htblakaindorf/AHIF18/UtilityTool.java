@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Tool for resizing and scaling the images used in the game
+ * Tool, for resizing and scaling the images used in the game
  *
  * @author Manuel Reinprecht
  * @version 1.0 - 14.03.2022

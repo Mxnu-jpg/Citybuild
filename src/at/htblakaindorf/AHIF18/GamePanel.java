@@ -66,44 +66,37 @@ public class GamePanel extends JPanel implements Runnable {
         g2 = (Graphics2D) tempScreen.getGraphics();
     }
 
+    /**
+     * Starts the main {@link Thread} of the game
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
 
     }
 
-
+    /**
+     * Called everytime the game has changed
+     */
     public void update() {
         player.update();
     }
 
     /**
-     * Displays every Tile and UI in the Runningtime
+     * Displays every {@link at.htblakaindorf.AHIF18.Ground.Tile} and {@link UI} in the runningtime
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        //RenderCalculator
-        /*
-        AffineTransform trans = new AffineTransform();
-        trans.scale(2, 2);
-        g2.setTransform(trans);
-        double drawStart = 0;
-        drawStart = System.nanoTime();
-        */
         tileM.draw(g2); //Draw Ground
         player.draw(g2);
         ui.draw(g2);
-        /*
-        double drawEnd = System.nanoTime();
-        double passed = drawEnd-drawStart;
-        g2.setColor(Color.white);
-        g2.drawString("Draw Time: " + 1000000000, 10, 400);
-        System.out.println("Draw Time: " + passed/1000000000 + "/" + passed);
-        */
     }
 
+    /**
+     * Main method of the game, active while the main {@link Thread} is active
+     */
     @Override
     public void run() {
         double drawInterval = 1000000000 / FPS;

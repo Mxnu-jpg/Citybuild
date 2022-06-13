@@ -1,7 +1,7 @@
 package at.htblakaindorf.AHIF18;
 
 /**
- * Dataclass for each {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building} based on its name and
+ * Dataclass for each {@link at.htblakaindorf.AHIF18.Ground.Tile} based on its name and
  * imagepath
  *
  * @author Manuel Reinprecht

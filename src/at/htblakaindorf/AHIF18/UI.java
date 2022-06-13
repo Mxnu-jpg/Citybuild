@@ -15,6 +15,12 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * UI-class for the game itself
+ *
+ * @author Manuel Reinprecht
+ * @version 1.1 - 13.06.2022
+ */
 public class UI {
 
     GamePanel gp;
@@ -74,10 +80,10 @@ public class UI {
     }
 
     /**
-     * Sets Image of every Building in the SchoolDB for UI in the Bottom Menue
+     * Sets Image of every {@link Building} in the {@link CityBuildDataBase} for {@link UI} in the bottom menu
      *
-     * @param buildingpath Arraylist of every Building in the SchoolDB
-     * @param icons        contains icons for the Topmenue
+     * @param buildingpath {@link java.util.List} of every {@link Building} in the {@link CityBuildDataBase}
+     * @param icons        contains icons for the top menue
      */
     public void setUiImages(ArrayList<Buildingname> buildingpath, ArrayList<Buildingname> icons) {
 
@@ -94,9 +100,9 @@ public class UI {
     }
 
     /**
-     * Calculates the positions of the images in the right corner of the UI
+     * Calculates the positions of the images in the right corner of the {@link UI}
      *
-     * @param i amount of Images in the right corner
+     * @param i amount of images in the right corner
      */
     public int calculateRightTopMenuPos(int i) {
 
@@ -104,9 +110,9 @@ public class UI {
     }
 
     /**
-     * Calculates the position of the images in the Topmenue
+     * Calculates the position of the images in the top menu
      *
-     * @param i amount of Images in the Topmenue
+     * @param i amount of Images in the top menu
      */
     public int calculateRessourceTopMenuPos(int i) {
 
@@ -115,9 +121,9 @@ public class UI {
     }
 
     /**
-     * Calculates the position of the images in the Menue
+     * Calculates the position of the images in the menu
      *
-     * @param i amount of Images in the Menue
+     * @param i amount of images in the menu
      */
     public int calculateMenuePos(int i) {//Synchron zu amount_of_items_in_UI-1
 
@@ -127,9 +133,9 @@ public class UI {
     }
 
     /**
-     * Calculates the position of the rectangles in the BottomMenuesection
+     * Calculates the position of the rectangles in the bottom menusection
      *
-     * @param i amount of rectangles in the BottomMenuesection
+     * @param i amount of rectangles in the bottom menusection
      */
     public int calculateBottomMenuePos(int i) {
         if (amount_of_section_in_Bottom_UI == 1)
@@ -141,9 +147,9 @@ public class UI {
 
     /**
      * @param index     index at with location of the rectangle the image appear
-     * @param id        id of Image
-     * @param imagePath Imagepath of Image
-     * @param name      Name of Image
+     * @param id        ID of the image
+     * @param imagePath Imagepath of the image
+     * @param name      Name of the Image
      */
     private void setBottomUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
@@ -161,12 +167,12 @@ public class UI {
     }
 
     /**
-     * Calculates the position of the rectangles in the BottomMenuesection
+     * Calculates the position of the rectangles in the bottom menu section
      *
-     * @param index     index at with location of the rectangle the ressource appear
-     * @param id        id of Image
-     * @param imagePath Imagepath of Image
-     * @param name      Name of Image
+     * @param index     index at with location of the rectangle the resource appear
+     * @param id        ID of the image
+     * @param imagePath Imagepath of the image
+     * @param name      Name of the image
      */
     private void setTopUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
@@ -184,13 +190,13 @@ public class UI {
     }
 
     /**
-     * displays the Menue
+     * Displays the menu
      *
-     * @param g2     Graphiccomponent to display the Menue
-     * @param x      x location of Menue
-     * @param y      y location of Menue
-     * @param width  width of Menue
-     * @param height height of Image
+     * @param g2     graphic component to display the menu
+     * @param x      x-location of the menu
+     * @param y      y-location of the menu
+     * @param width  width of the menu
+     * @param height height of the image
      */
     public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(bottomMenu);
@@ -223,12 +229,12 @@ public class UI {
     }
 
     /**
-     * displays the Menue
+     * Displays the menu
      *
-     * @param g2     Graphiccomponent to display the Menue
-     * @param y      y location of Menue
-     * @param width  width of Menue
-     * @param height height of Image
+     * @param g2     graphic component to display the menu
+     * @param y      y-location of the menu
+     * @param width  width of the menu
+     * @param height height of the image
      */
     public void showBottomMenufromBottomMenue(Graphics2D g2, int y, int width, int height) {
         g2.setColor(sectionElements);
@@ -242,12 +248,12 @@ public class UI {
     }
 
     /**
-     * displays the Menue
+     * Displays the menu
      *
-     * @param g2     Graphiccomponent to display the Menue
-     * @param y      y location of Menue
-     * @param width  width of Menue
-     * @param height height of Image
+     * @param g2     graphic component to display the menu
+     * @param y      y-location of the menu
+     * @param width  width of the menu
+     * @param height height of the image
      */
     public void showTopBar(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(topBar);
@@ -297,7 +303,7 @@ public class UI {
     }
 
     /**
-     * executes the menue functions to show the top and bottom menue
+     * Executes the menu functions to show the top and bottom menu
      */
     public void draw(Graphics2D g2) {
 

@@ -30,7 +30,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * When Key pressed function will run
+     * When a key is pressed, the function will be called
      *
      * @param e contians the value(name) of the pressed key
      */
@@ -55,7 +55,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * Activates if key will be released
+     * Activates, if key will be released
      *
      * @param e contians the value(name) of the pressed key
      */
@@ -78,7 +78,7 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * sets boolean to false
+     * Sets the boolean value of the mouse click to false
      */
     public void clearMouseClick() {
         mouseClicked = false;
@@ -89,9 +89,9 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * When mouse will be clicked booleans will be changed
+     * When a mouse click is made, the value of the mouse click will be changed to true
      *
-     * @param e Event of mouse clicked
+     * @param e Event of mouse-clicked
      */
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -118,9 +118,9 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * Everytime the mouse gets dragged there will be a new pointerPosition
+     * Everytime the mouse gets dragged, there will be a new pointerPosition
      *
-     * @param e Event of Mouse dragged
+     * @param e Event of mouse-dragged
      */
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -128,9 +128,9 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * Everytime the mouse gets moved there will be a new pointerPosition
+     * Everytime the mouse gets moved, there will be a new pointerPosition
      *
-     * @param e Event of Mouse moved
+     * @param e Event of mouse-moved
      */
     @Override
     public void mouseMoved(MouseEvent e) {

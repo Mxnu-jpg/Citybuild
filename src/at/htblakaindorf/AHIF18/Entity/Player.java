@@ -64,6 +64,9 @@ public class Player extends Entity {
 
     }
 
+    /**
+     * Updates the game according to the set fps counter
+     */
     public void update() {
         if (kH.isUp() == true) {
             int y = screenY - gp.getUi().getHeight_of_Top_UI();
@@ -149,7 +152,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Onclick if topmenue is Clicked
+     * Called, if the top menu is clicked
      */
     public void topMenuClicked() {
         System.out.println("Top Menue");
@@ -158,7 +161,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Onclick if bottommenue is Clicked
+     * Called, if the bottom menu is clicked
      */
     public void bottomMenuClicked() {
         //Bottom Menu clicked
@@ -172,7 +175,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Onclick if bottomsection menue is Clicked
+     * Called, if the section menu on the bottom is clicked
      */
     public void sectionLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++)
@@ -182,7 +185,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Onclick if menue element is Clicked
+     * Called, when an item in the building menu is clicked
      */
     private void elementsLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
@@ -196,7 +199,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Onclick if option is Clicked
+     * Called, if the options button is clicked
      */
     private void optionsLineClicked() { // work
         for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
@@ -215,9 +218,9 @@ public class Player extends Entity {
     }
 
     /**
-     * Builds building on map
+     * When called, the given {@link Tile} is built on the map
      *
-     * @param tile tile which will be placed
+     * @param tile {@link Tile} which will be placed
      */
     private void buildElementonMap(Tile tile) {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
@@ -276,7 +279,7 @@ public class Player extends Entity {
     }
 
     /**
-     * removes pointed buidling on the Map
+     * Removes the {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building} which is located at the calculated position
      */
     public void removeElementMap() {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
@@ -295,7 +298,8 @@ public class Player extends Entity {
     }
 
     /**
-     * returns every buildings Costs and Earnings
+     * Displays the costs and earnings of all {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building}s
+     * which are currently on the map
      */
     public void updateProtocol() {// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
@@ -319,6 +323,10 @@ public class Player extends Entity {
         gp.getUi().setMapInfos(protocols);
     }
 
+    /**
+     * calcualates the production of each {@link at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building} on the map
+     * and starts the production behaviour
+     */
     public void produce() {
 
         ArrayList<Tile> tiles = db.getMapList();

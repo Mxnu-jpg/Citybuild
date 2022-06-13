@@ -69,6 +69,11 @@ public class CityBuildDataBase {
         }
     }
 
+    /**
+     * static method to get and create the instance of the {@link CityBuildDataBase}
+     *
+     * @return instance of the class
+     */
     public static CityBuildDataBase getInstance() {
         if (instance == null) {
             instance = new CityBuildDataBase();
@@ -119,6 +124,7 @@ public class CityBuildDataBase {
      * Returns the {@link Tile} of the given ID
      *
      * @param id ID of the {@link Tile}
+     * @return {@link Tile} of the given ID
      */
     public Tile getTileById(int id) {
         return tiles.stream().filter(t -> t.getId() == id).findFirst().get();
