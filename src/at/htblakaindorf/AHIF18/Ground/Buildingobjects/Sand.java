@@ -2,6 +2,9 @@ package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
 import at.htblakaindorf.AHIF18.Ground.Tile;
 
+/**
+ * Specified {@link Building} class for {@link Sand}
+ * */
 public class Sand extends Building {
 
     public Sand(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings, int col, int row) {
