@@ -8,7 +8,6 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     //Mouse
     private Pos pointerPosition;
     private boolean mouseClicked = false;
-    private boolean mousePressed = false;
     private boolean up, down, left, right, zoom;
     GamePanel gp;
     private boolean sysinfo;
@@ -22,7 +21,10 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
+    /**
+     * When Key pressed function will run
+     * @param  e contians the value(name) of the pressed key
+     * */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -41,19 +43,11 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
         if(code == KeyEvent.VK_I){
             sysinfo = true;
         }
-        //Zoom
-        /*if (code == KeyEvent.VK_UP){
-            gp.changeZoom(1);
-        }
-        if (code == KeyEvent.VK_DOWN){
-            gp.changeZoom(-1);
-        }
-        if(code == KeyEvent.VK_SPACE){
-            gp.resetZoom();
-        }*/ //Map border funktioniert nur mit defaultview
-
     }
-
+    /**
+     * Activates if key will be released
+     * @param  e contians the value(name) of the pressed key
+     * */
     @Override
     public void keyReleased(KeyEvent e) {
 
@@ -72,25 +66,27 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
         }
     }
 
-
+    /**
+     * sets boolean to false
+     * */
     public void clearMouseClick(){
         mouseClicked = false;
     }
 
-
     public boolean isRemoveBuilding() {
         return removeBuilding;
     }
-
+    /**
+     * When mouse will be Clicked booleans will be changed
+     * @param  e Event of Mouse clicked
+     * */
     @Override
     public void mouseClicked(MouseEvent e) {
         mouseClicked = true;
-        mousePressed = false;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mousePressed = true;
     }
 
     @Override
@@ -107,12 +103,18 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     public void mouseExited(MouseEvent e) {
 
     }
-
+    /**
+     * everstime the mouse gets dragged there will be a new pointerPosition
+     * @param  e Event of Mouse dragged
+     * */
     @Override
     public void mouseDragged(MouseEvent e) {
         pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
     }
-
+    /**
+     * everytime the mouse gets moved there will be a new pointerPosition
+     * @param  e Event of Mouse moved
+     * */
     @Override
     public void mouseMoved(MouseEvent e) {
         pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
@@ -165,10 +167,6 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
 
     public boolean isMouseClicked() {
         return mouseClicked;
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
     }
 
     public boolean isSysinfo() {
