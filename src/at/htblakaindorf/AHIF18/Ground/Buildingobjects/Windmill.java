@@ -1,9 +1,10 @@
 package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
-import at.htblakaindorf.AHIF18.Ground.Tile;
-
 /**
  * Specified {@link Building} class for the {@link Windmill}
+ *
+ * @author Marcel Schmidl
+ * @version 1.0 - 16.05.2022
  */
 public class Windmill extends Building {
 

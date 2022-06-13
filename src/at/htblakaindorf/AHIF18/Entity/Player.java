@@ -40,7 +40,6 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        //spawn
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
         speed = 10;
@@ -84,17 +83,17 @@ public class Player extends Entity {
             System.out.println(worldY);
             System.out.println(worldX);
         }
-        for(int i=0;i<gp.getUi().getAmount_of_items_in_UI();i++) // nach tooltipanzige muss wenn bei neuer Sache nochmal neu angezeigt werden, tooltip wird nicht geupdated
-        if((kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i) && gp.getUi().calculateMenuePos(i)+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getX())
-                && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu() <= kH.getPointerPosition().getY()
-                && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI()+gp.getUi().getMargin_from_Bottom_Menu()+gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getY()){
-            //Tooltips
-            gp.setToolTipText("Costs: " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[0] + ", "
-                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[1] + ", "
-                    + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[3] + " Earnings: " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[0] + ", "
-                    + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[1] + ", "
-                    + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[3]);
-        }
+        for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++) // nach tooltipanzige muss wenn bei neuer Sache nochmal neu angezeigt werden, tooltip wird nicht geupdated
+            if ((kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i) && gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getX())
+                    && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() <= kH.getPointerPosition().getY()
+                    && gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() + gp.getUi().getMenuetilesize() >= kH.getPointerPosition().getY()) {
+                //Tooltips
+                gp.setToolTipText("Costs: " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[0] + ", "
+                        + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[1] + ", "
+                        + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getCosts()[3] + " Earnings: " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[0] + ", "
+                        + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[1] + ", "
+                        + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[2] + ", " + db.getTileById(gp.getUi().getTile(i).getId()).getEarnings()[3]);
+            }
         if (kH.isMouseClicked() == true) {
             kH.clearMouseClick();
             //Der Tile in der Mitte hat scale * originaltilesize das muss man hinzurechenn mouse = tilesize + screen
@@ -161,10 +160,9 @@ public class Player extends Entity {
     /**
      *Onclick if bottomsection menue is Clicked
      * */
-    private void sectionLineClicked() {
+    public void sectionLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++)
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i)) {
-                updateUiElements(i);
                 System.out.println("Section clicked, Section: " + (i + 1) + ", Name: ");
             }
     }
@@ -265,10 +263,8 @@ public class Player extends Entity {
         }
 
     }
-    /**
-     * removes Building from Map
-     * */
-    private void removeElementMap() {
+
+    public void removeElementMap() {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
 
@@ -283,9 +279,7 @@ public class Player extends Entity {
             gp.getTileM().removeBuilding(col, row);
         }
     }
-    /**
-     * gets Earnings and Cost from every placeable map
-     * */
+
     public void updateProtocol(){// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
         String protocols = "";
