@@ -12,6 +12,13 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.util.*;
 
+/**
+ * Player class for navigating and interacting with the game world
+ *
+ * @author Manuel Reinprecht
+ * @author Marcel Schmidl
+ * @version 1.4 - 13.06.2022
+ */
 public class Player extends Entity {
 
     private GamePanel gp;
@@ -40,6 +47,9 @@ public class Player extends Entity {
         setDefaultValues();
     }
 
+    /**
+     * Sets the default values for resources or world size at the start of the game
+     */
     public void setDefaultValues() {
         worldX = gp.getTileSize() * 25;
         worldY = gp.getTileSize() * 25;
@@ -67,7 +77,7 @@ public class Player extends Entity {
             System.out.println("ScreenY:" + screenY);
         }
         if (kH.isDown() == true) {
-            if (worldY < gp.getWorldHeight() - screenY + gp.getUi().getHeight_of_Bottom_UI()- gp.getTileSize())
+            if (worldY < gp.getWorldHeight() - screenY + gp.getUi().getHeight_of_Bottom_UI() - gp.getTileSize())
                 worldY += speed;
             System.out.println(worldY);
             System.out.println(worldX);
@@ -137,39 +147,43 @@ public class Player extends Entity {
         IOAccess.storeResources(getFood(),
                 getWood(), getStone(), getIron(), getGold());
     }
+
     /**
      * Onclick if topmenue is Clicked
-     * */
+     */
     public void topMenuClicked() {
         System.out.println("Top Menue");
         if (kH.getPointerPosition().getY() >= gp.getUi().getMargin_from_Top_Menue() && kH.getPointerPosition().getY() <= gp.getUi().getHeight_of_Top_UI() - gp.getUi().getMargin_from_Top_Menue())
             optionsLineClicked();
     }
+
     /**
-     *Onclick if bottommenue is Clicked
-     * */
+     * Onclick if bottommenue is Clicked
+     */
     public void bottomMenuClicked() {
         //Bottom Menu clicked
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottom_UI() + gp.getUi().getMargin_from_Bottom_Menu() &&
                 kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() - gp.getUi().getMargin_from_Bottom_Menu()) {
-                kH.setMenueClicked(true);
-                elementsLineClicked();
+            kH.setMenueClicked(true);
+            elementsLineClicked();
         }
         if (kH.getPointerPosition().getY() >= gp.getScreenHeight() - gp.getUi().getHeight_of_Bottomsection_UI() - gp.getUi().getMargin_from_Bottomsection_Menu() && kH.getPointerPosition().getY() <= gp.getScreenHeight() - gp.getUi().getMargin_from_Bottomsection_Menu())
             sectionLineClicked();
     }
+
     /**
-     *Onclick if bottomsection menue is Clicked
-     * */
+     * Onclick if bottomsection menue is Clicked
+     */
     public void sectionLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_items_in_UI(); i++)
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateBottomMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateBottomMenuePos(i)) {
                 System.out.println("Section clicked, Section: " + (i + 1) + ", Name: ");
             }
     }
+
     /**
-     *Onclick if menue element is Clicked
-     * */
+     * Onclick if menue element is Clicked
+     */
     private void elementsLineClicked() {
         for (int i = 0; i < gp.getUi().getAmount_of_ready_items_in_UI(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateMenuePos(i) + gp.getUi().getMenuetilesize() && kH.getPointerPosition().getX() >= gp.getUi().calculateMenuePos(i)) {
@@ -180,9 +194,10 @@ public class Player extends Entity {
             }
         }
     }
+
     /**
-     *Onclick if option is Clicked
-     * */
+     * Onclick if option is Clicked
+     */
     private void optionsLineClicked() { // work
         for (int i = 0; i < gp.getUi().getAmount_of_top_menue_items(); i++) {
             if (kH.getPointerPosition().getX() <= gp.getUi().calculateRightTopMenuPos(i) + gp.getUi().getSize_of_Top_UI_Element() && kH.getPointerPosition().getX() >= gp.getUi().calculateRightTopMenuPos(i)) {
@@ -201,8 +216,9 @@ public class Player extends Entity {
 
     /**
      * Builds building on map
+     *
      * @param tile tile which will be placed
-     * */
+     */
     private void buildElementonMap(Tile tile) {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
@@ -216,28 +232,23 @@ public class Player extends Entity {
         if (!gp.getTileM().isObstacle(col, row)) {
             int[] cost = db.getTileById(tile.getId()).getCosts();
 
-            if(tile.getId() == db.getIDperName("Eisenmine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("wenig Eisenerz") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("viel Eisenerz"))){
-                JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenerz platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            if (tile.getId() == db.getIDperName("Eisenmine") && !(gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("wenig Eisenerz") || gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("viel Eisenerz"))) {
+                JOptionPane.showMessageDialog(null, "Eine Eisenmine kann nur auf Eisenerz platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if(tile.getId() == db.getIDperName("Kohlemine") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Kohlefeld"))){
-                JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf einem Kohlefelder platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            } else if (tile.getId() == db.getIDperName("Kohlemine") && !(gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("Kohlefeld"))) {
+                JOptionPane.showMessageDialog(null, "Eine Kohlemine kann nur auf einem Kohlefelder platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if(tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Wasser") || gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Fischreichem Wasser"))){
-                JOptionPane.showMessageDialog(null, "Ein Fischer kann nur auf Wasser platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            } else if (tile.getId() == db.getIDperName("Fischer") && !(gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("Wasser") || gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("Fischreichem Wasser"))) {
+                JOptionPane.showMessageDialog(null, "Ein Fischer kann nur auf Wasser platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if(tile.getId() == db.getIDperName("Steinbruch") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Stein"))){
-                JOptionPane.showMessageDialog(null, "Ein Steinmetz kann nur auf Stein platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            } else if (tile.getId() == db.getIDperName("Steinbruch") && !(gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("Stein"))) {
+                JOptionPane.showMessageDialog(null, "Ein Steinmetz kann nur auf Stein platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if(tile.getId() == db.getIDperName("Holzfäller") && !(gp.getTileM().getIdFromPosition(col,row) == db.getIDperName("Grass"))){
-                JOptionPane.showMessageDialog(null, "Ein Holzfäller kann nur auf Grass platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            } else if (tile.getId() == db.getIDperName("Holzfäller") && !(gp.getTileM().getIdFromPosition(col, row) == db.getIDperName("Grass"))) {
+                JOptionPane.showMessageDialog(null, "Ein Holzfäller kann nur auf Grass platziert werden, nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)), "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            else if(((tile.getId() >= 10 && tile.getId() <= 12)  || (tile.getId() >= 14 && tile.getId() <= 16)) && gp.getTileM().getIdFromPosition(col,row) <= 9 && gp.getTileM().getIdFromPosition(col,row) >= 3 ){
-                JOptionPane.showMessageDialog(null, "Eine " + tile.getName()+ " kann nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col,row)) +" platziert werden.", "falscher Ort", JOptionPane.ERROR_MESSAGE);
+            } else if (((tile.getId() >= 10 && tile.getId() <= 12) || (tile.getId() >= 14 && tile.getId() <= 16)) && gp.getTileM().getIdFromPosition(col, row) <= 9 && gp.getTileM().getIdFromPosition(col, row) >= 3) {
+                JOptionPane.showMessageDialog(null, "Eine " + tile.getName() + " kann nicht auf " + db.getNameperID(gp.getTileM().getIdFromPosition(col, row)) + " platziert werden.", "falscher Ort", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -263,6 +274,7 @@ public class Player extends Entity {
         }
 
     }
+
     /**
      * removes pointed buidling on the Map
      */
@@ -281,15 +293,16 @@ public class Player extends Entity {
             gp.getTileM().removeBuilding(col, row);
         }
     }
+
     /**
      * returns every buildings Costs and Earnings
      */
-    public void updateProtocol(){// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
+    public void updateProtocol() {// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
         String protocols = "";
 
         for (Tile tile : tiles) {
-            buildingEarnings.put(tile.getId(), new int[]{0,0,0,0,0});
+            buildingEarnings.put(tile.getId(), new int[]{0, 0, 0, 0, 0});
         }
 
         for (Tile tile : tiles) {
@@ -298,7 +311,7 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-            if(tile.getId() >= 10) {
+            if (tile.getId() >= 10) {
                 protocols += tile.getName() + " earnings: " + tile.getEarnings()[0] + ", " + tile.getEarnings()[1] +
                         ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
             }
@@ -312,7 +325,7 @@ public class Player extends Entity {
         boolean blacksmithonMap = false;
         boolean coalmineOnMap = false;
         boolean bakeryOnMap = false;
-        boolean windmillonMap= false;
+        boolean windmillonMap = false;
         int chainfood = 0;
         String protocols = "";
         buildingCounter = new HashMap<>();
@@ -324,7 +337,7 @@ public class Player extends Entity {
         int gsum = 0;
 
         for (Tile tile : tiles) {
-            buildingEarnings.put(tile.getId(), new int[]{0,0,0,0,0});
+            buildingEarnings.put(tile.getId(), new int[]{0, 0, 0, 0, 0});
         }
 
         for (Tile tile : tiles) {
@@ -333,35 +346,35 @@ public class Player extends Entity {
             } else {
                 buildingCounter.put(tile.getId(), buildingCounter.get(tile.getId()) + 1);
             }
-            if(tile.getId() == db.getIDperName("Bauer")) // alle Buildings die mit Kette funktionieren
+            if (tile.getId() == db.getIDperName("Bauer")) // alle Buildings die mit Kette funktionieren
                 chainfood += tile.getEarnings()[0];
             else    //landen alle Buildigns die eine Kette haben
                 buildingEarnings.put(tile.getId(), new int[]{buildingEarnings.get(tile.getId())[0] += tile.getEarnings()[0],
-                buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1],buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
-                buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3],buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
+                        buildingEarnings.get(tile.getId())[1] += tile.getEarnings()[1], buildingEarnings.get(tile.getId())[2] += tile.getEarnings()[2],
+                        buildingEarnings.get(tile.getId())[3] += tile.getEarnings()[3], buildingEarnings.get(tile.getId())[4] += tile.getEarnings()[4]});
 
-            if(tile.getId() >= 10) {
+            if (tile.getId() >= 10) {
                 System.out.println(tile.getName() + " earnings: " + tile.getEarnings()[0] + " " + tile.getEarnings()[1] +
                         ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4]);
                 protocols += tile.getName() + " earnings: " + tile.getEarnings()[0] + ", " + tile.getEarnings()[1] +
                         ", " + tile.getEarnings()[2] + ", " + tile.getEarnings()[3] + ", " + tile.getEarnings()[4] + "\n";
             }
         }
-        if(buildingCounter.get(db.getIDperName("Schmiede")) != null)
+        if (buildingCounter.get(db.getIDperName("Schmiede")) != null)
             blacksmithonMap = true;
-        if(buildingCounter.get(db.getIDperName("Kohlemine")) != null)
+        if (buildingCounter.get(db.getIDperName("Kohlemine")) != null)
             coalmineOnMap = true;
-        if(buildingCounter.get(db.getIDperName("Muehle")) != null)
-             windmillonMap = true;
-        if(buildingCounter.get(db.getIDperName("Baeckerei")) != null)
-             bakeryOnMap = true;
+        if (buildingCounter.get(db.getIDperName("Muehle")) != null)
+            windmillonMap = true;
+        if (buildingCounter.get(db.getIDperName("Baeckerei")) != null)
+            bakeryOnMap = true;
         Set<Integer> set = buildingEarnings.keySet();
         for (Integer integer : set) {
             setFood(getFood() + buildingEarnings.get(integer)[0]);
             setWood(getWood() + buildingEarnings.get(integer)[1]);
             setStone(getStone() + buildingEarnings.get(integer)[2]);
-            if(blacksmithonMap && coalmineOnMap)// Kette Wenn alles da ist dann Iron neu setzten
-            setIron(getIron() + buildingEarnings.get(integer)[3]);
+            if (blacksmithonMap && coalmineOnMap)// Kette Wenn alles da ist dann Iron neu setzten
+                setIron(getIron() + buildingEarnings.get(integer)[3]);
             setGold(getGold() + buildingEarnings.get(integer)[4]);
 
             fsum = fsum + buildingEarnings.get(integer)[0];
@@ -371,7 +384,7 @@ public class Player extends Entity {
             gsum = gsum + buildingEarnings.get(integer)[4];
         }
         if (windmillonMap && bakeryOnMap)
-        setFood(getFood() + chainfood); // Addiert das Essen aller Gebäude die eine Kette haben
+            setFood(getFood() + chainfood); // Addiert das Essen aller Gebäude die eine Kette haben
         System.out.println("--------------------------------");
         System.out.println("Foodsum:" + fsum);
         System.out.println("Woodsum:" + wsum);
@@ -384,6 +397,7 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
     }
+
     //Getter
     public int getWood() {
         return wood;

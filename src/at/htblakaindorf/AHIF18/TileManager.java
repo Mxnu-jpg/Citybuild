@@ -21,7 +21,7 @@ import java.util.List;
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
  * @version 1.2
- * */
+ */
 public class TileManager {
 
     GamePanel gp;
@@ -58,9 +58,9 @@ public class TileManager {
     /**
      * Load the playermap with the given {@link BufferedReader} and set the {@link Building}s
      *
-     * @param br BufferedReader to load the map
+     * @param br  BufferedReader to load the map
      * @param map contains id's of the map
-     * */
+     */
     public void loadMap(BufferedReader br, int map[][]) {
         try {
             int col = 0;
@@ -144,7 +144,7 @@ public class TileManager {
                     //draw Map transparent
                     if (!(tileNum >= 0 && tileNum < 10))
                         g2.drawImage(tile[defTileMap].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
-                    if(tileNum == 3)
+                    if (tileNum == 3)
                         g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                     g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
@@ -180,7 +180,7 @@ public class TileManager {
      * @param row row position of the building
      */
     public void createSpecificBuilding(int id, int col, int row) {
-        if(tilesList.size() == 2500){
+        if (tilesList.size() == 2500) {
             tilesList.remove(row * gp.getMaxWorldRow() + col);
         }
         switch (id) {
@@ -319,8 +319,8 @@ public class TileManager {
     /**
      * Adds a {@link Building} with its position on the map to a {@link List}.
      *
-     * @param colpos column position of the {@link Building} on the map
-     * @param rowpos row position of the {@link Building} on the map
+     * @param colpos   column position of the {@link Building} on the map
+     * @param rowpos   row position of the {@link Building} on the map
      * @param building {@link Tile} which will be added to the map
      */
     public void setBuilding(int colpos, int rowpos, Tile building) {
@@ -353,7 +353,7 @@ public class TileManager {
      *
      * @param colpos column position of the {@link Building} on the map
      * @param rowpos row position of the {@link Building} on the map
-     * */
+     */
     public void removeBuilding(int colpos, int rowpos) {
         try {
             String linePlayer;
@@ -390,12 +390,12 @@ public class TileManager {
     /**
      * Writes the new lines into the map
      *
-     * @param rowpos row position of the {@link Tile}
+     * @param rowpos        row position of the {@link Tile}
      * @param lineColPlayer column IDs of the gamemap
-     * @param linesPlayer lines of the gamemap file
-     * */
+     * @param linesPlayer   lines of the gamemap file
+     */
     public void writeNewFile(String[] lineColPlayer, String[] linesPlayer, int rowpos) throws IOException {
-       String line = "";
+        String line = "";
 
         for (int i = 0; i < lineColPlayer.length; i++) {
             if (i == lineColPlayer.length - 1) {
@@ -458,7 +458,7 @@ public class TileManager {
     /**
      * Sets the production rate of every {@link Building} on the map base on the
      * {@link Tile} they are placed on
-     * */
+     */
     public void setProductionRate() {
         for (Tile tile1 : tilesList) {
             Building building = (Building) tile1;
@@ -501,9 +501,8 @@ public class TileManager {
      *
      * @param colpos column position of the {@link Tile}
      * @param rowpos row position of the {@link Tile}
-     *
      * @return returns the ID of the {@link Tile}
-     * */
+     */
     public int getGroundIDFromPosition(int colpos, int rowpos) {
         int result = 0;
         try {
@@ -531,7 +530,6 @@ public class TileManager {
      *
      * @param colpos column position of the {@link Tile}
      * @param rowpos row position of the {@link Tile}
-     *
      * @return true, if the {@link Tile} is an obstacle
      */
     public boolean isObstacle(int colpos, int rowpos) {
@@ -543,7 +541,6 @@ public class TileManager {
      *
      * @param colpos column position of the {@link Tile}
      * @param rowpos row position of the {@link Tile}
-     *
      * @return true, if the {@link Tile} is an {@link Building}
      */
     public boolean isBuilding(int colpos, int rowpos) {
@@ -554,7 +551,7 @@ public class TileManager {
     /**
      * Sets the size of the {@link Tile} based on the {@link GamePanel} and
      * the {@link Tile} for the {@link Image}
-     * */
+     */
     public void getTileImage() {
         CityBuildDataBase.getInstance().setTileSize(gp);
         List<Tile> tiles = CityBuildDataBase.getInstance().getTiles();

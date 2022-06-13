@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
  * Superclass for the {@link Player}
  *
  * @author Manuel Reinprecht
- * @version 1.0
+ * @version 1.0 - 14.03.2022
  * */
 public class Entity {
 

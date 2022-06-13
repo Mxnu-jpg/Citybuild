@@ -7,7 +7,7 @@ import java.nio.file.Paths;
  * Access-class to save and load the data for the game resources
  *
  * @author Marcel Schmidl
- * @version 1.0
+ * @version 1.1 - 13.06.2022
  */
 public class IOAccess {
     private final static File RESOURCE_FILE = Paths.get("", "data/datafiles", "resources.csv").toFile();

@@ -15,8 +15,9 @@ import java.util.List;
 /**
  * Static Database for the map and building data
  *
- * @author Marcel Schmidl, Manuel Reinprecht
- * @version 1.2
+ * @author Manuel Reinprecht
+ * @author Marcel Schmidl
+ * @version 1.3 - 13.06.2022
  */
 public class CityBuildDataBase {
     private static CityBuildDataBase instance;

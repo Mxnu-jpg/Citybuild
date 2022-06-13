@@ -4,6 +4,12 @@ import javax.swing.plaf.basic.BasicSliderUI;
 import javax.swing.text.Position;
 import java.awt.event.*;
 
+/**
+ * Handler class for all key or mouse actions
+ *
+ * @author Manuel Reinprecht
+ * @version 1.1 - 14.03.2022
+ */
 public class KeyHandler implements KeyListener, MouseListener, MouseMotionListener {
     //Mouse
     private Pos pointerPosition;
@@ -16,70 +22,77 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
-        pointerPosition = new Pos(0,0);
+        pointerPosition = new Pos(0, 0);
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
     /**
      * When Key pressed function will run
-     * @param  e contians the value(name) of the pressed key
-     * */
+     *
+     * @param e contians the value(name) of the pressed key
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W){
+        if (code == KeyEvent.VK_W) {
             up = true;
         }
-        if (code == KeyEvent.VK_A){
+        if (code == KeyEvent.VK_A) {
             left = true;
         }
-        if (code == KeyEvent.VK_S){
+        if (code == KeyEvent.VK_S) {
             down = true;
         }
-        if (code == KeyEvent.VK_D){
+        if (code == KeyEvent.VK_D) {
             right = true;
         }
-        if(code == KeyEvent.VK_I){
+        if (code == KeyEvent.VK_I) {
             sysinfo = true;
         }
     }
+
     /**
      * Activates if key will be released
-     * @param  e contians the value(name) of the pressed key
-     * */
+     *
+     * @param e contians the value(name) of the pressed key
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W){
+        if (code == KeyEvent.VK_W) {
             up = false;
         }
-        if (code == KeyEvent.VK_A){
+        if (code == KeyEvent.VK_A) {
             left = false;
         }
-        if (code == KeyEvent.VK_S){
+        if (code == KeyEvent.VK_S) {
             down = false;
         }
-        if (code == KeyEvent.VK_D){
+        if (code == KeyEvent.VK_D) {
             right = false;
         }
     }
 
     /**
      * sets boolean to false
-     * */
-    public void clearMouseClick(){
+     */
+    public void clearMouseClick() {
         mouseClicked = false;
     }
 
     public boolean isRemoveBuilding() {
         return removeBuilding;
     }
+
     /**
-     * When mouse will be Clicked booleans will be changed
-     * @param  e Event of Mouse clicked
-     * */
+     * When mouse will be clicked booleans will be changed
+     *
+     * @param e Event of mouse clicked
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         mouseClicked = true;
@@ -103,26 +116,31 @@ public class KeyHandler implements KeyListener, MouseListener, MouseMotionListen
     public void mouseExited(MouseEvent e) {
 
     }
+
     /**
-     * everstime the mouse gets dragged there will be a new pointerPosition
-     * @param  e Event of Mouse dragged
-     * */
+     * Everytime the mouse gets dragged there will be a new pointerPosition
+     *
+     * @param e Event of Mouse dragged
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
     }
+
     /**
-     * everytime the mouse gets moved there will be a new pointerPosition
-     * @param  e Event of Mouse moved
-     * */
+     * Everytime the mouse gets moved there will be a new pointerPosition
+     *
+     * @param e Event of Mouse moved
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         pointerPosition = new Pos(e.getPoint().x, e.getPoint().y);
     }
 
     public boolean isInfo() {
-       return sysinfo;
+        return sysinfo;
     }
+
     public boolean isMenueClicked() {
         return menueClicked;
     }

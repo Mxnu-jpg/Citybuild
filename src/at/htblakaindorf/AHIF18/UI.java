@@ -56,73 +56,81 @@ public class UI {
         height_of_Bottom_UI = gp.getScreenHeight() / 6;
         height_of_Bottomsection_UI = gp.getScreenHeight() / 4;
         height_of_Top_UI = gp.getScreenHeight() / 10;
-        ressource_top_box = gp.getScreenWidth()-(gp.getScreenWidth()/8);
-        right_top_box = gp.getScreenWidth()/8;
+        ressource_top_box = gp.getScreenWidth() - (gp.getScreenWidth() / 8);
+        right_top_box = gp.getScreenWidth() / 8;
         menuetilesize = height_of_Bottom_UI / 2;
-        size_of_Top_UI_Element = height_of_Top_UI/2;
+        size_of_Top_UI_Element = height_of_Top_UI / 2;
         height_of_Bottomsection_UI = menuetilesize / 2;
         middle_object = (gp.getScreenWidth() / amount_of_items_in_UI) / 2 - menuetilesize / 2;
         middle_object_Bottom_menue = (gp.getScreenWidth() / amount_of_section_in_Bottom_UI) / 2 - menuetilesize / 2;
         margin_from_Bottom_Menu = height_of_Bottom_UI / 8;
         margin_from_Bottomsection_Menu = height_of_Bottomsection_UI / 6;
-        margin_from_Top_Menue = height_of_Top_UI/4;
+        margin_from_Top_Menue = height_of_Top_UI / 4;
         amount_of_ready_items_in_UI = CityBuildDataBase.getInstance().getBuildings().size();
 
         //Elements Setzen in UI Max: amount_of_items_in_UI //Rest wird außerhalb gerendert
         setUiImages(CityBuildDataBase.getInstance().getBuildings(), CityBuildDataBase.getInstance().getIcons());
 
     }
+
     /**
      * Sets Image of every Building in the SchoolDB for UI in the Bottom Menue
      *
      * @param buildingpath Arraylist of every Building in the SchoolDB
-     * @param icons contains icons for the Topmenue
-     * */
-    public void setUiImages(ArrayList<Buildingname> buildingpath, ArrayList<Buildingname> icons){
+     * @param icons        contains icons for the Topmenue
+     */
+    public void setUiImages(ArrayList<Buildingname> buildingpath, ArrayList<Buildingname> icons) {
 
-            try {
-                for (int i = 0;i < buildingpath.size();i++) {
-                    setBottomUIimage(i, buildingpath.get(i).getId(),buildingpath.get(i).getPath(), buildingpath.get(i).getName());
-                }
-                for(int i = 0; i < icons.size(); i++){
-                    setTopUIimage(i, icons.get(i).getId(), icons.get(i).getPath(), icons.get(i).getName());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            for (int i = 0; i < buildingpath.size(); i++) {
+                setBottomUIimage(i, buildingpath.get(i).getId(), buildingpath.get(i).getPath(), buildingpath.get(i).getName());
             }
+            for (int i = 0; i < icons.size(); i++) {
+                setTopUIimage(i, icons.get(i).getId(), icons.get(i).getPath(), icons.get(i).getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Calculates the positions of the images in the right corner of the UI
-     * @param  i amount of Images in the right corner
-     * */
-    public int calculateRightTopMenuPos(int i){
+     *
+     * @param i amount of Images in the right corner
+     */
+    public int calculateRightTopMenuPos(int i) {
 
-        return gp.getScreenWidth() -  (right_top_box / amount_of_top_menue_items) * (i+1);
+        return gp.getScreenWidth() - (right_top_box / amount_of_top_menue_items) * (i + 1);
     }
+
     /**
      * Calculates the position of the images in the Topmenue
-     * @param  i amount of Images in the Topmenue
-     * */
-    public int calculateRessourceTopMenuPos(int i){
+     *
+     * @param i amount of Images in the Topmenue
+     */
+    public int calculateRessourceTopMenuPos(int i) {
 
-        return  ((ressource_top_box / amount_of_top_menue_ressource_items) * i)
-                - (gp.getScreenWidth()/amount_of_top_menue_ressource_items)/2;
+        return ((ressource_top_box / amount_of_top_menue_ressource_items) * i)
+                - (gp.getScreenWidth() / amount_of_top_menue_ressource_items) / 2;
     }
+
     /**
      * Calculates the position of the images in the Menue
-     * @param  i amount of Images in the Menue
-     * */
+     *
+     * @param i amount of Images in the Menue
+     */
     public int calculateMenuePos(int i) {//Synchron zu amount_of_items_in_UI-1
 
         if (amount_of_items_in_UI == 0)
             return middle_object;
         return (gp.getScreenWidth() / amount_of_items_in_UI) * i + middle_object;
     }
+
     /**
      * Calculates the position of the rectangles in the BottomMenuesection
-     * @param  i amount of rectangles in the BottomMenuesection
-     * */
+     *
+     * @param i amount of rectangles in the BottomMenuesection
+     */
     public int calculateBottomMenuePos(int i) {
         if (amount_of_section_in_Bottom_UI == 1)
             return middle_object_Bottom_menue;
@@ -130,13 +138,13 @@ public class UI {
                 + gp.getScreenWidth() / 2 - ((((gp.getScreenWidth() / amount_of_section_in_Bottom_UI) * amount_of_section_in_Bottom_UI) / (amount_of_section_in_Bottom_UI / (amount_of_section_in_Bottom_UI / 2))) -
                 ((gp.getScreenWidth() / amount_of_section_in_Bottom_UI) / (amount_of_section_in_Bottom_UI / (amount_of_section_in_Bottom_UI / 2))) + menuetilesize) / 2; // Meine Zwangsstörungen kicken diese scheiß 3
     }
+
     /**
-     *
-     * @param  index index at with location of the rectangle the image appear
-     * @param  id id of Image
-     * @param  imagePath Imagepath of Image
-     * @param  name Name of Image
-     * */
+     * @param index     index at with location of the rectangle the image appear
+     * @param id        id of Image
+     * @param imagePath Imagepath of Image
+     * @param name      Name of Image
+     */
     private void setBottomUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
@@ -145,19 +153,21 @@ public class UI {
             tileBottomMenue[index].image = uTool.scaleImage(tileBottomMenue[index].image, menuetilesize, menuetilesize);
             tileBottomMenue[index].setName(name);
             tileBottomMenue[index].setId(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Bild wurde nicht gefunden oder falsch geschrieben!!\n Fehlerquelle: " + imagePath , "Laden fehlgeschlagen",
+                    "Bild wurde nicht gefunden oder falsch geschrieben!!\n Fehlerquelle: " + imagePath, "Laden fehlgeschlagen",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * Calculates the position of the rectangles in the BottomMenuesection
-     * @param  index index at with location of the rectangle the ressource appear
-     * @param  id id of Image
-     * @param  imagePath Imagepath of Image
-     * @param  name Name of Image
-     * */
+     *
+     * @param index     index at with location of the rectangle the ressource appear
+     * @param id        id of Image
+     * @param imagePath Imagepath of Image
+     * @param name      Name of Image
+     */
     private void setTopUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
@@ -166,20 +176,22 @@ public class UI {
             tileTopMenue[index].image = uTool.scaleImage(tileTopMenue[index].image, size_of_Top_UI_Element, size_of_Top_UI_Element);
             tileTopMenue[index].setName(name);
             tileTopMenue[index].setId(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Bild wurde nicht gefunden oder falsch geschrieben!!\n Fehlerquelle: " + imagePath , "Laden fehlgeschlagen",
+                    "Bild wurde nicht gefunden oder falsch geschrieben!!\n Fehlerquelle: " + imagePath, "Laden fehlgeschlagen",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * displays the Menue
-     * @param  g2 Graphiccomponent to display the Menue
-     * @param  x x location of Menue
-     * @param  y y location of Menue
-     * @param  width width of Menue
-     * @param  height height of Image
-     * */
+     *
+     * @param g2     Graphiccomponent to display the Menue
+     * @param x      x location of Menue
+     * @param y      y location of Menue
+     * @param width  width of Menue
+     * @param height height of Image
+     */
     public void showBottomMenu(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(bottomMenu);
         //Bottom MenuBar
@@ -209,13 +221,15 @@ public class UI {
             g2.drawImage(tileBottomMenue[i].image, calculateMenuePos(i), gp.getScreenHeight() - height_of_Bottom_UI + margin_from_Bottom_Menu, null);
         }
     }
+
     /**
      * displays the Menue
-     * @param  g2 Graphiccomponent to display the Menue
-     * @param  y y location of Menue
-     * @param  width width of Menue
-     * @param  height height of Image
-     * */
+     *
+     * @param g2     Graphiccomponent to display the Menue
+     * @param y      y location of Menue
+     * @param width  width of Menue
+     * @param height height of Image
+     */
     public void showBottomMenufromBottomMenue(Graphics2D g2, int y, int width, int height) {
         g2.setColor(sectionElements);
 
@@ -226,13 +240,15 @@ public class UI {
         g2.fillRoundRect(calculateBottomMenuePos(4), y, width, height, 0, 0);
         g2.fillRoundRect(calculateBottomMenuePos(5), y, width, height, 0, 0);
     }
+
     /**
      * displays the Menue
-     * @param  g2 Graphiccomponent to display the Menue
-     * @param  y y location of Menue
-     * @param  width width of Menue
-     * @param  height height of Image
-     * */
+     *
+     * @param g2     Graphiccomponent to display the Menue
+     * @param y      y location of Menue
+     * @param width  width of Menue
+     * @param height height of Image
+     */
     public void showTopBar(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(topBar);
         g2.fillRoundRect(x, y, width, height, 0, 0);
@@ -261,25 +277,28 @@ public class UI {
         symbols.setGroupingSeparator(' ');
         formatter.setDecimalFormatSymbols(symbols);
 
-        g2.drawString(formatter.format(gp.getPlayer().getFood()), calculateRessourceTopMenuPos(1) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getFood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getWood()), calculateRessourceTopMenuPos(2) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getWood())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getStone()), calculateRessourceTopMenuPos(3) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getStone())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getIron()), calculateRessourceTopMenuPos(4) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getIron())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
-        g2.drawString(formatter.format(gp.getPlayer().getGold()), calculateRessourceTopMenuPos(5) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getGold())), margin_from_Top_Menue + size_of_Top_UI_Element/2 + size_of_Top_UI_Element/4);
+        g2.drawString(formatter.format(gp.getPlayer().getFood()), calculateRessourceTopMenuPos(1) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getFood())), margin_from_Top_Menue + size_of_Top_UI_Element / 2 + size_of_Top_UI_Element / 4);
+        g2.drawString(formatter.format(gp.getPlayer().getWood()), calculateRessourceTopMenuPos(2) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getWood())), margin_from_Top_Menue + size_of_Top_UI_Element / 2 + size_of_Top_UI_Element / 4);
+        g2.drawString(formatter.format(gp.getPlayer().getStone()), calculateRessourceTopMenuPos(3) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getStone())), margin_from_Top_Menue + size_of_Top_UI_Element / 2 + size_of_Top_UI_Element / 4);
+        g2.drawString(formatter.format(gp.getPlayer().getIron()), calculateRessourceTopMenuPos(4) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getIron())), margin_from_Top_Menue + size_of_Top_UI_Element / 2 + size_of_Top_UI_Element / 4);
+        g2.drawString(formatter.format(gp.getPlayer().getGold()), calculateRessourceTopMenuPos(5) - g2.getFontMetrics().stringWidth(formatter.format(gp.getPlayer().getGold())), margin_from_Top_Menue + size_of_Top_UI_Element / 2 + size_of_Top_UI_Element / 4);
 
         /*g2.drawImage(tile[10].image,   gp.getUi().getAmount_of_items_in_UI(),   gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*2, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);
         g2.drawImage(tile[10].image,gp.getUi().getAmount_of_items_in_UI()*3, gp.getScreenHeight() - (gp.getScreenHeight()/8), null);*/
     }
-    public void updateUiElements(){
+
+    public void updateUiElements() {
         //section
     }
+
     public void setMapInfos(String protocol) {
         mapProtocols = protocol;
     }
+
     /**
      * executes the menue functions to show the top and bottom menue
-     * */
+     */
     public void draw(Graphics2D g2) {
 
         showBottomMenu(g2, 0, gp.getScreenHeight() - height_of_Bottom_UI, gp.getScreenWidth(), height_of_Bottom_UI);
@@ -319,11 +338,17 @@ public class UI {
         return margin_from_Bottomsection_Menu;
     }
 
-    public Tile getTile (int pos){return tileBottomMenue[pos];}
+    public Tile getTile(int pos) {
+        return tileBottomMenue[pos];
+    }
 
-    public void setAmount_of_items_in_UI(int amount_of_items_in_UI) {this.amount_of_items_in_UI = amount_of_items_in_UI;}
+    public void setAmount_of_items_in_UI(int amount_of_items_in_UI) {
+        this.amount_of_items_in_UI = amount_of_items_in_UI;
+    }
 
-    public void setAmount_of_section_in_Bottom_UI(int amount_of_section_in_Bottom_UI) {this.amount_of_section_in_Bottom_UI = amount_of_section_in_Bottom_UI;}
+    public void setAmount_of_section_in_Bottom_UI(int amount_of_section_in_Bottom_UI) {
+        this.amount_of_section_in_Bottom_UI = amount_of_section_in_Bottom_UI;
+    }
 
     public int getAmount_of_section_in_Bottom_UI() {
         return amount_of_section_in_Bottom_UI;
@@ -357,7 +382,9 @@ public class UI {
         return right_top_box;
     }
 
-    public String getMapProtocols() {return mapProtocols;}
+    public String getMapProtocols() {
+        return mapProtocols;
+    }
 
 
 }

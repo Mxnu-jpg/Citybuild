@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * GamePanel for the actual map to play on
+ *
+ * @author Manuel Reinprecht
+ * @version 1.3 - 13.06.2022
+ */
 public class GamePanel extends JPanel implements Runnable {
     /*
     Resolution HD:1920x1080 WQHD:2560x1440
@@ -73,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     /**
      * Displays every Tile and UI in the Runningtime
-     * */
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
