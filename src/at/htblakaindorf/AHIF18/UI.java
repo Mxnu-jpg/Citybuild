@@ -1,11 +1,13 @@
 package at.htblakaindorf.AHIF18;
 
+import at.htblakaindorf.AHIF18.Ground.Buildingobjects.Building;
 import at.htblakaindorf.AHIF18.Ground.Tile;
 import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -70,7 +72,12 @@ public class UI {
         setUiImages(CityBuildDataBase.getInstance().getBuildings(), CityBuildDataBase.getInstance().getIcons());
 
     }
-
+    /**
+     * Sets Image of every Building in the SchoolDB for UI in the Bottom Menue
+     *
+     * @param buildingpath Arraylist of every Building in the SchoolDB
+     * @param icons contains icons for the Topmenue
+     * */
     public void setUiImages(ArrayList<Buildingname> buildingpath, ArrayList<Buildingname> icons){
 
             try {
@@ -84,6 +91,13 @@ public class UI {
                 e.printStackTrace();
             }
     }
+
+    /**
+     * Calculates
+     *
+     * @param  Arraylist of every Building in the SchoolDB
+     * @param  contains icons for the Topmenue
+     * */
     public int calculateRightTopMenuPos(int i){
 
         return gp.getScreenWidth() -  (right_top_box / amount_of_top_menue_items) * (i+1);
