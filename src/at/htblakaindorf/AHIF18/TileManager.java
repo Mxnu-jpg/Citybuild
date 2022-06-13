@@ -144,6 +144,8 @@ public class TileManager {
                     //draw Map transparent
                     if (!(tileNum >= 0 && tileNum < 10))
                         g2.drawImage(tile[defTileMap].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
+                    if(tileNum == 3)
+                        g2.drawImage(tile[0].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
                     g2.drawImage(tile[tileNum].image, (int) screenX, (int) screenY, gp.getTileSize(), gp.getTileSize(), null);
 
                 } catch (NullPointerException e) {

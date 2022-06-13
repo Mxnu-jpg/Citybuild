@@ -37,7 +37,7 @@ public class CityBuildDataBase {
             setTiles(0, "/res/tiles/ground/Grass.png", "Grass", new int[]{}, new int[]{}, false, false);
             setTiles(1, "/res/tiles/ground/Sand.png", "Sand", new int[]{}, new int[]{}, false, false);
             setTiles(2, "/res/tiles/ground/Flowers.png", "Wiese", new int[]{}, new int[]{}, false, false);
-            setTiles(3, "/res/tiles/ground/Tree.png", "Baum", new int[]{}, new int[]{}, true, false);
+            setTiles(3, "/res/tiles/ground/Tree.png", "Baum", new int[]{}, new int[]{}, false, false);
             setTiles(4, "/tiles/ground/Coal-Ore.png", "Kohlefeld", new int[]{}, new int[]{}, false, false);
             setTiles(5, "/tiles/ground/Bad-Iron-Ore.png", "wenig Eisenerz", new int[]{}, new int[]{}, false, false);
             setTiles(6, "/res/tiles/ground/Iron-Ore.png", "viel Eisenerz", new int[]{}, new int[]{}, false, false);
