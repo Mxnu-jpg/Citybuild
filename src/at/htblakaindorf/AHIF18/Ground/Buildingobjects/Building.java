@@ -1,13 +1,14 @@
 package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
 import at.htblakaindorf.AHIF18.Ground.Tile;
+
 /**
  * Superclass for all the possible objects to build on the map based on
  * {@link Tile}
  *
  * @author Marcel Schmidl
- * @version 1.1
- * */
+ * @version 1.1 - 16.05.2022
+ */
 public class Building extends Tile {
     int col, row;
 

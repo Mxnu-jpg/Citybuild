@@ -4,7 +4,10 @@ import at.htblakaindorf.AHIF18.Ground.Tile;
 
 /**
  * Specified {@link Building} class for {@link Sand}
- * */
+ *
+ * @author Marcel Schmidl
+ * @version 1.0 - 16.05.2022
+ */
 public class Sand extends Building {
 
     public Sand(String name, boolean collision, int id, boolean building, int[] costs, int[] earnings, int col, int row) {
