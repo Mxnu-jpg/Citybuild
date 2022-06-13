@@ -6,11 +6,13 @@ import at.htblakaindorf.AHIF18.Ground.Behaviours.ProduceBehaviour;
 import java.awt.image.BufferedImage;
 
 /**
+ * <b>CityBuild</b><br>
  * Dataclass for the Tiles placed on the map
  *
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
- * @version 1.1 - 11.04.2022
+ * @version 1.1
+ * @since 11.04.2022
  * */
 public class Tile{
 

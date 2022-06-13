@@ -4,10 +4,12 @@ import java.io.*;
 import java.nio.file.Paths;
 
 /**
+ * <b>CityBuild</b><br>
  * Access-class to save and load the data for the game resources
  *
  * @author Marcel Schmidl
- * @version 1.1 - 13.06.2022
+ * @version 1.1
+ * @since 13.06.2022
  */
 public class IOAccess {
     private final static File RESOURCE_FILE = Paths.get("", "data/datafiles", "resources.csv").toFile();

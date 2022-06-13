@@ -16,14 +16,16 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
+ * <b>CityBuild</b><br>
  * UI-class for the game itself
  *
  * @author Manuel Reinprecht
- * @version 1.1 - 13.06.2022
+ * @version 1.1
+ * @since 13.06.2022
  */
 public class UI {
 
-    GamePanel gp;
+    private GamePanel gp;
     private ArrayList<Buildingname> buildingpath;
     private int amount_of_items_in_UI;
     private int amount_of_section_in_Bottom_UI;
@@ -48,8 +50,8 @@ public class UI {
     private Color uiElements = Color.gray;
     private Color sectionElements = Color.gray;
 
-    Tile[] tileBottomMenue = new Tile[100];
-    Tile[] tileTopMenue = new Tile[100];
+    private Tile[] tileBottomMenue = new Tile[100];
+    private Tile[] tileTopMenue = new Tile[100];
 
     public UI(GamePanel gp) {
         CityBuildDataBase.getInstance().setUiIcons(this);
@@ -151,7 +153,7 @@ public class UI {
      * @param imagePath Imagepath of the image
      * @param name      Name of the Image
      */
-    private void setBottomUIimage(int index, int id, String imagePath, String name) throws IOException {
+    public void setBottomUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
             tileBottomMenue[index] = new Tile();
@@ -174,7 +176,7 @@ public class UI {
      * @param imagePath Imagepath of the image
      * @param name      Name of the image
      */
-    private void setTopUIimage(int index, int id, String imagePath, String name) throws IOException {
+    public void setTopUIimage(int index, int id, String imagePath, String name) throws IOException {
         UtilityTool uTool = new UtilityTool();
         try {
             tileTopMenue[index] = new Tile();

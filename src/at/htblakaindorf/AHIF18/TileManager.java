@@ -16,18 +16,20 @@ import java.util.List;
 
 
 /**
+ * <b>CityBuild</b><br>
  * Management class for all {@link Tile}s on the map
  *
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
  * @version 1.2
+ * @since 13.06.2022
  */
 public class TileManager {
 
-    GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
-    int defMapTileNum[][];
+    private GamePanel gp;
+    private Tile[] tile;
+    private int mapTileNum[][];
+    private int defMapTileNum[][];
 
     private File defaultFile = Paths.get("", "data/map", "Defaultmap.txt").toFile();
     private File finalMapFile = Paths.get("", "data/map", "Finalmap.txt").toFile();
@@ -555,7 +557,7 @@ public class TileManager {
 
     /**
      * Sets the size of the {@link Tile} based on the {@link GamePanel} and
-     * the {@link Tile} for the {@link Image}
+     * the {@link Tile} for the image
      */
     public void getTileImage() {
         CityBuildDataBase.getInstance().setTileSize(gp);

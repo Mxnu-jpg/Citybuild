@@ -13,11 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <b>CityBuild</b><br>
  * Static Database for the map and building data
  *
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
- * @version 1.3 - 13.06.2022
+ * @version 1.3
+ * @since 13.06.2022
  */
 public class CityBuildDataBase {
     private static CityBuildDataBase instance;

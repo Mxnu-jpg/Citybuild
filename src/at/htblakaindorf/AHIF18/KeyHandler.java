@@ -5,17 +5,19 @@ import javax.swing.text.Position;
 import java.awt.event.*;
 
 /**
+ * <b>CityBuild</b><br>
  * Handler class for all key or mouse actions
  *
  * @author Manuel Reinprecht
- * @version 1.1 - 14.03.2022
+ * @version 1.1
+ * @since 14.03.2022
  */
 public class KeyHandler implements KeyListener, MouseListener, MouseMotionListener {
     //Mouse
     private Pos pointerPosition;
     private boolean mouseClicked = false;
     private boolean up, down, left, right, zoom;
-    GamePanel gp;
+    private GamePanel gp;
     private boolean sysinfo;
     private boolean menueClicked;
     private boolean removeBuilding = false;

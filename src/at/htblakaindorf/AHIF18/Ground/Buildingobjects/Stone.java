@@ -1,10 +1,12 @@
 package at.htblakaindorf.AHIF18.Ground.Buildingobjects;
 
 /**
+ * <b>CityBuild</b><br>
  * Specified {@link Building} class for {@link Stone}
  *
  * @author Marcel Schmidl
- * @version 1.0 - 16.05.2022
+ * @version 1.0
+ * @since 16.05.2022
  */
 public class Stone extends Building {
 

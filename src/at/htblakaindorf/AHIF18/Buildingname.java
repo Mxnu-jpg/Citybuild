@@ -1,19 +1,21 @@
 package at.htblakaindorf.AHIF18;
 
 /**
+ * <b>CityBuild</b><br>
  * Dataclass for each {@link at.htblakaindorf.AHIF18.Ground.Tile} based on its name and
  * imagepath
  *
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
- * @version 1.1 - 18.04.2022
+ * @version 1.1
+ * @since 18.04.2022
  */
 
 public class Buildingname {
-    String name;
-    String path;
-    UI ui;
-    int id;
+    private String name;
+    private String path;
+    private UI ui;
+    private int id;
 
     public Buildingname(int id, String path, String name, UI ui) {
         this.name = name;

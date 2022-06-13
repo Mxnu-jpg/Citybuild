@@ -5,11 +5,13 @@ import at.htblakaindorf.AHIF18.bl.IOAccess;
 import javax.swing.*;
 
 /**
+ * <b>CityBuild</b><br>
  * Main-class of the application, where the general window and {@link GamePanel} is created
  *
  * @author Manuel Reinprecht
  * @author Marcel Schmidl
- * @version 1.1 - 13.06.2022
+ * @version 1.1
+ * @since 13.06.2022
  */
 public class Main {
     public static JFrame window;

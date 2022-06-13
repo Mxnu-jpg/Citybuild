@@ -8,43 +8,34 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
+ * <b>CityBuild</b><br>
  * GamePanel for the actual map to play on
  *
  * @author Manuel Reinprecht
- * @version 1.3 - 13.06.2022
+ * @version 1.3
+ * @since 13.06.2022
  */
 public class GamePanel extends JPanel implements Runnable {
-    /*
-    Resolution HD:1920x1080 WQHD:2560x1440
-    final int screenWidth = 1920;
-    final int screenHeight = 1080;
-    Tilemanagement
-    final int originalTitleSize = 32; // 32x32 tile
-    private int scale = 2;
-    int tileSize = originalTitleSize*scale;
-    final int maxScreenCol = screenWidth/ tileSize;
-    final int maxScreenRow = screenHeight/ tileSize;
-    */
 
     //Tilemanagement
-    final int originalTitleSize = 32; // 32x32 tile
+    private final int originalTitleSize = 32; // 32x32 tile
     private int scale = 2;
-    int tileSize = originalTitleSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 9;
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    private int tileSize = originalTitleSize * scale;
+    private final int maxScreenCol = 16;
+    private final int maxScreenRow = 9;
+    private final int screenWidth = tileSize * maxScreenCol;
+    private final int screenHeight = tileSize * maxScreenRow;
 
     //FPS
-    final int FPS = 60;
-    Graphics2D g2;
-    BufferedImage tempScreen;
+    private final int FPS = 60;
+    private Graphics2D g2;
+    private BufferedImage tempScreen;
 
-    Thread gameThread;
-    KeyHandler kH = new KeyHandler(this);
-    Player player = new Player(this, kH);
-    UI ui = new UI(this);
-    TileManager tileM = new TileManager(this);
+    private Thread gameThread;
+    private KeyHandler kH = new KeyHandler(this);
+    protected Player player = new Player(this, kH);
+    private UI ui = new UI(this);
+    private TileManager tileM = new TileManager(this);
 
     //WORLD SETTINGS
     private final int maxWorldCol = 50;
