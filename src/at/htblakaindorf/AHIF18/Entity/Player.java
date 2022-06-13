@@ -9,6 +9,7 @@ import at.htblakaindorf.AHIF18.db.CityBuildDataBase;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.util.*;
 
 public class Player extends Entity {
@@ -198,11 +199,6 @@ public class Player extends Entity {
         }
     }
 
-
-    private void updateUiElements(int i) {
-
-    }
-
     /**
      * Builds building on map
      * @param tile tile which will be placed
@@ -263,7 +259,9 @@ public class Player extends Entity {
         }
 
     }
-
+    /**
+     * removes pointed buidling on the Map
+     */
     public void removeElementMap() {
         int row = (int) (((worldY - screenY + kH.getPointerPosition().getY()) / gp.getTileSize()) + 1);
         int col = (int) (((worldX - screenX + kH.getPointerPosition().getX()) / gp.getTileSize()) + 1);
@@ -279,7 +277,9 @@ public class Player extends Entity {
             gp.getTileM().removeBuilding(col, row);
         }
     }
-
+    /**
+     * returns every buildings Costs and Earnings
+     */
     public void updateProtocol(){// soll von einer Gebäudeart alle einnahmen und ausgaben + anzahl zurückgeben
         ArrayList<Tile> tiles = db.getMapList();
         String protocols = "";
