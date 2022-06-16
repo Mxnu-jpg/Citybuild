@@ -1,2 +1,2 @@
 # Citybuild
- -> JDK 17 required
+ -> JDK 17
